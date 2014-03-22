@@ -25,6 +25,9 @@ this.show_page = function(page, name) {
           $('.breadcrumb').append("<li><a href=\"javascript:void(0)\">" + n + "</a></li>");
         }
       }
+    },
+    'error': function(data) {
+      return $("#main").html(data.responseText);
     }
   });
 };

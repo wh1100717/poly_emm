@@ -28,6 +28,8 @@ Author: EricWang
 				for n in name
 					$('.breadcrumb').append """<li><a href="javascript:void(0)">#{n}</a></li>"""
 			return
+		'error': (data) ->
+			$("#main").html data.responseText
 	}
 	return
 
