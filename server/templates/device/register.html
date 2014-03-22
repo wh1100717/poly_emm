@@ -1,0 +1,52 @@
+<!-- Modal -->
+<div class="modal fade" id="update_user_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 80%;">
+        <div class="modal-content" style="padding:5%;">
+            <div class="modal-body" id="modal_app_body">
+                <h1 style="position: absolute;margin-top: -10px;">策略详细信息</h1>
+                <button id="resend_button" type="button" onclick="" class="btn btn-success" style="float: right;margin-bottom: 15px;">失败策略重推</button>
+                <div>
+                    <table cellpadding="0" cellspacing="0" border="0" class="display" id="policy_detail_list">
+                        <thead>
+                            <tr>
+                                <th>设备名</th>
+                                <th>所有人</th>
+                                <th>SN号</th>
+                                <th>设备型号</th>
+                                <th>设备系统</th>
+                                <th>时间</th>
+                                <th>推送状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="table-responsive">
+	<div class="table-header">注册列表</div>
+	<table id="device_register_list" class="table table-striped table-bordered table-hover">
+		<thead>
+			<tr>
+				<th>姓名</th>
+				<th>登录名</th>
+				<th>激活码</th>
+				<th>SN号</th>
+				<th><i class="icon-time bigger-110 hidden-480"></i>注册时间</th>
+				<th>状态</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+</div>
+
+<!-- page specific plugin scripts -->
+
+<script src="static/assets/js/jquery.dataTables.min.js"></script>
+<script src="static/assets/js/jquery.dataTables.bootstrap.js"></script>
+<script src="static/js/device/register.js"></script>

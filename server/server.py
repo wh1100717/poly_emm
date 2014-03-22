@@ -5,9 +5,14 @@ import tornado.web
 import settings
 import handler
 
+import platform
 import sys
 reload(sys)
-sys.setdefaultencoding('utf-8')
+
+if platform.system().lower() == 'windows':
+	sys.setdefaultencoding('gbk')
+else:
+	sys.setdefaultencoding('utf-8')
 
 application = tornado.web.Application(handler.handlers, **settings.__server_config__)
 

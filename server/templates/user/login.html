@@ -69,18 +69,18 @@
 
 											<div class="space-6"></div>
 
-											<form name="login_form" action="/user/login" method="post">
+											<form id="login_form" action="/user/login" method="post">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="用户名" />
+															<input type="text" class="form-control" placeholder="用户名" name="username"/>
 															<i class="icon-user"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="密码" />
+															<input type="password" class="form-control" placeholder="密码" name="password" />
 															<i class="icon-lock"></i>
 														</span>
 													</label>
@@ -89,11 +89,11 @@
 
 													<div class="clearfix">
 														<label class="inline">
-															<input type="checkbox" class="ace" />
+															<input type="checkbox" class="ace" name="remember_me"/>
 															<span class="lbl"> 记住我</span>
 														</label>
 
-														<button type="button" onclick="javascript:login_form.submit()" class="width-35 pull-right btn btn-sm btn-primary">
+														<button type="button" onclick="login_submit()" class="width-35 pull-right btn btn-sm btn-primary">
 															<i class="icon-key"></i>
 															登陆
 														</button>
@@ -175,38 +175,38 @@
 											<div class="space-6"></div>
 											<p> 请输入您的详细信息: </p>
 
-											<form>
+											<form id="register_form" action="/user/register" method="post">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control" placeholder="邮箱" />
+															<input type="email" class="form-control" placeholder="邮箱" name="email"/>
 															<i class="icon-envelope"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="用户名" />
+															<input type="text" class="form-control" placeholder="用户名" name="username"/>
 															<i class="icon-user"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="密码" />
+															<input type="password" class="form-control" placeholder="密码" name="password"/>
 															<i class="icon-lock"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="确认密码" />
+															<input type="password" class="form-control" placeholder="确认密码" name="password_confirm"/>
 															<i class="icon-retweet"></i>
 														</span>
 													</label>
 
 													<label class="block">
-														<input type="checkbox" class="ace" />
+														<input type="checkbox" class="ace" name="accept"/>
 														<span class="lbl">
 															我接受
 															<a href="#">用户使用条款</a>
@@ -221,7 +221,7 @@
 															重置
 														</button>
 
-														<button type="button" class="width-65 pull-right btn btn-sm btn-success">
+														<button type="button" onclick="register_submit()" class="width-65 pull-right btn btn-sm btn-success">
 															注册
 															<i class="icon-arrow-right icon-on-right"></i>
 														</button>
@@ -266,6 +266,9 @@
 		</script>
 
 		<!-- inline scripts related to this page -->
+		<script type="text/javascript" src="/static/assets/js/jquery.form.js"></script>
+
+		<script type="text/javascript" src="/static/js/login.js"></script>
 
 		<script type="text/javascript">
 			function show_box(id) {

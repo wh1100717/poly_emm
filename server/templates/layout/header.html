@@ -1,19 +1,63 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8" />
-	<title>Poly EMM</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>管理平台系统</title>
+		<meta name="description" content="EMM Admin Platform" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- basic styles -->
+		<link href="static/assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="static/assets/css/font-awesome.min.css" />
+		<!--[if IE 7]>
+		  <link rel="stylesheet" href="static/assets/css/font-awesome-ie7.min.css" />
+		<![endif]-->
+		<!-- page specific plugin styles -->
+		<!-- fonts -->
+		<link rel="stylesheet" href="static/assets/css/ace-fonts.css" />
+		<!-- ace styles -->
+		<link rel="stylesheet" href="static/assets/css/ace.min.css" />
+		<link rel="stylesheet" href="static/assets/css/ace-rtl.min.css" />
+		<link rel="stylesheet" href="static/assets/css/ace-skins.min.css" />
+		<!--[if lte IE 8]>
+		  <link rel="stylesheet" href="static/assets/css/ace-ie.min.css" />
+		<![endif]-->
+		<!-- inline styles related to this page -->
+		<!-- ace settings handler -->
+		<script src="static/assets/js/ace-extra.min.js"></script>
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		<script src="static/assets/js/html5shiv.js"></script>
+		<script src="static/assets/js/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body>
 
+		<!-- 最上方导航栏 -->
+		<%include file="navbar.html"/>
 
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+			<div class="main-container-inner">
 
+				<!-- 侧面导航栏 -->
+				<%include file="sidebar.html"/>
+				
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
 
-	<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" media="screen" href="" />
-	<!--[if IE]>
-		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-</head>
-<body>
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="javascript:void(0)" onclick="show_page('home', '首页')">首页</a>
+							</li>
+						</ul><!-- .breadcrumb -->
 
-
+					</div>
+					<div class="page-content">
+						<div class="row">
+							<div class="col-xs-12" id = "main">

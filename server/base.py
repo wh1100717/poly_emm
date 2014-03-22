@@ -11,9 +11,11 @@ class BaseHandler(tornado.web.RequestHandler):
 	def get(self, filename):
 		self.write(self.render_template(filename))
 
+	def post(self, filename):
+		self.write(self.render_template(filename))
+
 	def get_user(self):
-		user = self.get_secure_cookie("user")
-		return user
+		return self.get_secure_cookie("user")
 
 	def get_error_html(self, status_code, exception, **kwargs):
 		if hasattr(exception, 'code'):
@@ -41,4 +43,6 @@ class BaseHandler(tornado.web.RequestHandler):
 		except exceptions.TopLevelLookupException:
 			raise httpclient.HTTPError(404)
 
-
+class AuthenHandler(BaseHandler):
+	def prepare(self):
+		 if not self.get_user(): self.redirect('user/login')

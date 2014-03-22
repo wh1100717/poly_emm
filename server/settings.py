@@ -20,7 +20,7 @@ __server_config__ = {
 	"static_path": __static_dir__,
 	"cookie_secret": "61oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo=", 
 	"login_url": "/login",
-	"xsrf_cookies": True,
+	"xsrf_cookies": False,
 	"debug": True,
 }
 
@@ -33,3 +33,10 @@ __template_lookup__ = TemplateLookup(	input_encoding='utf-8',
 										output_encoding='utf-8',
 										encoding_errors='replace',
 										directories=[__template_dir__])
+
+'''
+MongoDB在这里配置
+'''
+__mongo_config__ = {
+	
+}
