@@ -7,8 +7,7 @@ from util import StringUtil
 UserCollection = MongoUtil.db.user
 
 def get_user(user_name):
-	user = UserCollection.find_one({'user_name':user_name})
-	return user
+	return UserCollection.find_one({'user_name':user_name})
 
 def register(email,user_name,pwd):
 	user = {

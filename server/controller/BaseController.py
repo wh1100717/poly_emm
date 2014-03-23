@@ -5,8 +5,8 @@ from base import *
 
 class ConfigHandler(BaseHandler):
 	def get(self):
-		username = self.get_user()
-		#TODO 根据UserDao根据username获取相应的配置权限来返回配置信息，以下为假数据
+		user = self.get_user()
+		#TODO 根据UserDao根据user获取相应的配置权限来返回配置信息，以下为假数据
 		menulist = [
 			{
 				'id':'device_menu',
@@ -87,8 +87,8 @@ class ConfigHandler(BaseHandler):
 
 class StatusCheckHandler(BaseHandler):
 	def get(self):
-		username = self.get_user()
-		#TODO 根据UserDao根据username获取相应的配置权限来返回配置信息，以下为假数据
+		user = self.get_user()
+		#TODO 根据UserDao根据user获取相应的配置权限来返回配置信息，以下为假数据
 		data = {
 			'task': [
 				{'name':'Software Update','percent':65,'url':'#'},

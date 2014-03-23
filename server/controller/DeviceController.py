@@ -91,11 +91,11 @@ class DeviceAddHandler(BaseHandler):
 	def post(self):
 		uid = self.get_argument('uid')
 		owner = self.get_argument('owner')
-		user_name = self.get_user()
-		if DeviceDao.dev_exist(uid,owner,user_name):
+		user = self.get_user()
+		if DeviceDao.dev_exist(uid,owner,user):
 			result = 'device is exist'
 		else:
-			result = DeviceDao.device_add(uid,owner,user_name)
+			result = DeviceDao.device_add(uid,owner,user)
 		self.write(result)
 
 handlers = [
