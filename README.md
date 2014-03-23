@@ -31,3 +31,11 @@ Note: pyMongo在windows下安装比较麻烦，详情请看[这里](http://api.m
 ├─handler.py        配置handler路由，详细请求处理，根据不同的业务逻辑封装在不同的controller中
 ├─server.py         起始文件，执行`python server.py`来运行该项目
 └─setting.py        配置文件，配置了路径信息、服务器配置、模版信息、数据库信息等
+```
+
+*   handlers.py:只有一个handlers数组，存放着在每个controller层定义的handler
+*   handler: 一个元组，格式为(url, SpecificHandler)，用来记录url和SpecificHandler的映射关系
+*   SpecificHandler：特定的Handler处理函数，用来针对具体的request请求进行请求解析以及对dao层返回的数据进行封装并返回response数据
+*   Controller: 特定业务逻辑的SpecificHandlers的模块化集合，比如UserController中包含了处理url为`/user/*`的SpecificHandler，另外包含一个handlers数组，该数组最终会汇集到handlers.py中的handlers数组中，被tornado模块加载。
+*   Dao: 特定数据逻辑的模块化集合，主要用来处理与数据库缓存方面的交互，被controller中的SpecificHandler调用。
+
