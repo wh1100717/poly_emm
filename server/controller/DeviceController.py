@@ -44,17 +44,7 @@ class StatisticsHandler(BaseHandler):
 class RegisterListHandler(BaseHandler):
 	def get(self):
 		data = {
-			'data':[
-				{
-					'username':'三笠',
-					'id':'12017',
-					'loginName':'mikasa',
-					'passcode':'mikasa',
-					'enrollment_status':'1',
-					'snNumber':'23423-2342-234',
-					'registionTime':1393827011000,
-				}
-			]
+			'data':DeviceDao.register_list(self.get_user())
 		}
 		self.write(data)
 
@@ -91,10 +81,10 @@ class DeviceAddHandler(BaseHandler):
 		uid = self.get_argument('uid')
 		owner = self.get_argument('owner')
 		user = self.get_user()
-		if DeviceDao.dev_exist(uid,owner,user):
+		if DeviceDao.exist(uid,owner,user):
 			result = 'device is exist'
 		else:
-			result = DeviceDao.device_add(uid,owner,user)
+			result = DeviceDao.add(uid,owner,user)
 		self.write(result)
 
 handlers = [

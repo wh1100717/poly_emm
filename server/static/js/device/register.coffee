@@ -1,9 +1,9 @@
 $('#device_register_list').dataTable {
-	"aoColumns": [
-		{ "bSortable": false },
-		null, null,null, null, null,
-		{ "bSortable": false }
-	] ,
+	# "aoColumns": [
+	# 	{ "bSortable": false },
+	# 	null, null,null, null, null,
+	# 	{ "bSortable": false }
+	# ] ,
 	"oLanguage": {
 		"sLengthMenu": "每页显示 _MENU_ 条记录",
 		"sZeroRecords": "抱歉， 没有找到",
@@ -30,70 +30,12 @@ $.ajax {
 		table_data = []
 		for d in data_list
 			tmp = []
-			tmp.push "<a href='' class='orange' data-toggle='modal' data-target='#update_user_modal' onclick='update_user(#{d['id']})'>#{d['username']}</a>"
-			tmp.push d['loginName']
-			tmp.push d['passcode']
-			tmp.push d['snNumber']
-			dd = new Date d['registionTime']
-			tmp.push [dd.getFullYear(), dd.getMonth()+1, dd.getDate()].join('-')+ ' ' + [dd.getHours(), dd.getMinutes(), dd.getSeconds()].join(':')
-			if d['enrollment_status'] is '1'
-				tmp.push '<span class="label label-sm label-warning">已激活</span>'
-			else
-				tmp.push '<span class="label label-sm label-success">未激活</span>'
-			tmp.push """
-					<td>
-						<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-							<a class="blue" href="#">
-								<i class="icon-zoom-in bigger-130"></i>
-							</a>
-
-							<a class="green" href="#">
-								<i class="icon-pencil bigger-130"></i>
-							</a>
-
-							<a class="red" href="#">
-								<i class="icon-trash bigger-130"></i>
-							</a>
-						</div>
-
-						<div class="visible-xs visible-sm hidden-md hidden-lg">
-							<div class="inline position-relative">
-								<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
-									<i class="icon-caret-down icon-only bigger-120"></i>
-								</button>
-
-								<ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
-									<li>
-										<a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-											<span class="blue">
-												<i class="icon-zoom-in bigger-120"></i>
-											</span>
-										</a>
-									</li>
-
-									<li>
-										<a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
-											<span class="green">
-												<i class="icon-edit bigger-120"></i>
-											</span>
-										</a>
-									</li>
-
-									<li>
-										<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
-											<span class="red">
-												<i class="icon-trash bigger-120"></i>
-											</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</td>
-				"""
-			tmp.push "123"
+			tmp.push d['owner']
+			tmp.push d['active_code']
+			tmp.push d['uid']
+			tmp.push d['time']
+			tmp.push d['active']
 			table_data.push tmp
-		console.log table_data
 		$("#device_register_list").dataTable().fnAddData table_data
 }
 
