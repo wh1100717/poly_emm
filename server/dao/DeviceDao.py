@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from util import MongoUtil
+from util import StringUtil
 
 DeviceCollection = MongoUtil.db.user
 
@@ -21,10 +22,8 @@ def device_add(uid,owner,user):
 
 #判断设备是否存在
 def dev_exist(uid,owner,user):
-	flag = False
-	if user.has_key('device'):
-		for device in user['device']:
-			if device.has_key('uid') and device['uid'] == uid:
-				flag = True
-				break
-	return flag
+	if not user.has_key('device'): return False
+	for device in user['device']:
+		if device.has_key('uid') and device['uid'] == uid:
+			return True
+	return False

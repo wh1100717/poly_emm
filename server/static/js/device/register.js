@@ -65,3 +65,9 @@ this.update_user = function(uid) {
     }
   });
 };
+
+this.device_add = function() {
+  return $('#device_add_form').ajaxSubmit(function(data) {
+    return alert(data);
+  });
+};

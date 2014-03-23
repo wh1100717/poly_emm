@@ -6,7 +6,6 @@ DeviceController:	处理设备请求
 '''
 
 from base import *
-from util import StringUtil
 from dao import DeviceDao
 
 

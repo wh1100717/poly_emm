@@ -104,3 +104,10 @@ $.ajax {
 		"success": (data) ->
 			console.log data
 	}
+
+@device_add = ->
+	$('#device_add_form').ajaxSubmit (data) ->
+		alert(data)
+
+
+		
