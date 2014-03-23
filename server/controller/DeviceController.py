@@ -6,6 +6,8 @@ DeviceController:	处理设备请求
 '''
 
 from base import *
+from util import StringUtil
+from dao import DeviceDao
 
 
 class RegisterHistoryHandler(BaseHandler):
@@ -85,9 +87,21 @@ class DeviceActiveListHandler(BaseHandler):
 		}
 		self.write(data)
 
+class DeviceAddHandler(BaseHandler):
+	def post(self):
+		uid = self.get_argument('uid')
+		owner = self.get_argument('owner')
+		user_name = self.get_user()
+		if DeviceDao.dev_exist(uid,owner,user_name):
+			result = 'device is exist'
+		else:
+			result = DeviceDao.device_add(uid,owner,user_name)
+		self.write(result)
+
 handlers = [
 	(r"/device/register_history", RegisterHistoryHandler),
 	(r"/device/statistics", StatisticsHandler),
 	(r"/device/register/list", RegisterListHandler),
 	(r"/device/active/list",DeviceActiveListHandler),
+	(r"/device/add",DeviceAddHandler),
 ]
