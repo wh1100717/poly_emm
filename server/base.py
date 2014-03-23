@@ -15,7 +15,7 @@ class BaseHandler(tornado.web.RequestHandler):
 		self.write(self.render_template(filename))
 
 	def get_user(self):
-		return self.get_secure_cookie("user")
+		return self.get_secure_cookie("user_name")
 
 	def get_error_html(self, status_code, exception, **kwargs):
 		if hasattr(exception, 'code'):

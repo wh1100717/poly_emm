@@ -15,16 +15,16 @@ from dao import UserDao
 class RegisterHandler(BaseHandler):
 	def post(self):
 		email = self.get_argument('email')
-		username = self.get_argument('username')
-		password = self.get_argument('password')
-		password_confirm = self.get_argument('password_confirm')
+		user_name = self.get_argument('user_name')
+		pwd = self.get_argument('pwd')
+		pwd_confirm = self.get_argument('pwd_confirm')
 		accept = self.get_argument('accept', default='off')
 
-		if password != password_confirm:
+		if pwd != pwd_confirm:
 			self.write('diff_password')
 			return
 
-		result = UserDao.register(email, username, password)
+		result = UserDao.register(email, user_name, pwd)
 		self.write(result)
 
 class LoginHandler(BaseHandler):
@@ -32,22 +32,22 @@ class LoginHandler(BaseHandler):
 		self.redirect("/") if self.get_user() else self.write(self.render_template('user/login'))			
 
 	def post(self):
-		username = self.get_argument('username')
-		password = self.get_argument('password')
+		user_name = self.get_argument('user_name')
+		pwd = self.get_argument('pwd')
 		remember_me = self.get_argument('remember_me',default='off')
 
-		user = UserDao.get_user(username)
+		user = UserDao.get_user(user_name)
 		if not user:
 			self.write('invalid user')
-		elif hashlib.md5(password).hexdigest() != user['password']:
+		elif hashlib.md5(pwd).hexdigest() != user['pwd']:
 			self.write('invalid password')
 		else:
-			self.set_secure_cookie("user",username)
+			self.set_secure_cookie("user_name",user_name)
 			self.write('success')
 
 class LogoutHandler(BaseHandler):
 	def get(self):
-		self.set_secure_cookie("user","")
+		self.set_secure_cookie("user_name","")
 		self.redirect("/user/login")
 
 handlers = [

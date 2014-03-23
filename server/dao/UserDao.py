@@ -2,23 +2,23 @@
 # -*- coding: utf-8 -*-
 import hashlib
 from util import MongoUtil
+from util import StringUtil
 
 UserCollection = MongoUtil.db.user
 
-def get_user(username):
-	user_store = [{'username':'eric', 'password':hashlib.md5('123').hexdigest()}]
-	for user in user_store:
-		print username
-		if user['username'] == username:
-			return user
-	return None
+def get_user(user_name):
+	user = UserCollection.find_one({'user_name':user_name})
+	return user
 
-def register(email,username,pwd):
+def register(email,user_name,pwd):
 	user = {
-		'_id': MongoUtil.getNextSequence('uid'),
-		'email': email,
-		'username': username,
-		'pwd': hashlib.md5(pwd).hexdigest()
+		'tanent_id': MongoUtil.getNextSequence('tanent_id'),
+		'user_id': email,
+		'user_name': user_name,
+		'pwd': hashlib.md5(pwd).hexdigest(),
+		'role': 'admin',
+		'active': True,
+		'token': StringUtil.token_generator()
 	}
 	UserCollection.insert(user)
 	return 'success'
