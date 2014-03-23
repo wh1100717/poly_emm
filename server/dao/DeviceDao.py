@@ -20,7 +20,7 @@ def add(uid,owner,user):
 		user['device'].append(device)
 	else:
 		user['device'] = [device]
-	DeviceCollection.update({'user_id':user['user_id']},user)
+	DeviceCollection.update({'email':user['email']},user)
 	return 'success'
 
 
@@ -56,8 +56,9 @@ def enroll(uid, active_code, tanent_id):
 	for device in device_list:
 		if device['uid'] == uid:
 			if device['active_code'] == active_code:
+				if device['active'] == True: return {'status':0, 'desc':'already actived'}
 				device['active'] = True
-				DeviceCollection.update({'user_id':user['user_id']},user)
+				DeviceCollection.update({'email':user['email']},user)
 				return {'status':1, 'token':user['token']}
 			else:
 				return {'status':0, 'desc':'wrong active code'}
@@ -72,7 +73,7 @@ def update(token,uid,did,cid,imei):
 			device['did'] = did
 			device['imei'] = imei
 			device['cid'] = cid
-			DeviceCollection.update({'token':token},user)
+			DeviceCollection.update({'email':user['email']},user)
 			return {'status':1}
 	return {'status':0,'desc':'wrong uid'}
 

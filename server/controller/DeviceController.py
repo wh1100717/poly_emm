@@ -95,7 +95,7 @@ class EnrollHandler(BaseHandler):
 		self.write(DeviceDao.enroll(uid, active_code, tanent_id))
 
 class UpdateHandler(BaseHandler):
-	def post(self):
+	def get(self):
 		token = self.get_argument('token')
 		uid = self.get_argument('uid')
 		did = self.get_argument('did')

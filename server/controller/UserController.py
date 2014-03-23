@@ -32,22 +32,22 @@ class LoginHandler(BaseHandler):
 		self.redirect("/") if self.get_user() else self.write(self.render_template('user/login'))			
 
 	def post(self):
-		user_name = self.get_argument('user_name')
+		email = self.get_argument('email')
 		pwd = self.get_argument('pwd')
 		remember_me = self.get_argument('remember_me',default='off')
 
-		user = UserDao.get_user(user_name)
+		user = UserDao.get_user_by_email(email)
 		if not user:
-			self.write('invalid user')
+			self.write('invalid email')
 		elif hashlib.md5(pwd).hexdigest() != user['pwd']:
 			self.write('invalid password')
 		else:
-			self.set_secure_cookie("user_name",user_name)
+			self.set_secure_cookie("email",email)
 			self.write('success')
 
 class LogoutHandler(BaseHandler):
 	def get(self):
-		self.set_secure_cookie("user_name","")
+		self.set_secure_cookie("email","")
 		self.redirect("/user/login")
 
 handlers = [
