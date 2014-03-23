@@ -87,10 +87,28 @@ class DeviceAddHandler(BaseHandler):
 			result = DeviceDao.add(uid,owner,user)
 		self.write(result)
 
+class EnrollHandler(BaseHandler):
+	def get(self):
+		uid = self.get_argument('uid')
+		active_code = self.get_argument('active_code')
+		tanent_id = self.get_argument('tanent_id')
+		self.write(DeviceDao.enroll(uid, active_code, tanent_id))
+
+class UpdateHandler(BaseHandler):
+	def post(self):
+		token = self.get_argument('token')
+		uid = self.get_argument('uid')
+		did = self.get_argument('did')
+		cid = self.get_argument('cid')
+		imei = self.get_argument('imei')
+		self.write(DeviceDao.update(token,uid,did,cid,imei))
+
 handlers = [
 	(r"/device/register_history", RegisterHistoryHandler),
 	(r"/device/statistics", StatisticsHandler),
 	(r"/device/register/list", RegisterListHandler),
 	(r"/device/active/list",DeviceActiveListHandler),
 	(r"/device/add",DeviceAddHandler),
+	(r"/device/enroll", EnrollHandler),
+	(r"/device/update", UpdateHandler),
 ]

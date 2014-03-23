@@ -9,6 +9,15 @@ UserCollection = MongoUtil.db.user
 def get_user(user_name):
 	return UserCollection.find_one({'user_name':user_name})
 
+def get_user_by_user_id(user_id):
+	return UserCollection.find_one({'user_id':user_id})
+
+def get_user_by_tanent_id(tanent_id):
+	return UserCollection.find_one({'tanent_id':tanent_id})
+
+def get_user_by_token(token):
+	return UserCollection.find_one({'token':token})
+
 def register(email,user_name,pwd):
 	user = {
 		'tanent_id': MongoUtil.getNextSequence('tanent_id'),

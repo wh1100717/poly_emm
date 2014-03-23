@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from util import MongoUtil
 from util import StringUtil
+from dao import UserDao
 import time
 
 DeviceCollection = MongoUtil.db.user
@@ -19,7 +20,7 @@ def add(uid,owner,user):
 		user['device'].append(device)
 	else:
 		user['device'] = [device]
-	DeviceCollection.update({'user_name':user['user_name']},user)
+	DeviceCollection.update({'user_id':user['user_id']},user)
 	return 'success'
 
 
@@ -38,6 +39,7 @@ def register_list(user):
 	device_register_lists=[]
 	for device in devices:
 		device_register_list={
+			'tanent_id':user['tanent_id'],
 			'uid':device['uid'],
 			'owner':device['owner'],
 			'active_code':device['active_code'],
@@ -46,3 +48,31 @@ def register_list(user):
 		}
 		device_register_lists.append(device_register_list)
 	return device_register_lists
+
+def enroll(uid, active_code, tanent_id):
+	user = UserDao.get_user_by_tanent_id(tanent_id)
+	if not user: return {'status':0,'desc':'wrong tanent_id'}
+	device_list = user['device']
+	for device in device_list:
+		if device['uid'] == uid:
+			if device['active_code'] == active_code:
+				device['active'] = True
+				DeviceCollection.update({'user_id':user['user_id']},user)
+				return {'status':1, 'token':user['token']}
+			else:
+				return {'status':0, 'desc':'wrong active code'}
+	return {'status':0, 'desc':'wrong uid'}
+
+def update(token,uid,did,cid,imei):
+	user = UserDao.get_user_by_token(token)
+	if not user: return {'status':0,'desc':'wrong token'}
+	device_list = user['device']
+	for device in device_list:
+		if device['uid'] == uid:
+			device['did'] = did
+			device['imei'] = imei
+			device['cid'] = cid
+			DeviceCollection.update({'token':token},user)
+			return {'status':1}
+	return {'status':0,'desc':'wrong uid'}
+
