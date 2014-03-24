@@ -19,9 +19,9 @@ def app_insert(user,did,apps):
 	else:
 		blacklist = {
 			'did':did,
-			'apps':[apps]
+			'apps':apps
 		}
-	BlackListCollection.save({'did':did},blacklist)
+	BlackListCollection.update({'did':did},blacklist,upsert=True)
 	return 'success'
 #删除app到黑名单
 def delete(user,did,appid_list):

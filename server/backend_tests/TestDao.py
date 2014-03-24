@@ -22,6 +22,19 @@ from util import StringUtil
 from dao import DeviceDao
 from dao import BlackListDao
 
+##################初始化######################
+# g = {}
+
+# def setup_module(module):
+# 	print "单元测试开始"
+# 	g = {
+# 		'email':123
+# 	}
+
+# def test_abc():
+# 	print g['a']
+# 	assert g['a']==1
+
 ##################UserDao##########################
 
 email = StringUtil.token_generator() + "@qq.com"
@@ -135,8 +148,7 @@ def test_delete():
 
 # # from dao import AppDao
 
-# def setup_module(module):
-# 	print "单元测试开始"
+
 
 # def teardown_module(module):
 # 	print "单元测试结束"
