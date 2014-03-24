@@ -21,6 +21,8 @@ from dao import UserDao
 from util import StringUtil
 from dao import DeviceDao
 from dao import BlackListDao
+from dao import AppDao
+from dao import LocDao
 
 ##################初始化######################
 # g = {}
@@ -102,7 +104,7 @@ def test_enroll():
 	result = DeviceDao.enroll(uid,active_code,tanent_id)
 	assert result['status'] == 1
 
-def test_update():
+def test_update_device():
 	user = UserDao.get_user_by_email(email)
 	result = DeviceDao.update(user['token'],uid,did,cid,imei)
 	assert result['status'] == 1
@@ -143,6 +145,46 @@ def test_delete():
 
 
 ##################BlackListDao Done##########################
+
+
+##################AppDao##########################
+
+did = '1234'
+app_id = StringUtil.active_code_generator()
+apps = [{'appName':"asd",'appId':app_id,'version':2.1}]
+
+def test_update_app():
+	user = UserDao.get_user_by_email(email)
+	result = AppDao.update(user['token'],did,apps)
+	assert result['status'] == 1
+	
+
+##################AppDao Done##########################
+
+
+##################LocDao##########################
+
+loc_info = [
+			{'timestamp':StringUtil.active_code_generator(),
+				'mode':StringUtil.active_code_generator(),
+				'interval':StringUtil.active_code_generator(),
+				'lat':StringUtil.active_code_generator(),
+				'long':StringUtil.active_code_generator()}
+			]
+did = '1234'
+def test_update_loc():
+	user = UserDao.get_user_by_email(email)
+	result = LocDao.update(user['token'],did,loc_info)
+	assert result['status'] == 1
+
+##################LocDao Done##########################
+
+
+##################MsgDao##########################
+
+
+
+##################MsgDao Done##########################
 
 
 
