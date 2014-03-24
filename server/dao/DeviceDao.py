@@ -77,10 +77,15 @@ def update(token,uid,did,cid,imei):
 			return {'status':1}
 	return {'status':0,'desc':'wrong uid'}
 
-def config(token,uid,did):
+def config(token,did):
 	user = UserDao.get_user_by_token(token)
 	if not user: return {'status':0, 'desc':'wrong token'}
-	return {'status':1, 'loc_interval':user['loc_interval'], 'loc_mode':user['loc_mode']}
+	device_list = user['device']
+	for device in device_list:
+		if devie['did'] == did:
+			return {'status':1, 'loc_interval':user['loc_interval'], 'loc_mode':user['loc_mode']}
+	return {'status':0, 'desc':'wrong did'}
+
 
 
 

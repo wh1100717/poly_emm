@@ -4,15 +4,18 @@
 from util import MongoUtil
 from dao import UserDao
 
-UserCollection = MongoUtil.db.user
+LocCollection = MongoUtil.db.loc
 
-def update(token,uid,did,loc_info):
+def update(token,did,loc_info):
 	user = UserDao.get_user_by_token(token)
 	if not user: return {'status':0, 'desc':'wrong token'}
-	device_list = user['device']
-	for device in device_list:
-		if device['did'] == did and device['uid'] == uid:
-			device['loc_info'] = loc_info
-			UserCollection.update({'email':user['email']},user)
-			return {'status':1}
-	return {'status':0, 'desc':'wrong did or uid'}
+	device_loc = LocCollection.find_one({'did':did})
+	if device_loc:
+		device_loc['loc_info'].append(loc_info)
+	else:
+		device_loc = {
+			'did':did,
+			'loc_info': [loc_info]
+		}
+	LocCollection.upsert({'did':did}, device_loc)
+	return {'status':1}

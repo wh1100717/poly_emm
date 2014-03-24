@@ -105,10 +105,9 @@ class UpdateHandler(BaseHandler):
 
 class ConfigHandler(BaseHandler):
 	def get(self):
-		uid = self.get_argument('uid')
 		did = self.get_argument('did')
 		token = self.get_argument('token')
-		result = DeviceDao.config(token,uid,did)
+		result = DeviceDao.config(token,did)
 		self.write(result)
 
 

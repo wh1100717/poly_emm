@@ -4,15 +4,19 @@
 from util import MongoUtil
 from dao import UserDao
 
-UserCollection = MongoUtil.db.user
+AppCollection = MongoUtil.db.app
 
-def update(token,uid,did,app_list):
+def update(token,did,apps):
 	user = UserDao.get_user_by_token(token)
 	if not user: return {'status':0, 'desc':'wrong token'}
-	device_list = user['device']
-	for device in device_list:
-		if device['did'] == did and device['uid'] == uid:
-			#TODO 需要处理具体app_list的存入操作，目前不是很确定app_list是否存放在user.device下
-			UserCollection.update({'email':user['email']},user)
-			return {'status':1}
-	return {'status':0, 'desc':'wrong did or uid'}
+
+	device_app = AppCollection.find_one({'did':'did'})
+	if device_app:
+		device_app['apps'] = apps
+	else:
+		device_app = {
+			'did':did,
+			'apps':apps
+		}
+	AppCollection.upsert({'did':did}, device_app)
+	return {'status':1}

@@ -7,13 +7,12 @@ import time
 
 class UpdateHandler(BaseHandler):
 	def get(self):
-		uid = self.get_argument('uid')
 		did = self.get_argument('did')
 		token = self.get_argument('token')
 		data = StringUtil.string2dict(self.get_argument('data'))
 		loc_info = data['loc_info']
 		loc_info['timestamp'] = time.time()
-		result = LocDao.update(token,uid,did,loc_info)
+		result = LocDao.update(token,did,loc_info)
 		self.write(result)
 
 handlers = [
