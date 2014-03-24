@@ -19,6 +19,7 @@ sys.path.append(base_path)
 
 from dao import UserDao
 from util import StringUtil
+from dao import DeviceDao
 
 ##################UserDao##########################
 
@@ -49,6 +50,60 @@ def test_get_user_by_token():
 
 
 ##################UserDao Done##########################
+
+
+
+##################DeviceDao##########################
+
+uid = StringUtil.active_code_generator()
+owner = 'zxl'
+did = '1234'
+cid = '12345'
+imei = '123456'
+
+def test_add():
+	user = UserDao.get_user_by_email(email)
+	result = DeviceDao.add(uid,owner,user)
+	assert result == 'success'
+
+def test_exist():
+	user = UserDao.get_user_by_email(email)
+	device = DeviceDao.exist(uid,owner,user)
+	assert device == True
+
+def test_register_list():
+	user = UserDao.get_user_by_email(email)
+	list1 = DeviceDao.register_list(user)
+	assert list1 != []
+
+def test_enroll():
+	user = UserDao.get_user_by_email(email)
+	device = user['device']
+	active_code = ""
+	for d in device:
+		if d['uid'] == uid:
+			active_code = d['active_code']
+	tanent_id = user['tanent_id']
+
+	result = DeviceDao.enroll(uid,active_code,tanent_id)
+	assert result['status'] == 1
+
+def test_update():
+	user = UserDao.get_user_by_email(email)
+	result = DeviceDao.update(user['token'],uid,did,cid,imei)
+	assert result['status'] == 1
+
+def test_config():
+	user = UserDao.get_user_by_email(email)
+	result = DeviceDao.config(user['token'],uid,did)
+	assert result['status'] == 1
+	
+
+
+
+
+
+##################DeviceDao Done##########################
 
 
 # # from dao import AppDao
