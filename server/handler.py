@@ -6,6 +6,8 @@ from base import *
 from controller import UserController
 from controller import DeviceController
 from controller import BaseController
+from controller import LocController
+from controller import AppController
 
 handlers = []
 
@@ -32,5 +34,9 @@ UserController:			处理用户请求
 	/user/logout 		#登出
 '''
 handlers += UserController.handlers
+
+handlers += LocController.handlers
+
+handlers += AppController.handlers
 
 handlers += [(r"^/(.*)$", AuthenHandler)]

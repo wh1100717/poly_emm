@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from base import *
-from dao import LocDao
 import time
+from base import *
+from dao import AppDao
+from util import StringUtil
 
 class UpdateHandler(BaseHandler):
 	def get(self):
@@ -11,11 +12,10 @@ class UpdateHandler(BaseHandler):
 		did = self.get_argument('did')
 		token = self.get_argument('token')
 		data = StringUtil.string2dict(self.get_argument('data'))
-		loc_info = data['loc_info']
-		loc_info['timestamp'] = time.time()
-		result = LocDao.update(token,uid,did,loc_info)
+		app_list = data['app_list']
+		result = AppDao.update(token,uid,did,app_list)
 		self.write(result)
 
 handlers = [
-	(r"/loc/update", UpdateHandler),
+	(r"/app/update", UpdateHandler),
 ]

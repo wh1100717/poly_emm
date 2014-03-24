@@ -10,21 +10,42 @@ import os
 import nose
 from nose import with_setup
 
+
 c_path = os.getcwd()
 base_path = c_path[:c_path.rfind("backend_tests")]
 sys.path.append(base_path)
 
+##所有的测试模块import在这下面：
+
 from dao import UserDao
+from util import StringUtil
 
 ##################UserDao##########################
 
+email = StringUtil.token_generator() + "@qq.com"
+user_name = 'xiaolin'
+pwd = 'zxldmv'
 
-def test_userdao():
-	print "\n"
-	user1 = UserDao.get_user_by_email('eric@qq.com')
-	print "user1: ", user1
-	assert user1['email'] == 'eric@qq.com'
+'''
+用户注册流程
+'''
+def test_register():
+	result = UserDao.register(email, user_name, pwd)
+	assert result == 'success'
 
+def test_get_user_by_email():
+	user = UserDao.get_user_by_email(email)
+	assert user['email'] == email
+
+def test_get_user_by_tanent_id():
+	user = UserDao.get_user_by_email(email)
+	user2 = UserDao.get_user_by_tanent_id(user['tanent_id'])
+	assert user2['email'] == email
+
+def test_get_user_by_token():
+	user = UserDao.get_user_by_email(email)
+	user2 = UserDao.get_user_by_token(user['token'])
+	assert user2['email'] == email
 
 
 ##################UserDao Done##########################
