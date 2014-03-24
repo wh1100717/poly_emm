@@ -5,7 +5,7 @@ from util import StringUtil
 from dao import UserDao
 import time
 
-DeviceCollection = MongoUtil.db.user
+UserCollection = MongoUtil.db.user
 
 #添加设备
 def add(uid,owner,user):	
@@ -20,7 +20,7 @@ def add(uid,owner,user):
 		user['device'].append(device)
 	else:
 		user['device'] = [device]
-	DeviceCollection.update({'email':user['email']},user)
+	UserCollection.update({'email':user['email']},user)
 	return 'success'
 
 
@@ -58,7 +58,7 @@ def enroll(uid, active_code, tanent_id):
 			if device['active_code'] == active_code:
 				if device['active'] == True: return {'status':0, 'desc':'already actived'}
 				device['active'] = True
-				DeviceCollection.update({'email':user['email']},user)
+				UserCollection.update({'email':user['email']},user)
 				return {'status':1, 'token':user['token']}
 			else:
 				return {'status':0, 'desc':'wrong active code'}
@@ -73,7 +73,18 @@ def update(token,uid,did,cid,imei):
 			device['did'] = did
 			device['imei'] = imei
 			device['cid'] = cid
-			DeviceCollection.update({'email':user['email']},user)
+			UserCollection.update({'email':user['email']},user)
 			return {'status':1}
 	return {'status':0,'desc':'wrong uid'}
+
+def config(token,uid,did):
+	user = UserDao.get_user_by_token(token)
+	if not user: return {'status':0, 'desc':'wrong token'}
+	return {'status':1, 'loc_interval':user['loc_interval'], 'loc_mode':user['loc_mode']}
+
+
+
+
+
+
 

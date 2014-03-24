@@ -23,7 +23,9 @@ def register(email,user_name,pwd):
 		'pwd': hashlib.md5(pwd).hexdigest(),
 		'role': 'admin',
 		'active': True,
-		'token': StringUtil.token_generator()
+		'token': StringUtil.token_generator(),
+		'loc_interval': 0,
+		'loc_mode': 0
 	}
 	UserCollection.insert(user)
 	return 'success'

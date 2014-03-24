@@ -41,13 +41,6 @@ class StatisticsHandler(BaseHandler):
 		}
 		self.write(data)
 
-class RegisterListHandler(BaseHandler):
-	def get(self):
-		data = {
-			'data':DeviceDao.register_list(self.get_user())
-		}
-		self.write(data)
-
 class DeviceActiveListHandler(BaseHandler):
 	def get(self):
 		data = {
@@ -73,6 +66,13 @@ class DeviceActiveListHandler(BaseHandler):
 					'last_update_time':1393828011000,
 				}
 			]
+		}
+		self.write(data)
+
+class RegisterListHandler(BaseHandler):
+	def get(self):
+		data = {
+			'data':DeviceDao.register_list(self.get_user())
 		}
 		self.write(data)
 
@@ -103,6 +103,15 @@ class UpdateHandler(BaseHandler):
 		imei = self.get_argument('imei')
 		self.write(DeviceDao.update(token,uid,did,cid,imei))
 
+class ConfigHandler(BaseHandler):
+	def get(self):
+		uid = self.get_argument('uid')
+		did = self.get_argument('did')
+		token = self.get_argument('token')
+		result = DeviceDao.config(token,uid,did)
+		self.write(result)
+
+
 handlers = [
 	(r"/device/register_history", RegisterHistoryHandler),
 	(r"/device/statistics", StatisticsHandler),
@@ -111,4 +120,5 @@ handlers = [
 	(r"/device/add",DeviceAddHandler),
 	(r"/device/enroll", EnrollHandler),
 	(r"/device/update", UpdateHandler),
+	(r"/device/config", ConfigHandler),
 ]
