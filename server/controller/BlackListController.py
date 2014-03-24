@@ -27,8 +27,8 @@ class DeleteAppHandler(AuthenHandler):
 	def get(self):
 		user = self.get_user()
 		did = self.get_argument('did')
-		apps = self.get_argument('apps')
-		self.write(BlackListDao.delete(user,did,apps))
+		apps = self.get_argument('appid_list')
+		self.write(BlackListDao.delete(user,did,appid_list))
 handlers = [
 	(r"/blacklist/insert_app", InsertAppHandler),
 	(r"/blacklist/delete_app", DeleteAppHandler),
