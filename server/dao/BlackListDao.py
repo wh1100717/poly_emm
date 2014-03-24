@@ -21,7 +21,7 @@ def app_insert(user,did,apps):
 			'did':did,
 			'apps':[apps]
 		}
-	BlackListCollection.upsert({'did':did},blacklist)
+	BlackListCollection.save({'did':did},blacklist)
 	return 'success'
 #删除app到黑名单
 def delete(user,did,appid_list):

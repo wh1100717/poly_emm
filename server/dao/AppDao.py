@@ -18,5 +18,5 @@ def update(token,did,apps):
 			'did':did,
 			'apps':apps
 		}
-	AppCollection.upsert({'did':did}, device_app)
+	AppCollection.save({'did':did}, device_app)
 	return {'status':1}

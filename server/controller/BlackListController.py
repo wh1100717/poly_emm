@@ -1,11 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-'''
-	
-	blacklist/upsert 更新黑名单
-	blacklist/del 删除黑名单
-	blacklist/get_list 获得黑名单
-'''
 
 from base import *
 from dao import BlackListDao
