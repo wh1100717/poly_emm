@@ -82,7 +82,7 @@ def config(token,did):
 	if not user: return {'status':0, 'desc':'wrong token'}
 	device_list = user['device']
 	for device in device_list:
-		if devie['did'] == did:
+		if device['did'] == did:
 			return {'status':1, 'loc_interval':user['loc_interval'], 'loc_mode':user['loc_mode']}
 	return {'status':0, 'desc':'wrong did'}
 

@@ -20,6 +20,7 @@ sys.path.append(base_path)
 from dao import UserDao
 from util import StringUtil
 from dao import DeviceDao
+from dao import BlackListDao
 
 ##################UserDao##########################
 
@@ -95,15 +96,41 @@ def test_update():
 
 def test_config():
 	user = UserDao.get_user_by_email(email)
-	result = DeviceDao.config(user['token'],uid,did)
+	result = DeviceDao.config(user['token'],did)
 	assert result['status'] == 1
 	
 
-
-
-
-
 ##################DeviceDao Done##########################
+
+
+
+##################BlackListDao##########################
+
+did = '1234'
+app_id = StringUtil.active_code_generator()
+apps = [{'appName':"asd",'appId':app_id,'version':2.1}]
+appId_list = [str(app_id)]
+
+
+def test_insert():
+	user = UserDao.get_user_by_email(email)
+	result = BlackListDao.app_insert(user,did,apps)
+	assert result == 'success'
+
+def test_list():
+	user = UserDao.get_user_by_email(email)
+	result = BlackListDao.list(user['token'],did,user)
+	assert result['status'] == 1
+
+def test_delete():
+	user = UserDao.get_user_by_email(email)
+	result = BlackListDao.delete(user,did,appId_list)
+	assert result == 'success'
+
+
+
+##################BlackListDao Done##########################
+
 
 
 # # from dao import AppDao
