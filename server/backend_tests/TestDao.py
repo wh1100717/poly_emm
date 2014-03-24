@@ -14,44 +14,60 @@ c_path = os.getcwd()
 base_path = c_path[:c_path.rfind("backend_tests")]
 sys.path.append(base_path)
 
-# from dao import AppDao
+from dao import UserDao
 
-def setup_module(module):
-	print "单元测试开始"
-
-def teardown_module(module):
-	print "单元测试结束"
-
-def setup_func():
-	print "set up test fixtures"
-
-def teardown_func():
-	print "tear down test fixtures"
-
-def test_should_be_implemented():
-	print "\n1. 	ShouldBeImpelemented测试开始"
-	the_target_result = "Specific result should be outputed using below method"
-	assert True
-
-def test_demo():
-	print "\n2. 	TestDemo测试开始"
-	the_target_result = "hello world"
+##################UserDao##########################
 
 
-def test_divid_function():
-	print "\n3. 	add()测试开始"
-	assert divid(2, 1) == 2
-	assert divid(4, 2) == 2
-	assert divid(20, 10) == 2
-	assert divid(20, 0) == 0
+def test_userdao():
+	print "\n"
+	user1 = UserDao.get_user_by_email('eric@qq.com')
+	print "user1: ", user1
+	assert user1['email'] == 'eric@qq.com'
 
 
 
-def divid(a,b):
-	if b == 0:
-		return 0
-	else:
-		return a/b
+##################UserDao Done##########################
+
+
+# # from dao import AppDao
+
+# def setup_module(module):
+# 	print "单元测试开始"
+
+# def teardown_module(module):
+# 	print "单元测试结束"
+
+# def setup_func():
+# 	print "set up test fixtures"
+
+# def teardown_func():
+# 	print "tear down test fixtures"
+
+# def test_should_be_implemented():
+# 	print "\n1. 	ShouldBeImpelemented测试开始"
+# 	the_target_result = "Specific result should be outputed using below method"
+# 	assert True
+
+# def test_demo():
+# 	print "\n2. 	TestDemo测试开始"
+# 	the_target_result = "hello world"
+
+
+# def test_divid_function():
+# 	print "\n3. 	add()测试开始"
+# 	assert divid(2, 1) == 2
+# 	assert divid(4, 2) == 2
+# 	assert divid(20, 10) == 2
+# 	assert divid(20, 0) == 0
+
+
+
+# def divid(a,b):
+# 	if b == 0:
+# 		return 0
+# 	else:
+# 		return a/b
 
 
 if __name__ == "__main__":
