@@ -11,6 +11,8 @@ def update(token,did,apps):
 	if not user: return {'status':0, 'desc':'wrong token'}
 
 	device_app = AppCollection.find_one({'did':'did'})
+	print "apps: ",apps
+	print "device_app: ",device_app
 	if device_app:
 		device_app['apps'] = apps
 	else:
@@ -18,5 +20,14 @@ def update(token,did,apps):
 			'did':did,
 			'apps':apps
 		}
-	AppCollection.save({'did':did}, device_app)
+	print "device_app: ", device_app
+	AppCollection.update({'did':did}, device_app, upsert=True)
 	return {'status':1}
+
+def list(did, user):
+	device_list = user['device']
+	for device in device_list:
+		if device['did'] == did:
+			device_app = AppCollection.find_one({'did':did})
+			return device_app['apps']
+	return []

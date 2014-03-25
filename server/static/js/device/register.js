@@ -52,7 +52,21 @@ this.update_user = function(uid) {
 };
 
 this.device_add = function() {
-  return $('#device_add_form').ajaxSubmit(function(data) {
-    return alert(data);
+  return $('#device-add-form').ajaxSubmit(function(data) {
+    alert(data);
+    $('#device-add').on('hidden.bs.modal', function() {
+      return show_page('device_register', '设备,注册列表');
+    });
+    return $('#device-add').modal('hide');
+  });
+};
+
+this.device_enroll = function() {
+  return $('#device-enroll-form').ajaxSubmit(function(data) {
+    alert(data['status']);
+    $('#device-enroll').on('hidden.bs.modal', function() {
+      return show_page('device_register', '设备,注册列表');
+    });
+    return $('#device-enroll').modal('hide');
   });
 };

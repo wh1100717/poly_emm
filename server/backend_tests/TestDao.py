@@ -151,7 +151,10 @@ def test_delete():
 
 did = '1234'
 app_id = StringUtil.active_code_generator()
-apps = [{'appName':"asd",'appId':app_id,'version':2.1}]
+apps = [
+	{'appName':"asd1",'appId':app_id,'version':'2.1'},
+	{'appName':"asd2",'appId':app_id,'version':'2.2'}
+]
 
 def test_update_app():
 	user = UserDao.get_user_by_email(email)

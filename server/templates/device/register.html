@@ -1,12 +1,12 @@
-<!-- Modal -->
-<div class="modal fade" id="deviceadd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- 添加设备Modal -->
+<div class="modal fade" id="device-add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="width: 80%;">
         <div class="modal-content" style="padding:5%;">
         	<div class="modal-head">
                 <h1 style="position: absolute;margin-top: -10px;">添加设备</h1>
             </div>
             <div class="modal-body">
-				<form id="device_add_form" class="form-horizontal" role="form" action="/device/add" method="post">
+				<form id="device-add-form" class="form-horizontal" role="form" action="/device/add" method="post">
 					<div class="form-group">
 						<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> UID </label>
 						<div class="col-sm-9">
@@ -28,10 +28,48 @@
         </div>
     </div>
 </div>
+
+<!-- 登记设备Modal -->
+<div class="modal fade" id="device-enroll" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 80%;">
+        <div class="modal-content" style="padding:5%;">
+        	<div class="modal-head">
+                <h1 style="position: absolute;margin-top: -10px;">模拟登记设备</h1>
+            </div>
+            <div class="modal-body">
+				<form id="device-enroll-form" class="form-horizontal" role="form" action="/device/enroll" method="post">
+					<div class="form-group">
+						<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> tanent_id </label>
+						<div class="col-sm-9">
+							<input type="text" placeholder="uid" class="col-xs-10 col-sm-5" name="tanent_id"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> active_code </label>
+						<div class="col-sm-9">
+							<input type="text" placeholder="uid" class="col-xs-10 col-sm-5" name="active_code"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> uid </label>
+						<div class="col-sm-9">
+							<input type="text" placeholder="owner" class="col-xs-10 col-sm-5" name="uid"/>
+						</div>
+					</div>
+					<button class="btn btn-info" type="button" onclick="device_enroll()">
+						<i class="icon-ok bigger-110"></i>
+						提交
+					</button>
+				</form>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="table-responsive">
 	<div class="table-header">
         <span>注册列表</span>
-        <button class="btn btn-success"  data-toggle="modal" data-target="#deviceadd" style="height: 38px;float:right;">添加设备</button>
+        <button class="btn btn-success"  data-toggle="modal" data-target="#device-add" style="height: 38px;float:right;">添加设备</button>
+        <button class="btn btn-success"  data-toggle="modal" data-target="#device-enroll" style="height: 38px;float:right;margin-right: 2px;">模拟激活</button>
 
     </div>
 	<table id="device_register_list" class="table table-striped table-bordered table-hover">

@@ -15,6 +15,13 @@ class UpdateHandler(BaseHandler):
 		result = AppDao.update(token,did,apps)
 		self.write(result)
 
+class ListHandler(AuthenHandler):
+	def get(self):
+		did = self.get_argument('did')
+		user = self.get_user()
+		app_list = AppDao.list(did, user)
+
 handlers = [
+	(r"/app/list", ListHandler),
 	(r"/app/update", UpdateHandler),
 ]

@@ -49,8 +49,18 @@ $.ajax {
 	}
 
 @device_add = ->
-	$('#device_add_form').ajaxSubmit (data) ->
+	$('#device-add-form').ajaxSubmit (data) ->
 		alert(data)
+		$('#device-add').on 'hidden.bs.modal', -> show_page('device_register','设备,注册列表')			
+		$('#device-add').modal('hide')
+
+@device_enroll = ->
+	$('#device-enroll-form').ajaxSubmit (data) ->
+		alert(data['status'])
+		$('#device-enroll').on 'hidden.bs.modal', -> show_page('device_register','设备,注册列表')			
+		$('#device-enroll').modal('hide')
+		# if data is 'success'
+		# 	show_page 'device_register','设备,注册列表'
 
 
 		

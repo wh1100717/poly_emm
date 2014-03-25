@@ -80,8 +80,8 @@ class ConfigHandler(BaseHandler):
 			{
 				"back_image":"static/image/logo.png",
 				"back_title":"企业移动管理平台",
-				"back_username":"郑罡",
-				"back_userrole":"用户管理员",
+				"back_username":user['user_name'],
+				"back_userrole":user['role'],
 				"back_menulist":menulist
 			})
 

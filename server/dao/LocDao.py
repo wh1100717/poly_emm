@@ -17,5 +17,5 @@ def update(token,did,loc_info):
 			'did':did,
 			'loc_info': [loc_info]
 		}
-	LocCollection.save({'did':did}, device_loc)
+	LocCollection.update({'did':did}, device_loc, upsert=True)
 	return {'status':1}
