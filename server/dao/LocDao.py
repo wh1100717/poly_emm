@@ -15,7 +15,17 @@ def update(token,did,loc_info):
 	else:
 		device_loc = {
 			'did':did,
-			'loc_info': [loc_info]
+			'loc_info': loc_info
 		}
 	LocCollection.update({'did':did}, device_loc, upsert=True)
 	return {'status':1}
+
+def latest(user, did):
+	device_list = user['device']
+	for device in device_list:
+		if device['did'] == did:
+			device_loc = LocCollection.find_one({'did':did})
+			loc_info_list = device_loc['loc_info']
+			for loc_info in loc_info_list:
+				return loc_info_list.sort(key=lambda x:x['timestamp'], reverse=True)[0]
+	return {}

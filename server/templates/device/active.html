@@ -5,26 +5,41 @@
             <div class="modal-head">
                 <h1 style="position: absolute;margin-top: -10px;">设备详细页</h1>
             </div>
+
             <div class="modal-body">
-                <div class="well">
-                    <h4 class="green smaller lighter">loc_interval:</h4>
-                    <span id="loc_interval"></span>
-                </div>
-                <div class="well">
-                    <h4 class="green smaller lighter">loc_mode:</h4>
-                    <span id="loc_mode"></span>
-                </div>
-                <div class="well">
-                    <h4 class="green smaller lighter">did:</h4>
-                    <span id="did"></span>
-                </div>
-                <div class="well">
-                    <h4 class="green smaller lighter">cid:</h4>
-                    <span id="cid"></span>
-                </div>
-                <div class="well">
-                    <h4 class="green smaller lighter">imei:</h4>
-                    <span id="imei"></span>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#device_info" data-toggle="tab">Info</a></li>
+                    <li><a href="#device_loc" data-toggle="tab">Location</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content" style="min-height:600px">
+                    <div class="tab-pane active" id="device_info">
+                        <div class="well">
+                            <h4 class="green smaller lighter">loc_interval:</h4>
+                            <span id="loc_interval"></span>
+                        </div>
+                        <div class="well">
+                            <h4 class="green smaller lighter">loc_mode:</h4>
+                            <span id="loc_mode"></span>
+                        </div>
+                        <div class="well">
+                            <h4 class="green smaller lighter">did:</h4>
+                            <span id="did"></span>
+                        </div>
+                        <div class="well">
+                            <h4 class="green smaller lighter">cid:</h4>
+                            <span id="cid"></span>
+                        </div>
+                        <div class="well">
+                            <h4 class="green smaller lighter">imei:</h4>
+                            <span id="imei"></span>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="device_loc">
+                        <div id="allmap" style="width: 95%;height: 600px;overflow: hidden;margin:0;"></div>
+                    </div>
                 </div>
             </div>
         </div>

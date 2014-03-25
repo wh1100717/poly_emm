@@ -15,6 +15,18 @@ class UpdateHandler(BaseHandler):
 		result = LocDao.update(token,did,loc_info)
 		self.write(result)
 
+class LatestHandler(AuthenHandler):
+	def get(self):
+		user = self.get_user()
+		did = self.get_argument('did')
+		# result = LocDao.latest(user, did)
+		result = {
+			'long':116.404,
+			'lat':39.915
+		}
+		self.write(result)
+
 handlers = [
 	(r"/loc/update", UpdateHandler),
+	(r"/loc/latest", LatestHandler),
 ]

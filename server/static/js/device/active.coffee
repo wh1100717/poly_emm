@@ -1,3 +1,4 @@
+root = exports ? this
 $('#device_active_list').dataTable {
 	"aoColumns": [
 		{ "sWidth": "10%", "sClass": "center", "bSortable": false }
@@ -64,6 +65,7 @@ $('#device_active_list').dataTable {
 		"contentType":"application/json"
 		"url":"/device/detail?uid=" + uid
 		"success": (resp) ->
+			root.uid = uid
 			data = resp.data
 			$('#loc_interval').html data['loc_interval']
 			$('#loc_mode').html data['loc_mode']
@@ -71,6 +73,23 @@ $('#device_active_list').dataTable {
 			$('#cid').html data['cid']
 			$('#imei').html data['imei']
 	}
+
+$ ->
+	$('a[data-toggle="tab"]').on 'shown.bs.tab', (e)->
+		if e.target.outerText is 'Location'
+			$.ajax {
+				"type": "get"
+				"contentType":"application/json"
+				"url":"/loc/latest?did=123"
+				"success": (resp) ->
+					console.log resp
+					map = new BMap.Map("allmap")
+					point = new BMap.Point(resp.long, resp.lat)
+					map.centerAndZoom point, 15
+					marker = new BMap.Marker(point)
+					map.addOverlay marker 
+					marker.setAnimation BMAP_ANIMATION_BOUNCE 
+			}
 
 
 
