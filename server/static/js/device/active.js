@@ -25,14 +25,6 @@ $('#device_active_list').dataTable({
       "sWidth": "12%",
       "sClass": "center",
       "bSortable": false
-    }, {
-      "sWidth": "12%",
-      "sClass": "center",
-      "bSortable": false
-    }, {
-      "sWidth": "15%",
-      "sClass": "center",
-      "bSortable": false
     }
   ],
   "oLanguage": {
@@ -59,29 +51,25 @@ $('#device_active_list').dataTable({
     $.ajax({
       "type": "get",
       "contentType": "application/json",
-      "url": "" + sSource + "?page_size=" + aoData[4].value + "&page_index=" + (aoData[3].value / aoData[4].value),
+      "url": "" + sSource + "?page_size=" + aoData[4].value + "&page_start=" + aoData[3].value,
       "dataType": "json",
       "success": function(resp) {
-        var d, data, data_list, result1, t, _i, _len, _ref;
+        var d, data_list, result1, tmp, _i, _len, _ref;
         result1 = {};
         result1['iTotalDisplayRecords'] = resp.total;
         result1['iTotalRecords'] = resp.max;
         data_list = [];
         _ref = resp.data;
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          t = _ref[_i];
-          data = [];
-          data.push(t.device_name);
-          data.push(t.owner_name);
-          data.push(t.sn_number);
-          data.push(t.device_type);
-          data.push(t.platform);
-          d = new Date(t.registion_time);
-          data.push([d.getFullYear(), d.getMonth() + 1, d.getDate()].join('-') + ' ' + [d.getHours(), d.getMinutes(), d.getSeconds()].join(':'));
-          d = new Date(t.last_update_time);
-          data.push([d.getFullYear(), d.getMonth() + 1, d.getDate()].join('-') + ' ' + [d.getHours(), d.getMinutes(), d.getSeconds()].join(':'));
-          data.push("<td>\n	<div class=\"visible-md visible-lg hidden-sm hidden-xs action-buttons\">\n		<a class=\"blue\" href=\"#\">\n			<i class=\"icon-zoom-in bigger-130\"></i>\n		</a>\n\n		<a class=\"green\" href=\"#\">\n			<i class=\"icon-pencil bigger-130\"></i>\n		</a>\n\n		<a class=\"red\" href=\"#\">\n			<i class=\"icon-trash bigger-130\"></i>\n		</a>\n	</div>\n\n	<div class=\"visible-xs visible-sm hidden-md hidden-lg\">\n		<div class=\"inline position-relative\">\n			<button class=\"btn btn-minier btn-yellow dropdown-toggle\" data-toggle=\"dropdown\">\n				<i class=\"icon-caret-down icon-only bigger-120\"></i>\n			</button>\n\n			<ul class=\"dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close\">\n				<li>\n					<a href=\"#\" class=\"tooltip-info\" data-rel=\"tooltip\" title=\"View\">\n						<span class=\"blue\">\n							<i class=\"icon-zoom-in bigger-120\"></i>\n						</span>\n					</a>\n				</li>\n\n				<li>\n					<a href=\"#\" class=\"tooltip-success\" data-rel=\"tooltip\" title=\"Edit\">\n						<span class=\"green\">\n							<i class=\"icon-edit bigger-120\"></i>\n						</span>\n					</a>\n				</li>\n\n				<li>\n					<a href=\"#\" class=\"tooltip-error\" data-rel=\"tooltip\" title=\"Delete\">\n						<span class=\"red\">\n							<i class=\"icon-trash bigger-120\"></i>\n						</span>\n					</a>\n				</li>\n			</ul>\n		</div>\n	</div>\n</td>");
-          data_list.push(data);
+          d = _ref[_i];
+          tmp = [];
+          tmp.push(d['tanent_id']);
+          tmp.push(d['active_code']);
+          tmp.push(d['uid']);
+          tmp.push(d['owner']);
+          tmp.push(d['time']);
+          tmp.push(d['active']);
+          data_list.push(tmp);
         }
         result1['aaData'] = data_list;
         console.log(result1);

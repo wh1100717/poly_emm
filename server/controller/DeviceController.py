@@ -41,31 +41,16 @@ class StatisticsHandler(BaseHandler):
 		}
 		self.write(data)
 
-class DeviceActiveListHandler(BaseHandler):
+class ActiveListHandler(BaseHandler):
 	def get(self):
+		page_start = int(self.get_argument('page_start', default=0))
+		page_size = int(self.get_argument('page_size',default=10))
+		user = self.get_user()
+		data = DeviceDao.active_list(user, page_size, page_start)
 		data = {
-			"total":"5100",
-			"max":"10000",
-			"data":[
-				{
-					'device_name':'iphone-7823',
-					'owner_name':'Eric',
-					'sn_number':'234-2342-343',
-					'device_type':'iphone4',
-					'platform':'ios',
-					'registion_time':1393827011000,
-					'last_update_time':1393828011000,
-				},
-				{
-					'device_name':'iphone-7823',
-					'owner_name':'Eric',
-					'sn_number':'234-2342-343',
-					'device_type':'iphone4',
-					'platform':'ios',
-					'registion_time':1393827011000,
-					'last_update_time':1393828011000,
-				}
-			]
+			"total":len(data),
+			"max":len(data),
+			"data":data
 		}
 		self.write(data)
 
@@ -121,7 +106,7 @@ handlers = [
 	(r"/device/register_history", RegisterHistoryHandler),
 	(r"/device/statistics", StatisticsHandler),
 	(r"/device/register/list", RegisterListHandler),
-	(r"/device/active/list",DeviceActiveListHandler),
+	(r"/device/active/list",ActiveListHandler),
 	(r"/device/add",DeviceAddHandler),
 	(r"/device/enroll", EnrollHandler),
 	(r"/device/update", UpdateHandler),

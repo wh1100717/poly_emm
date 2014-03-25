@@ -35,19 +35,29 @@ def exist(uid,owner,user):
 #获取注册列表
 def register_list(user):
 	if not user.has_key('device'): return []
-	devices = user['device']
-	device_register_lists=[]
-	for device in devices:
-		device_register_list={
-			'tanent_id':user['tanent_id'],
-			'uid':device['uid'],
-			'owner':device['owner'],
-			'active_code':device['active_code'],
-			'active':device['active'],
-			'time':device['time']
-		}
-		device_register_lists.append(device_register_list)
-	return device_register_lists
+	for device in user['device']:
+		device['tanent_id'] = user['tanent_id']
+	return user['device']
+
+#获取激活设备列表
+def active_list(user,page_size,page_start):
+	if not user.has_key('device'): return []
+	page_index = 0
+	result = []
+	for device in user['device']:
+		print 'page_index', page_index
+		print 'page_size', page_size
+		if page_index < page_start:
+			page_index += 1
+			continue
+		if page_size <= 0:
+			break
+		if device['active'] == True:
+			device['tanent_id'] = user['tanent_id']
+			result.append(device)
+			page_size -= 1
+	print result
+	return result
 
 def enroll(uid, active_code, tanent_id):
 	user = UserDao.get_user_by_tanent_id(tanent_id)
