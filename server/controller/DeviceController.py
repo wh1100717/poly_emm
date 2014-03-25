@@ -41,26 +41,6 @@ class StatisticsHandler(BaseHandler):
 		}
 		self.write(data)
 
-class ActiveListHandler(BaseHandler):
-	def get(self):
-		page_start = int(self.get_argument('page_start', default=0))
-		page_size = int(self.get_argument('page_size',default=10))
-		user = self.get_user()
-		data = DeviceDao.active_list(user, page_size, page_start)
-		data = {
-			"total":len(data),
-			"max":len(data),
-			"data":data
-		}
-		self.write(data)
-
-class RegisterListHandler(BaseHandler):
-	def get(self):
-		data = {
-			'data':DeviceDao.register_list(self.get_user())
-		}
-		self.write(data)
-
 class DeviceAddHandler(BaseHandler):
 	def post(self):
 		uid = self.get_argument('uid')
@@ -101,6 +81,36 @@ class ConfigHandler(BaseHandler):
 		result = DeviceDao.config(token,did)
 		self.write(result)
 
+class ActiveListHandler(AuthenHandler):
+	def get(self):
+		page_start = int(self.get_argument('page_start', default=0))
+		page_size = int(self.get_argument('page_size',default=10))
+		user = self.get_user()
+		data = DeviceDao.active_list(user, page_size, page_start)
+		data = {
+			"total":len(data),
+			"max":len(data),
+			"data":data
+		}
+		self.write(data)
+
+class RegisterListHandler(AuthenHandler):
+	def get(self):
+		user = self.get_user()
+		data = {
+			'data':DeviceDao.register_list(user)
+		}
+		self.write(data)
+
+class DetailHandler(AuthenHandler):
+	def get(self):
+		uid = self.get_argument('uid')
+		user = self.get_user()
+		data = {
+			'data': DeviceDao.detail(user,uid)
+		}
+		self.write(data)
+
 
 handlers = [
 	(r"/device/register_history", RegisterHistoryHandler),
@@ -111,4 +121,5 @@ handlers = [
 	(r"/device/enroll", EnrollHandler),
 	(r"/device/update", UpdateHandler),
 	(r"/device/config", ConfigHandler),
+	(r"/device/detail", DetailHandler),
 ]

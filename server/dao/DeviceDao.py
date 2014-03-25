@@ -32,33 +32,6 @@ def exist(uid,owner,user):
 			return True
 	return False
 
-#获取注册列表
-def register_list(user):
-	if not user.has_key('device'): return []
-	for device in user['device']:
-		device['tanent_id'] = user['tanent_id']
-	return user['device']
-
-#获取激活设备列表
-def active_list(user,page_size,page_start):
-	if not user.has_key('device'): return []
-	page_index = 0
-	result = []
-	for device in user['device']:
-		print 'page_index', page_index
-		print 'page_size', page_size
-		if page_index < page_start:
-			page_index += 1
-			continue
-		if page_size <= 0:
-			break
-		if device['active'] == True:
-			device['tanent_id'] = user['tanent_id']
-			result.append(device)
-			page_size -= 1
-	print result
-	return result
-
 def enroll(uid, active_code, tanent_id):
 	user = UserDao.get_user_by_tanent_id(tanent_id)
 	if not user: return {'status':0,'desc':'wrong tanent_id'}
@@ -96,9 +69,46 @@ def config(token,did):
 			return {'status':1, 'loc_interval':user['loc_interval'], 'loc_mode':user['loc_mode']}
 	return {'status':0, 'desc':'wrong did'}
 
+#获取注册列表
+def register_list(user):
+	if not user.has_key('device'): return []
+	for device in user['device']:
+		device['tanent_id'] = user['tanent_id']
+	return user['device']
 
+#获取激活设备列表
+def active_list(user,page_size,page_start):
+	if not user.has_key('device'): return []
+	page_index = 0
+	result = []
+	for device in user['device']:
+		if page_index < page_start:
+			page_index += 1
+			continue
+		if page_size <= 0:
+			break
+		if device['active'] == True:
+			device['tanent_id'] = user['tanent_id']
+			result.append(device)
+			page_size -= 1
+	return result
 
-
+def detail(user, uid):
+	if not user.has_key('device'): return {}
+	for device in user['device']:
+		if device['uid'] == uid:
+			print 123
+			did = device['did'] if device.has_key('did') else "N/A"
+			cid = device['cid'] if device.has_key('cid') else "N/A"
+			imei = device['imei'] if device.has_key('imei') else "N/A"
+			return {
+				'loc_interval':user['loc_interval'],
+				'loc_mode':user['loc_mode'],
+				'did':did,
+				'cid':cid,
+				'imei':imei
+			}
+	return {}
 
 
 

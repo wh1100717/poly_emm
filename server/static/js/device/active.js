@@ -25,6 +25,10 @@ $('#device_active_list').dataTable({
       "sWidth": "12%",
       "sClass": "center",
       "bSortable": false
+    }, {
+      "sWidth": "8%",
+      "sClass": "center",
+      "bSortable": false
     }
   ],
   "oLanguage": {
@@ -63,12 +67,13 @@ $('#device_active_list').dataTable({
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           d = _ref[_i];
           tmp = [];
-          tmp.push(d['tanent_id']);
-          tmp.push(d['active_code']);
           tmp.push(d['uid']);
           tmp.push(d['owner']);
+          tmp.push(d['tanent_id']);
+          tmp.push(d['active_code']);
           tmp.push(d['time']);
           tmp.push(d['active']);
+          tmp.push("<button type='button' class='btn btn-xs btn-info' data-toggle='modal' data-target='#device-detail' onclick='show_detail(\"" + d['uid'] + "\")'>more</button>");
           data_list.push(tmp);
         }
         result1['aaData'] = data_list;
@@ -78,3 +83,20 @@ $('#device_active_list').dataTable({
     });
   }
 });
+
+this.show_detail = function(uid) {
+  return $.ajax({
+    "type": "get",
+    "contentType": "application/json",
+    "url": "/device/detail?uid=" + uid,
+    "success": function(resp) {
+      var data;
+      data = resp.data;
+      $('#loc_interval').html(data['loc_interval']);
+      $('#loc_mode').html(data['loc_mode']);
+      $('#did').html(data['did']);
+      $('#cid').html(data['cid']);
+      return $('#imei').html(data['imei']);
+    }
+  });
+};

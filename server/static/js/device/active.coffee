@@ -6,6 +6,7 @@ $('#device_active_list').dataTable {
 		{ "sWidth": "10%", "sClass": "center", "bSortable": false }
 		{ "sWidth": "10%", "sClass": "center", "bSortable": false }
 		{ "sWidth": "12%", "sClass": "center", "bSortable": false }
+		{ "sWidth": "8%", "sClass": "center", "bSortable": false }
 	]
 	"oLanguage": {
 		"sLengthMenu": "每页显示 _MENU_ 条记录"
@@ -40,12 +41,15 @@ $('#device_active_list').dataTable {
 				data_list = []
 				for d in resp.data
 					tmp = []
-					tmp.push d['tanent_id']
-					tmp.push d['active_code']
 					tmp.push d['uid']
 					tmp.push d['owner']
+					tmp.push d['tanent_id']
+					tmp.push d['active_code']
 					tmp.push d['time']
 					tmp.push d['active']
+					tmp.push """
+						<button type='button' class='btn btn-xs btn-info' data-toggle='modal' data-target='#device-detail' onclick='show_detail("#{d['uid']}")'>more</button>
+					"""
 					data_list.push tmp
 				result1['aaData'] = data_list
 				console.log result1
@@ -54,3 +58,22 @@ $('#device_active_list').dataTable {
 		}
 		return
 }
+@show_detail = (uid) ->
+	$.ajax {
+		"type":"get"
+		"contentType":"application/json"
+		"url":"/device/detail?uid=" + uid
+		"success": (resp) ->
+			data = resp.data
+			$('#loc_interval').html data['loc_interval']
+			$('#loc_mode').html data['loc_mode']
+			$('#did').html data['did']
+			$('#cid').html data['cid']
+			$('#imei').html data['imei']
+	}
+
+
+
+
+
+

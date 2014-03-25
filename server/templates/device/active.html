@@ -1,14 +1,48 @@
+<!-- Modal -->
+<div class="modal fade" id="device-detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 80%;">
+        <div class="modal-content" style="padding:5%;">
+            <div class="modal-head">
+                <h1 style="position: absolute;margin-top: -10px;">设备详细页</h1>
+            </div>
+            <div class="modal-body">
+                <div class="well">
+                    <h4 class="green smaller lighter">loc_interval:</h4>
+                    <span id="loc_interval"></span>
+                </div>
+                <div class="well">
+                    <h4 class="green smaller lighter">loc_mode:</h4>
+                    <span id="loc_mode"></span>
+                </div>
+                <div class="well">
+                    <h4 class="green smaller lighter">did:</h4>
+                    <span id="did"></span>
+                </div>
+                <div class="well">
+                    <h4 class="green smaller lighter">cid:</h4>
+                    <span id="cid"></span>
+                </div>
+                <div class="well">
+                    <h4 class="green smaller lighter">imei:</h4>
+                    <span id="imei"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="table-responsive">
     <div class="table-header">设备激活列表</div>
     <table id="device_active_list" class="table table-striped table-bordered table-hover">
         <thead>
             <tr>
-                <th style="width:100px">tanent_id</th>
-                <th>active_code</th>
                 <th>uid</th>
                 <th>owner</th>
+                <th>tanent_id</th>
+                <th>active_code</th>
                 <th><i class="icon-time bigger-110 hidden-480"></i>time</th>
                 <th>active</th>
+                <th></th>
             </tr>
         </thead>
         <tbody></tbody>
