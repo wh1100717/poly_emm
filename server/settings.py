@@ -39,6 +39,7 @@ MongoDB在这里配置
 '''
 __mongo_config__ = {
 	'host': '10.0.1.202',
+	# 'host': '127.0.0.1',
 	'port': 27017,
 	'db': 'emm',
 }

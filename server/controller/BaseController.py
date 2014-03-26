@@ -25,18 +25,18 @@ class ConfigHandler(BaseHandler):
 			# 	'name':'策略',
 			# 	'submenu':[{'name':'策略列表','id':'policy'}]
 			# },
-			# {
-			# 	'id':'app_menu',
-			# 	'icon':'icon-list',
-			# 	'name':'应用',
-			# 	'submenu':[
-			# 		{'name':'应用列表','id':'#'},
-			# 		{'name':'黑名单管理','id':'#'},
-			# 		{'name':'ios应用','id':'#'},
-			# 		{'name':'ios应用策略','id':'#'},
-			# 		{'name':'ios应用审计','id':'#'}
-			# 		]
-			# },
+			{
+				'id':'app_menu',
+				'icon':'icon-list',
+				'name':'应用',
+				'submenu':[
+					{'name':'应用列表','id':'app_list'},
+					{'name':'黑名单管理','id':'blacklist_list'},
+					# {'name':'ios应用','id':'#'},
+					# {'name':'ios应用策略','id':'#'},
+					# {'name':'ios应用审计','id':'#'}
+					]
+			},
 			# {
 			# 	'id':'content_menu',
 			# 	'icon':'icon-folder-open-alt',

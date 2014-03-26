@@ -8,6 +8,7 @@ from controller import DeviceController
 from controller import BaseController
 from controller import LocController
 from controller import AppController
+from controller import BlacklistController
 
 handlers = []
 
@@ -38,5 +39,7 @@ handlers += UserController.handlers
 handlers += LocController.handlers
 
 handlers += AppController.handlers
+
+handlers += BlacklistController.handlers
 
 handlers += [(r"^/(.*)$", AuthenHandler)]

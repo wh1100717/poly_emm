@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from base import *
-from dao import BlackListDao
+from dao import BlacklistDao
 #get_list获取黑名单列表
 class ListHandler(BaseHandler):
 	def get(self):
@@ -26,5 +26,5 @@ class DeleteAppHandler(AuthenHandler):
 handlers = [
 	(r"/blacklist/insert_app", InsertAppHandler),
 	(r"/blacklist/delete_app", DeleteAppHandler),
-	(r"/blacklist/List", ListHandler),
+	(r"/blacklist/list", ListHandler),
 ]
