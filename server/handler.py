@@ -40,6 +40,6 @@ handlers += LocController.handlers
 
 handlers += AppController.handlers
 
-#handlers += BlacklistController.handlers
+handlers += BlackListController.handlers
 
 handlers += [(r"^/(.*)$", AuthenHandler)]

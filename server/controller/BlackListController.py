@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from base import *
-from dao import BlacklistDao
+from dao import BlackListDao
 #get_list获取黑名单列表
 class ListHandler(BaseHandler):
 	def get(self):
