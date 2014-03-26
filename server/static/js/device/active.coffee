@@ -91,8 +91,49 @@ $ ->
 					marker.setAnimation BMAP_ANIMATION_BOUNCE 
 			}
 
+$ ->
+	$('a[data-toggle="tab"]').on 'shown.bs.tab', (e)->
+		if e.target.outerText is 'App'
+			$.ajax {
+				"type": "get"
+				"contentType":"application/json"
+				"url":"/app/list?did=1234"
+				"success": (resp) ->
+					console.log resp
+					app_list = resp['data']
+					table_data = []
+					for d in app_list
+						tmp = []
+						tmp.push d['appName']
+						tmp.push d['appId']
+						tmp.push d['version']
+						table_data.push tmp
+					$("#device_app_list").dataTable().fnAddData table_data
+			}
 
 
 
-
-
+$ ->
+	$('#device_app_list').dataTable {
+		# "aoColumns": [
+		# 	{ "sWidth": "30%", "sClass": "center", "bSortable": false }
+		# 	{ "sWidth": "30%", "sClass": "center", "bSortable": false }
+		# 	{ "sWidth": "40%", "sClass": "center", "bSortable": false }
+		# ] ,
+		"oLanguage": {
+			"sLengthMenu": "每页显示 _MENU_ 条记录",
+			"sZeroRecords": "抱歉， 没有找到",
+			"sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+			"sInfoEmpty": "没有数据",
+			"sInfoFiltered": "(从 _MAX_ 条数据中检索)",
+			"oPaginate": {
+				"sFirst": "首页",
+				"sPrevious": "前一页",
+				"sNext": "后一页",
+				"sLast": "尾页",
+			},
+			"sSearch": "搜索: ",
+			"sZeroRecords": "没有检索到数据",
+			"sProcessing": "<img src='./loading.gif' />"
+		} 	
+	}

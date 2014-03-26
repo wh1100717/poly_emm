@@ -127,3 +127,51 @@ $(function() {
     }
   });
 });
+
+$(function() {
+  return $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+    if (e.target.outerText === 'App') {
+      return $.ajax({
+        "type": "get",
+        "contentType": "application/json",
+        "url": "/app/list?did=1234",
+        "success": function(resp) {
+          var app_list, d, table_data, tmp, _i, _len;
+          console.log(resp);
+          app_list = resp['data'];
+          table_data = [];
+          for (_i = 0, _len = app_list.length; _i < _len; _i++) {
+            d = app_list[_i];
+            tmp = [];
+            tmp.push(d['appName']);
+            tmp.push(d['appId']);
+            tmp.push(d['version']);
+            table_data.push(tmp);
+          }
+          return $("#device_app_list").dataTable().fnAddData(table_data);
+        }
+      });
+    }
+  });
+});
+
+$(function() {
+  return $('#device_app_list').dataTable({
+    "oLanguage": {
+      "sLengthMenu": "每页显示 _MENU_ 条记录",
+      "sZeroRecords": "抱歉， 没有找到",
+      "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+      "sInfoEmpty": "没有数据",
+      "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
+      "oPaginate": {
+        "sFirst": "首页",
+        "sPrevious": "前一页",
+        "sNext": "后一页",
+        "sLast": "尾页"
+      },
+      "sSearch": "搜索: ",
+      "sZeroRecords": "没有检索到数据",
+      "sProcessing": "<img src='./loading.gif' />"
+    }
+  });
+});

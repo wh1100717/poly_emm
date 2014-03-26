@@ -19,7 +19,12 @@ class ListHandler(AuthenHandler):
 	def get(self):
 		did = self.get_argument('did')
 		user = self.get_user()
-		app_list = AppDao.list(did, user)
+		
+		data = {
+			'data':AppDao.list(did, user)
+		}
+		self.write(data)
+
 
 handlers = [
 	(r"/app/list", ListHandler),
