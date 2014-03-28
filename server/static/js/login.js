@@ -3,21 +3,21 @@ var login_submit, register_submit;
 
 login_submit = function() {
   return $('#login_form').ajaxSubmit(function(data) {
-    if (data === 'success') {
-      return location.href = "/";
+    if (data.status === 1) {
+      return window.location.href = "/";
     } else {
-      return alert(data);
+      return alert(data.desc);
     }
   });
 };
 
 register_submit = function() {
   return $('#register_form').ajaxSubmit(function(data) {
-    if (data === 'success') {
+    if (data.status === 1) {
       alert('注册成功');
       return window.location.href = "/user/login";
     } else {
-      return alert(data);
+      return alert(data.desc);
     }
   });
 };

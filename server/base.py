@@ -11,8 +11,8 @@ import os
 #extend了tornado的RequestHandler，重写了get_error_html，实现了自定义错误页面的功能
 class BaseHandler(tornado.web.RequestHandler):
 	def prepare(self):
-		email = self.get_secure_cookie("email")
-		self.user = UserDao.get_user_by_email(email)
+		tid = self.get_secure_cookie("tid")
+		self.user = UserDao.get_user_by_tid(tid) if tid else None
 
 	def get(self, filename):
 		self.write(self.render_template(filename))
@@ -51,6 +51,6 @@ class BaseHandler(tornado.web.RequestHandler):
 
 class AuthenHandler(BaseHandler):
 	def prepare(self):
-		email = self.get_secure_cookie("email")
-		self.user = UserDao.get_user_by_email(email)
+		tid = self.get_secure_cookie("tid")
+		self.user = UserDao.get_user_by_tid(tid)
 		if not self.user: self.redirect('user/login')

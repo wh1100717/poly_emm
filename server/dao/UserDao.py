@@ -9,16 +9,18 @@ UserCollection = MongoUtil.db.user
 def get_user_by_email(email):
 	return UserCollection.find_one({'email':email})
 
-def get_user_by_tanent_id(tanent_id):
-	return UserCollection.find_one({'tanent_id':int(tanent_id)})
+def get_user_by_phone(phone):
+	return UserCollection.find_one({'phone':phone})
+
+def get_user_by_tid(tid):
+	return UserCollection.find_one({'tid':int(tid)})
 
 def get_user_by_token(token):
 	return UserCollection.find_one({'token':token})
 
-def register(email,user_name,pwd):
+def register(email_or_phone,enroll_type,user_name,pwd):
 	user = {
-		'tanent_id': MongoUtil.getNextSequence('tanent_id'),
-		'email': email,
+		'tid': MongoUtil.getNextSequence('tid'),
 		'user_name': user_name,
 		'pwd': hashlib.md5(pwd).hexdigest(),
 		'role': 'admin',
@@ -27,5 +29,8 @@ def register(email,user_name,pwd):
 		'loc_interval': 0,
 		'loc_mode': 0
 	}
+	if enroll_type == 'email':
+		user['email'] = email_or_phone
+	else:
+		user['phone'] = email_or_phone
 	UserCollection.insert(user)
-	return 'success'
