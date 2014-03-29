@@ -30,7 +30,7 @@ $.ajax {
 		table_data = []
 		for d in data_list
 			tmp = []
-			tmp.push d['tanent_id']
+			tmp.push d['tid']
 			tmp.push d['active_code']
 			tmp.push d['uid']
 			tmp.push d['owner']

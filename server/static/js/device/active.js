@@ -73,7 +73,7 @@ $('#device_active_list').dataTable({
           tmp = [];
           tmp.push(d['uid']);
           tmp.push(d['owner']);
-          tmp.push(d['tanent_id']);
+          tmp.push(d['tid']);
           tmp.push(d['active_code']);
           tmp.push(d['time']);
           tmp.push(d['active']);

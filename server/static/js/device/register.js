@@ -29,7 +29,7 @@ $.ajax({
     for (_i = 0, _len = data_list.length; _i < _len; _i++) {
       d = data_list[_i];
       tmp = [];
-      tmp.push(d['tanent_id']);
+      tmp.push(d['tid']);
       tmp.push(d['active_code']);
       tmp.push(d['uid']);
       tmp.push(d['owner']);

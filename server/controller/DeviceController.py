@@ -56,14 +56,14 @@ class EnrollHandler(BaseHandler):
 	def get(self):
 		uid = self.get_argument('uid')
 		active_code = self.get_argument('active_code')
-		tanent_id = self.get_argument('tanent_id')
-		self.write(DeviceDao.enroll(uid, active_code, tanent_id))
+		tid = self.get_argument('tid')
+		self.write(DeviceDao.enroll(uid, active_code, tid))
 
 	def post(self):
 		uid = self.get_argument('uid')
 		active_code = self.get_argument('active_code')
-		tanent_id = self.get_argument('tanent_id')
-		self.write(DeviceDao.enroll(uid, active_code, tanent_id))
+		tid = self.get_argument('tid')
+		self.write(DeviceDao.enroll(uid, active_code, tid))
 
 class UpdateHandler(BaseHandler):
 	def get(self):

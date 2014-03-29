@@ -52,5 +52,5 @@ class BaseHandler(tornado.web.RequestHandler):
 class AuthenHandler(BaseHandler):
 	def prepare(self):
 		tid = self.get_secure_cookie("tid")
-		self.user = UserDao.get_user_by_tid(tid)
+		self.user = UserDao.get_user_by_tid(tid) if tid else None
 		if not self.user: self.redirect('user/login')

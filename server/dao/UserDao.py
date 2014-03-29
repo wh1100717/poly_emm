@@ -34,3 +34,4 @@ def register(email_or_phone,enroll_type,user_name,pwd):
 	else:
 		user['phone'] = email_or_phone
 	UserCollection.insert(user)
+	return 'success'

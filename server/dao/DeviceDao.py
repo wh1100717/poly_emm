@@ -20,7 +20,7 @@ def add(uid,owner,user):
 		user['device'].append(device)
 	else:
 		user['device'] = [device]
-	UserCollection.update({'email':user['email']},user)
+	UserCollection.update({'tid':user['tid']},user)
 	return 'success'
 
 
@@ -32,16 +32,16 @@ def exist(uid,owner,user):
 			return True
 	return False
 
-def enroll(uid, active_code, tanent_id):
-	user = UserDao.get_user_by_tanent_id(tanent_id)
-	if not user: return {'status':0,'desc':'wrong tanent_id'}
+def enroll(uid, active_code, tid):
+	user = UserDao.get_user_by_tid(tid)
+	if not user: return {'status':0,'desc':'wrong tid'}
 	device_list = user['device']
 	for device in device_list:
 		if device['uid'] == uid:
 			if device['active_code'] == active_code:
 				if device['active'] == True: return {'status':0, 'desc':'already actived'}
 				device['active'] = True
-				UserCollection.update({'email':user['email']},user)
+				UserCollection.update({'tid':user['tid']},user)
 				return {'status':1, 'token':user['token']}
 			else:
 				return {'status':0, 'desc':'wrong active code'}
@@ -56,7 +56,7 @@ def update(token,uid,did,cid,imei):
 			device['did'] = did
 			device['imei'] = imei
 			device['cid'] = cid
-			UserCollection.update({'email':user['email']},user)
+			UserCollection.update({'tid':user['tid']},user)
 			return {'status':1}
 	return {'status':0,'desc':'wrong uid'}
 
@@ -73,7 +73,7 @@ def config(token,did):
 def register_list(user):
 	if not user.has_key('device'): return []
 	for device in user['device']:
-		device['tanent_id'] = user['tanent_id']
+		device['tid'] = user['tid']
 	return user['device']
 
 #获取激活设备列表
@@ -88,7 +88,7 @@ def active_list(user,page_size,page_start):
 		if page_size <= 0:
 			break
 		if device['active'] == True:
-			device['tanent_id'] = user['tanent_id']
+			device['tid'] = user['tid']
 			result.append(device)
 			page_size -= 1
 	return result

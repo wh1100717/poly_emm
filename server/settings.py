@@ -38,8 +38,8 @@ __template_lookup__ = TemplateLookup(	input_encoding='utf-8',
 MongoDB在这里配置
 '''
 __mongo_config__ = {
-	'host': '10.0.1.202',
-	# 'host': '127.0.0.1',
+	# 'host': '10.0.1.202',
+	'host': '127.0.0.1',
 	'port': 27017,
 	'db': 'emm',
 }

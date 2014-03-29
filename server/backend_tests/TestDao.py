@@ -42,21 +42,21 @@ from dao import LocDao
 email = StringUtil.token_generator() + "@qq.com"
 user_name = 'xiaolin'
 pwd = 'zxldmv'
-
+enroll_type='email'
 '''
 用户注册流程
 '''
 def test_register():
-	result = UserDao.register(email, user_name, pwd)
+	result = UserDao.register(email, enroll_type,user_name, pwd)
 	assert result == 'success'
 
 def test_get_user_by_email():
 	user = UserDao.get_user_by_email(email)
 	assert user['email'] == email
 
-def test_get_user_by_tanent_id():
+def test_get_user_by_tid():
 	user = UserDao.get_user_by_email(email)
-	user2 = UserDao.get_user_by_tanent_id(user['tanent_id'])
+	user2 = UserDao.get_user_by_tid(user['tid'])
 	assert user2['email'] == email
 
 def test_get_user_by_token():
@@ -99,9 +99,9 @@ def test_enroll():
 	for d in device:
 		if d['uid'] == uid:
 			active_code = d['active_code']
-	tanent_id = user['tanent_id']
+	tid = user['tid']
 
-	result = DeviceDao.enroll(uid,active_code,tanent_id)
+	result = DeviceDao.enroll(uid,active_code,tid)
 	assert result['status'] == 1
 
 def test_update_device():
