@@ -36,6 +36,7 @@ def random_tel():
 
 tel = random_tel()
 random_name = StringUtil.token_generator()
+email = StringUtil.token_generator() + '@qq.com'
 
 
 def test_RegisterHandler_by_tel():
@@ -56,7 +57,6 @@ def test_RegisterHandler_by_tel():
 
 
 def test_RegisterHandler_by_email():
-	email = StringUtil.token_generator() + '@qq.com'
 	postData = {
 		'email_or_phone':email,
 		'user_name':random_name,
@@ -73,11 +73,10 @@ def test_RegisterHandler_by_email():
 	assert register_email['status'] == 1
 
 
-
-def test_LoginHandler():
+def test_LoginHandler_by_tel():
 	postData={
-		'email_or_phone':'zhaoq@qq.com',
-		'pwd':'zq'
+		'email_or_phone':tel,
+		'pwd':'111111'
 	}
 	postData = urllib.urlencode(postData) 
 	request = urllib2.Request('http://localhost/user/login', postData) 
@@ -85,3 +84,28 @@ def test_LoginHandler():
 	text = response.read() 
 	text=eval(text)
 	assert text['status'] ==1
+
+
+def test_LoginHandler_by_email():
+	postData={
+		'email_or_phone':email,
+		'pwd':'111111'
+	}
+	postData = urllib.urlencode(postData) 
+	request = urllib2.Request('http://localhost/user/login', postData) 
+	response = urllib2.urlopen(request) 
+	text = response.read() 
+	text=eval(text)
+	assert text['status'] ==1
+
+
+
+# def test_AddHandler():
+# 	cj = cookielib.LWPCookieJar() 
+# 	cookie_support = urllib2.HTTPCookieProcessor(cj) 
+# 	opener = urllib2.build_opener(cookie_support, urllib2.HTTPHandler) 
+# 	urllib2.install_opener(opener) 
+
+
+# def test_LogoutHandler():
+	
