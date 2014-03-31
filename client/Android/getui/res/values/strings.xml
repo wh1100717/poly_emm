@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">getui</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    
+    <string name="jihuo">激活</string>
+    <string name="active_code">激活码</string>
+    <string name="tid">tid</string>
+    <string name="uid">uid</string>
+	
+
+
+
+</resources>

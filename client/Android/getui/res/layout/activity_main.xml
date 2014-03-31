@@ -1,0 +1,87 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity" >
+
+    <AbsoluteLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <!-- 账号 -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="40px"
+            android:layout_y="28px"
+            android:text="@string/uid"
+            android:textSize="18sp" >
+        </TextView>
+
+        <EditText
+            android:id="@+id/uid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="115px"
+            android:layout_y="20px"
+            android:width="150px" >
+        </EditText>
+        <!-- 密码 -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="40px"
+            android:layout_y="93px"
+            android:text="@string/tid"
+            android:textSize="18sp" >
+        </TextView>
+
+        <EditText
+            android:id="@+id/tid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="115px"
+            android:layout_y="80px"
+            android:password="true"
+            android:width="150px" >
+        </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="40px"
+            android:layout_y="150px"
+            android:text="@string/active_code"
+            android:textSize="18sp" >
+        </TextView>
+
+        <EditText
+            android:id="@+id/active_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="115px"
+            android:layout_y="140px"
+            android:width="150px" >
+        </EditText>
+
+        <!-- 登录与注册按钮 -->
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="50px"
+            android:layout_y="200px"
+            android:text="@string/jihuo"
+            android:width="100px" >
+        </Button>
+    </AbsoluteLayout>
+
+</RelativeLayout>
