@@ -56,7 +56,7 @@ class RegisterHandler(BaseHandler):
 				return
 		#进行用户注册流程
 		UserDao.register(email_or_phone, enroll_type, user_name, pwd)
-		self.write({'status':1})
+		self.write(RESPONSE.SUCCESS)
 
 class LoginHandler(BaseHandler):
 	def get(self):

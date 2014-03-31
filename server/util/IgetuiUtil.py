@@ -12,35 +12,34 @@ from sdk.igetui.template import *
 
 import settings
 
-igetui_config = settings.igetui_config
+igetui_config = settings.__igetui_config__
 
-APPKEY = igetui_config['APPKEY']
 APPID = igetui_config['APPID']
-MASTERSECRET = igetui_config['MASTERSECRET']
-CID = igetui_config['CID']
+APPKEY = igetui_config['APPKEY']
 HOST = igetui_config['HOST']
-CALLBACK_URL = igetui_config['CALLBACK_URL']
+MASTERSECRET = igetui_config['MASTERSECRET']
+CALLBACK_URL = igetui_config['CALLBACKURL']
 
 def pushMessageToSingle(
+        cid,
         template = NotificationTemplate(),
         isOffline = True,
         offlineExpireTime = 1000 * 3600 * 12,
-        appId = igetui_config['APPID'],
-        appKey = igetui_config['APPKEY'],
-        host = igetui_config['HOST'],
-        masterSecret = igetui_config['MASTERSECRET'],
-        cid = igetui_config['CID'],
+        appId = APPID,
+        appKey = APPKEY,
+        host = HOST,
+        masterSecret = MASTERSECRET,
         provinceList = [],
         phoneTypeList = []):
     '''
     ##对单个用户推送
+    *   cid: clientId
     *   isOffline: 是否离线,2为离线推送，默认为2，
     *   offlineExpireTime: 离线时间，单位为毫秒，例，两小时离线时间为 1000*3600*2，以此类推
     *   appId: 应用appid
     *   appKey: 应用appKey
     *   host: push server url, 在setting中定义
     *   masterSecret: push平台每个应用省城的masterSecret序列号
-    *   cid: clientId
     *   provinceList: 区域推送列表
     *   phoneTypeList: 手机平台类型推送列表
     '''
@@ -63,25 +62,25 @@ def pushMessageToSingle(
     print ret    
 
 def pushMessageToList(
+        cidList = [],
         template = NotificationTemplate(),
         isOffline = True,
         offlineExpireTime = 1000 * 3600 * 12,
-        appId = igetui_config['APPID'],
-        appKey = igetui_config['APPKEY'],
-        host = igetui_config['HOST'],
-        masterSecret = igetui_config['MASTERSECRET'],
-        cidList = [igetui_config['CID']],
+        appId = APPID,
+        appKey = APPKEY,
+        host = HOST,
+        masterSecret = MASTERSECRET,
         provinceList = [],
         phoneTypeList = []):
     '''
     ##通过ClientID列表群推送
+    *   cidList: clientId List
     *   isOffline: 是否离线,2为离线推送，默认为2，
     *   offlineExpireTime: 离线时间，单位为毫秒，例，两小时离线时间为 1000*3600*2，以此类推
     *   appId: 应用appid
     *   appKey: 应用appKey
     *   host: push server url, 在setting中定义
     *   masterSecret: push平台每个应用省城的masterSecret序列号
-    *   cidList: clientId List
     *   provinceList: 区域推送列表
     *   phoneTypeList: 手机平台类型推送列表
     '''
@@ -111,10 +110,10 @@ def pushMessageToApp(
         template = NotificationTemplate(),
         isOffline = True,
         offlineExpireTime = 1000 * 3600 * 12,
-        appId = igetui_config['APPID'],
-        appKey = igetui_config['APPKEY'],
-        host = igetui_config['HOST'],
-        masterSecret = igetui_config['MASTERSECRET'],
+        appId = APPID,
+        appKey = APPKEY,
+        host = HOST,
+        masterSecret = MASTERSECRET,
         provinceList = [],
         phoneTypeList = []):
     '''

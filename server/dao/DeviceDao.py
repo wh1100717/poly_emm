@@ -3,14 +3,31 @@
 from util import MongoUtil
 from util import StringUtil
 from dao import UserDao
+from status import *
 import time
 
 UserCollection = MongoUtil.db.user
 
+#根据手机号判断设备是否存在
+def exist_by_phone(phone,user):
+	if not user.has_key('device'): return False
+	for device in user['device']:
+		if device.has_key('phone') and device['phone'] == phone:
+			return True
+	return False
+
+#根据did判断设备是否存在
+def exist_by_did(did,user):
+	if not user.has_key('device'): return False
+	for device in user['device']:
+		if device.has_key['did'] and device['did'] == did:
+			return True
+	return False
+
 #添加设备
-def add(uid,owner,user):	
+def add(phone,owner,user):
 	device = {
-		'uid':uid,
+		'phone':phone,
 		'active_code':StringUtil.active_code_generator(),
 		'active':False,
 		'owner':owner,
@@ -21,84 +38,20 @@ def add(uid,owner,user):
 	else:
 		user['device'] = [device]
 	UserCollection.update({'tid':user['tid']},user)
-	return 'success'
+	return RESPONSE.SUCCESS
 
-
-#判断设备是否存在
-def exist(uid,owner,user):
-	if not user.has_key('device'): return False
-	for device in user['device']:
-		if device.has_key('uid') and device['uid'] == uid:
-			return True
-	return False
-
-def enroll(uid, active_code, tid):
-	user = UserDao.get_user_by_tid(tid)
-	if not user: return {'status':0,'desc':'wrong tid'}
-	device_list = user['device']
-	for device in device_list:
-		if device['uid'] == uid:
-			if device['active_code'] == active_code:
-				if device['active'] == True: return {'status':0, 'desc':'already actived'}
-				device['active'] = True
-				UserCollection.update({'tid':user['tid']},user)
-				return {'status':1, 'token':user['token']}
-			else:
-				return {'status':0, 'desc':'wrong active code'}
-	return {'status':0, 'desc':'wrong uid'}
-
-def update(token,uid,did,cid,imei):
-	user = UserDao.get_user_by_token(token)
-	if not user: return {'status':0,'desc':'wrong token'}
-	device_list = user['device']
-	for device in device_list:
-		if device['uid'] == uid:
-			device['did'] = did
-			device['imei'] = imei
-			device['cid'] = cid
-			UserCollection.update({'tid':user['tid']},user)
-			return {'status':1}
-	return {'status':0,'desc':'wrong uid'}
-
-def config(token,did):
-	user = UserDao.get_user_by_token(token)
-	if not user: return {'status':0, 'desc':'wrong token'}
-	device_list = user['device']
-	for device in device_list:
-		if device['did'] == did:
-			return {'status':1, 'loc_interval':user['loc_interval'], 'loc_mode':user['loc_mode']}
-	return {'status':0, 'desc':'wrong did'}
-
-#获取注册列表
-def register_list(user):
+#展示设备列表
+def list(user):
 	if not user.has_key('device'): return []
 	for device in user['device']:
 		device['tid'] = user['tid']
 	return user['device']
 
-#获取激活设备列表
-def active_list(user,page_size,page_start):
-	if not user.has_key('device'): return []
-	page_index = 0
-	result = []
-	for device in user['device']:
-		if page_index < page_start:
-			page_index += 1
-			continue
-		if page_size <= 0:
-			break
-		if device['active'] == True:
-			device['tid'] = user['tid']
-			result.append(device)
-			page_size -= 1
-	return result
-
-def detail(user, uid):
+#返回设备详细信息
+def detail(did,user):
 	if not user.has_key('device'): return {}
 	for device in user['device']:
-		if device['uid'] == uid:
-			print 123
-			did = device['did'] if device.has_key('did') else "N/A"
+		if device['did'] == did:
 			cid = device['cid'] if device.has_key('cid') else "N/A"
 			imei = device['imei'] if device.has_key('imei') else "N/A"
 			return {

@@ -1,0 +1,58 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+from dao import UserDao
+from status import *
+
+def enroll(tid, active_code, phone):
+	user = UserDao.get_user_by_tid(tid)
+	if not user: return RESPONSE.WRONG_TID
+	devices = user['device']
+	for device in devices:
+		if device['phone'] == phone:
+			if device['active_code'] == active_code:
+				if device['active'] == True: 
+					return RESPONSE.ALREADY_ACTIVED
+				device['active'] = True
+				UserCollection.update({'tid':user['tid']},user)
+				RESPONSE.ENROLL_SUCCESS['token'] = user['token']
+				return RESPONSE.ENROLL_SUCCESS
+			else:
+				return RESPONSE.WRONG_ACTIVE_CODE
+	return RESPONSE.WRONG_PHONE
+
+def initial(token,phone,did,cid,imei):
+	user = UserDao.get_user_by_token(token)
+	if not user: return RESPONSE.WRONG_TOKEN
+	devices = user['device']
+	for device in devices:
+		if device['phone'] == phone:
+			device['did'] = did
+			device['cid'] = cid
+			device['imei'] = imei
+			UserCollection.update({'tid':user['tid']},user)
+			#TODO 需要增加client对初始化配置信息
+			RESPONSE.INITIAL_SUCCESS['initial'] = {}
+			return RESPONSE.INITIAL_SUCCESS
+	return RESPONSE.WRONG_PHONE
+
+def pull(token, did):
+	user = UserDao.get_user_by_token(token)
+	if not user: return RESPONSE.WRONG_TOKEN
+	devices = user['device']
+	for device in devices:
+		if device['did'] == did:
+			#TODO 需要将具体的信息返回回去
+			RESPONSE.PULL_SUCCESS['data'] = {}
+			return RESPONSE.PULL_SUCCESS
+	return RESPONSE.WRONG_DID
+
+def resp(token, did):
+	user = UserDao.get_user_by_token(token)
+	if not user: return RESPONSE.WRONG_TOKEN
+	devices = user['device']
+	for device in devices:
+		if device['did'] == did:
+			#TODO 需要进行一些数据清理工作
+			return RESPONSE.SUCCESS
+	return RESPONSE.WRONG_DID
+

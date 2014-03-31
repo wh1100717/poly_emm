@@ -38,8 +38,23 @@ __template_lookup__ = TemplateLookup(	input_encoding='utf-8',
 MongoDB在这里配置
 '''
 __mongo_config__ = {
-	# 'host': '10.0.1.202',
-	'host': '127.0.0.1',
+	'host': '10.0.1.202',
+	# 'host': '127.0.0.1',
 	'port': 27017,
 	'db': 'emm',
 }
+
+'''
+个推在这里配置
+'''
+__igetui_config__ ={
+	'APPID':'nWIRryAO53AfFBfZ0Rh8I2',
+	'APPKEY': 'Dsf5tKnaMp5KGad4XFV1k4',
+	'MASTERSECRET':'rB2XGcvaEI7tKlOei2DEk2',
+	'HOST':'http://sdk.open.api.igexin.com/apiex.htm',
+	'CALLBACKURL':'',
+}
+
+
+
+
