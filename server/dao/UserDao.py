@@ -27,7 +27,8 @@ def register(email_or_phone,enroll_type,user_name,pwd):
 		'active': True,
 		'token': StringUtil.token_generator(),
 		'loc_interval': 0,
-		'loc_mode': 0
+		'loc_mode': 0,
+		'devices':[]
 	}
 	if enroll_type == 'email':
 		user['email'] = email_or_phone

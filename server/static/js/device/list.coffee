@@ -1,3 +1,4 @@
+root = exports ? this
 $('#device-list').dataTable {
 	# "aoColumns": [
 	# 	{ "bSortable": false },
@@ -73,13 +74,35 @@ $.ajax {
 		# if data is 'success'
 		# 	show_page 'device_register','设备,注册列表'
 
+@device_initial = ->
+	$('#device-initial-form').ajaxSubmit (data) ->
+		alert(data['status'])
+		$('#device-initial').on 'hidden.bs.modal', -> show_page('device_list','设备')			
+		$('#device-initial').modal('hide')
+
+
+@show_detail = (did) ->
+	root.did = did
+	$.ajax {
+		"type":"get"
+		"contentType":"application/json"
+		"url":"/device/detail?did=" + did
+		"success": (resp) ->
+			data = resp.data
+			$('#loc_interval').html data['loc_interval']
+			$('#loc_mode').html data['loc_mode']
+			$('#did').html data['did']
+			$('#cid').html data['cid']
+			$('#imei').html data['imei']
+	}
+
 $ ->
 	$('a[data-toggle="tab"]').on 'shown.bs.tab', (e)->
 		if e.target.outerText is 'Location'
 			$.ajax {
 				"type": "get"
 				"contentType":"application/json"
-				"url":"/loc/latest?did=123"
+				"url":"/loc/latest?did=" + root.did
 				"success": (resp) ->
 					console.log resp
 					map = new BMap.Map("allmap")
@@ -94,7 +117,7 @@ $ ->
 			$.ajax {
 				"type": "get"
 				"contentType":"application/json"
-				"url":"/app/list?did=1234"
+				"url":"/app/list?did="+ root.did
 				"success": (resp) ->
 					console.log resp
 					app_list = resp['data']
@@ -115,9 +138,8 @@ $ ->
 		# ] ,
 		"oLanguage": {
 			"sLengthMenu": "每页显示 _MENU_ 条记录",
-			"sZeroRecords": "抱歉， 没有找到",
 			"sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
-			"sInfoEmpty": "没有数据",
+			"sInfoEmpty": "&nbsp;",
 			"sInfoFiltered": "(从 _MAX_ 条数据中检索)",
 			"oPaginate": {
 				"sFirst": "首页",

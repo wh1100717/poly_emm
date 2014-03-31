@@ -66,6 +66,55 @@
     </div>
 </div>
 
+<!-- 设备初始化Modal -->
+<div class="modal fade" id="device-initial" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 80%;">
+        <div class="modal-content" style="padding:5%;">
+            <div class="modal-head">
+                <h1 style="position: absolute;margin-top: -10px;">模拟设备初始化</h1>
+            </div>
+            <div class="modal-body">
+                <form id="device-initial-form" class="form-horizontal" role="form" action="/android/initial" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> token </label>
+                        <div class="col-sm-9">
+                            <input type="text" placeholder="token" class="col-xs-10 col-sm-5" name="token"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> phone </label>
+                        <div class="col-sm-9">
+                            <input type="text" placeholder="phone" class="col-xs-10 col-sm-5" name="phone"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> did </label>
+                        <div class="col-sm-9">
+                            <input type="text" placeholder="did" class="col-xs-10 col-sm-5" name="did"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> cid </label>
+                        <div class="col-sm-9">
+                            <input type="text" placeholder="cid" class="col-xs-10 col-sm-5" name="cid"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> imei </label>
+                        <div class="col-sm-9">
+                            <input type="text" placeholder="imei" class="col-xs-10 col-sm-5" name="imei"/>
+                        </div>
+                    </div>
+                    <button class="btn btn-info" type="button" onclick="device_initial()">
+                        <i class="icon-ok bigger-110"></i>
+                        提交
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- 设备详细Modal -->
 <div class="modal fade" id="device-detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="width: 80%;">
@@ -75,51 +124,53 @@
             </div>
 
             <div class="modal-body">
-                <!-- Nav tabs -->
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#device_info" data-toggle="tab">Info</a></li>
-                    <li><a href="#device_loc" data-toggle="tab">Location</a></li>
-                    <li><a href="#device_app" data-toggle="tab">App</a></li>
-                </ul>
+                <div class="tabbable">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#device_info" data-toggle="tab">Info</a></li>
+                        <li><a href="#device_loc" data-toggle="tab">Location</a></li>
+                        <li><a href="#device_app" data-toggle="tab">App</a></li>
+                    </ul>
 
-                <!-- Tab panes -->
-                <div class="tab-content" style="min-height:600px">
-                    <div class="tab-pane active" id="device_info">
-                        <div class="well">
-                            <h4 class="green smaller lighter">loc_interval:</h4>
-                            <span id="loc_interval"></span>
+                    <!-- Tab panes -->
+                    <div class="tab-content" style="min-height:600px">
+                        <div class="tab-pane active" id="device_info">
+                            <div class="well">
+                                <h4 class="green smaller lighter">loc_interval:</h4>
+                                <span id="loc_interval"></span>
+                            </div>
+                            <div class="well">
+                                <h4 class="green smaller lighter">loc_mode:</h4>
+                                <span id="loc_mode"></span>
+                            </div>
+                            <div class="well">
+                                <h4 class="green smaller lighter">did:</h4>
+                                <span id="did"></span>
+                            </div>
+                            <div class="well">
+                                <h4 class="green smaller lighter">cid:</h4>
+                                <span id="cid"></span>
+                            </div>
+                            <div class="well">
+                                <h4 class="green smaller lighter">imei:</h4>
+                                <span id="imei"></span>
+                            </div>
                         </div>
-                        <div class="well">
-                            <h4 class="green smaller lighter">loc_mode:</h4>
-                            <span id="loc_mode"></span>
+                        <div class="tab-pane" id="device_loc">
+                            <div id="allmap" style="width: 95%;height: 600px;overflow: hidden;margin:0;"></div>
                         </div>
-                        <div class="well">
-                            <h4 class="green smaller lighter">did:</h4>
-                            <span id="did"></span>
+                        <div class="tab-pane" id="device_app">
+                            <table id="device_app_list" class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>appName</th>
+                                        <th>appId</th>
+                                        <th>version</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
                         </div>
-                        <div class="well">
-                            <h4 class="green smaller lighter">cid:</h4>
-                            <span id="cid"></span>
-                        </div>
-                        <div class="well">
-                            <h4 class="green smaller lighter">imei:</h4>
-                            <span id="imei"></span>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="device_loc">
-                        <div id="allmap" style="width: 95%;height: 600px;overflow: hidden;margin:0;"></div>
-                    </div>
-                    <div class="tab-pane" id="device_app">
-                        <table id="device_app_list" class="table table-striped table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>appName</th>
-                                    <th>appId</th>
-                                    <th>version</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
                     </div>
                 </div>
             </div>
@@ -132,7 +183,7 @@
         <span>设备列表</span>
         <button class="btn btn-success"  data-toggle="modal" data-target="#device-add" style="height: 38px;float:right;">添加设备</button>
         <button class="btn btn-success"  data-toggle="modal" data-target="#device-enroll" style="height: 38px;float:right;margin-right: 2px;">模拟激活</button>
-    </div>
+        <button class="btn btn-success"  data-toggle="modal" data-target="#device-initial" style="height: 38px;float:right;margin-right: 2px;">模拟设备初始化    </div>
     <table id="device-list" class="table table-striped table-bordered table-hover">
         <thead>
             <tr>

@@ -9,7 +9,7 @@ UserCollection = MongoUtil.db.user
 def enroll(tid, active_code, phone):
 	user = UserDao.get_user_by_tid(tid)
 	if not user: return RESPONSE.WRONG_TID
-	devices = user['device']
+	devices = user['devices']
 	for device in devices:
 		if device['phone'] == phone:
 			if device['active_code'] == active_code:
@@ -26,7 +26,7 @@ def enroll(tid, active_code, phone):
 def initial(token,phone,did,cid,imei):
 	user = UserDao.get_user_by_token(token)
 	if not user: return RESPONSE.WRONG_TOKEN
-	devices = user['device']
+	devices = user['devices']
 	for device in devices:
 		if device['phone'] == phone:
 			device['did'] = did
@@ -41,7 +41,7 @@ def initial(token,phone,did,cid,imei):
 def pull(token, did):
 	user = UserDao.get_user_by_token(token)
 	if not user: return RESPONSE.WRONG_TOKEN
-	devices = user['device']
+	devices = user['devices']
 	for device in devices:
 		if device['did'] == did:
 			#TODO 需要将具体的信息返回回去
@@ -52,7 +52,7 @@ def pull(token, did):
 def resp(token, did):
 	user = UserDao.get_user_by_token(token)
 	if not user: return RESPONSE.WRONG_TOKEN
-	devices = user['device']
+	devices = user['devices']
 	for device in devices:
 		if device['did'] == did:
 			#TODO 需要进行一些数据清理工作

@@ -47,6 +47,14 @@ class InitialHandler(BaseHandler):
 		imei = self.get_argument('did')
 		self.write(AndroidDao.initial(token,phone,did,cid,imei))
 
+	def post(self):
+		token = self.get_argument('token')
+		phone = self.get_argument('phone')
+		did = self.get_argument('did')
+		cid = self.get_argument('cid')
+		imei = self.get_argument('did')
+		self.write(AndroidDao.initial(token,phone,did,cid,imei))
+
 class PullHandler(BaseHandler):
 	'''设备获取数据
 		paras:

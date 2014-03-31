@@ -21,8 +21,8 @@ def update(token,did,loc_info):
 	return {'status':1}
 
 def latest(user, did):
-	device_list = user['device']
-	for device in device_list:
+	devices = user['devices']
+	for device in devices:
 		if device['did'] == did:
 			device_loc = LocCollection.find_one({'did':did})
 			loc_info_list = device_loc['loc_info']

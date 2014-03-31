@@ -3,31 +3,25 @@
 
 from util import MongoUtil
 from dao import UserDao
+from status import *
 
-AppCollection = MongoUtil.db.app
+UserCollection = MongoUtil.db.user
 
 def update(token,did,apps):
 	user = UserDao.get_user_by_token(token)
 	if not user: return {'status':0, 'desc':'wrong token'}
 
-	device_app = AppCollection.find_one({'did':'did'})
-	print "apps: ",apps
-	print "device_app: ",device_app
-	if device_app:
-		device_app['apps'] = apps
-	else:
-		device_app = {
-			'did':did,
-			'apps':apps
-		}
-	print "device_app: ", device_app
-	AppCollection.update({'did':did}, device_app, upsert=True)
-	return {'status':1}
+	devices = user['devices']
+	devices['apps'] = apps
+	UserCollection.update({'tid':user['tid']},user)
+	return RESPONSE.SUCCESS
 
 def list(did, user):
 	device_list = user['device']
 	for device in device_list:
-		if device['did'] == did:
-			device_app = AppCollection.find_one({'did':did})
-			return device_app['apps']
+		if device.has_key('did') and device['did']== did:
+			if device.has_key('apps'):
+				return device['apps']
+			else:
+				return []
 	return []

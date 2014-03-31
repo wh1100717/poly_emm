@@ -8,7 +8,7 @@ emm.user={
 	'token':'135tset24w3452y',
 	'email':'zq@qq.com',
 	'phone':'13333333333',
-	'device':[
+	'devices':[
 			{
 			'phone':'1388888888',
 			'active_code':'3er2w4',
