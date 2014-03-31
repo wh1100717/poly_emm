@@ -44,7 +44,7 @@ class InitialHandler(BaseHandler):
 		phone = self.get_argument('phone')
 		did = self.get_argument('did')
 		cid = self.get_argument('cid')
-		imei = self.get_argument('did')
+		imei = self.get_argument('imei')
 		self.write(AndroidDao.initial(token,phone,did,cid,imei))
 
 	def post(self):

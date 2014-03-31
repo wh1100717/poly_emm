@@ -3,54 +3,6 @@ var root;
 
 root = typeof exports !== "undefined" && exports !== null ? exports : this;
 
-$('#device-list').dataTable({
-  "oLanguage": {
-    "sLengthMenu": "每页显示 _MENU_ 条记录",
-    "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
-    "sInfoEmpty": "&nbsp;",
-    "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
-    "oPaginate": {
-      "sFirst": "首页",
-      "sPrevious": "前一页",
-      "sNext": "后一页",
-      "sLast": "尾页"
-    },
-    "sSearch": "搜索: ",
-    "sZeroRecords": "没有检索到数据",
-    "sProcessing": "<img src='./loading.gif' />"
-  }
-});
-
-$.ajax({
-  "type": "post",
-  "url": "device/list",
-  "success": function(data) {
-    var d, data_list, table_data, tmp, _i, _len;
-    console.log(data);
-    data_list = data['data'];
-    table_data = [];
-    for (_i = 0, _len = data_list.length; _i < _len; _i++) {
-      d = data_list[_i];
-      tmp = [];
-      tmp.push(d['owner']);
-      tmp.push(d['phone']);
-      tmp.push(d['time']);
-      if (d.active === false) {
-        tmp.push("<span class=\"btn btn-warning btn-xs tooltip-warning\" data-rel=\"tooltip\" data-placement=\"left\" data-original-title=\"tid:" + d.tid + "<br>激活码:" + d.active_code + "<br>手机号:" + d.phone + "\" style=\"width: 64px;\">未激活</span>");
-      } else if (d.did != null) {
-        tmp.push("<button type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#device-detail' onclick='show_detail(\"" + d['did'] + "\")'>设备详情</button>");
-      } else {
-        tmp.push("<span class=\"btn btn-info btn-xs\" style=\"width: 64px;\">正在激活</span>");
-      }
-      table_data.push(tmp);
-    }
-    $("#device-list").dataTable().fnAddData(table_data);
-    $('[data-rel=tooltip]').tooltip({
-      'html': true
-    });
-  }
-});
-
 this.update_user = function(uid) {
   return $.ajax({
     "type": "get",
@@ -93,8 +45,15 @@ this.device_initial = function() {
   });
 };
 
+this.msg_push = function() {
+  return $('#msg-push-form').ajaxSubmit(function(data) {
+    return alert(data);
+  });
+};
+
 this.show_detail = function(did) {
   root.did = did;
+  $('#msg_push_did').val(did);
   return $.ajax({
     "type": "get",
     "contentType": "application/json",
@@ -112,6 +71,52 @@ this.show_detail = function(did) {
 };
 
 $(function() {
+  $('#device-list').dataTable({
+    "oLanguage": {
+      "sLengthMenu": "每页显示 _MENU_ 条记录",
+      "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+      "sInfoEmpty": "&nbsp;",
+      "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
+      "oPaginate": {
+        "sFirst": "首页",
+        "sPrevious": "前一页",
+        "sNext": "后一页",
+        "sLast": "尾页"
+      },
+      "sSearch": "搜索: ",
+      "sZeroRecords": "没有检索到数据",
+      "sProcessing": "<img src='./loading.gif' />"
+    }
+  });
+  $.ajax({
+    "type": "post",
+    "url": "device/list",
+    "success": function(data) {
+      var d, data_list, table_data, tmp, _i, _len;
+      console.log(data);
+      data_list = data['data'];
+      table_data = [];
+      for (_i = 0, _len = data_list.length; _i < _len; _i++) {
+        d = data_list[_i];
+        tmp = [];
+        tmp.push(d['owner']);
+        tmp.push(d['phone']);
+        tmp.push(d['time']);
+        if (d.active === false) {
+          tmp.push("<span class=\"btn btn-warning btn-xs tooltip-warning\" data-rel=\"tooltip\" data-placement=\"left\" data-original-title=\"tid:" + d.tid + "<br>激活码:" + d.active_code + "<br>手机号:" + d.phone + "\" style=\"width: 64px;\">未激活</span>");
+        } else if (d.did != null) {
+          tmp.push("<button type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#device-detail' onclick='show_detail(\"" + d['did'] + "\")'>设备详情</button>");
+        } else {
+          tmp.push("<span class=\"btn btn-info btn-xs\" style=\"width: 64px;\">正在激活</span>");
+        }
+        table_data.push(tmp);
+      }
+      $("#device-list").dataTable().fnAddData(table_data);
+      $('[data-rel=tooltip]').tooltip({
+        'html': true
+      });
+    }
+  });
   $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
     if (e.target.outerText === 'Location') {
       return $.ajax({

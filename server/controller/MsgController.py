@@ -1,28 +1,26 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from base import *
+from status import *
 from dao import MsgDao
+from util import IgetuiUtil
 
-
-
-class PullListHandler(BaseHandler):
-	def get(self):
-		token = self.get_argument('token')
+class PushHandler(AuthenHandler):
+	def post(self):
+		title = self.get_argument('title')
+		content = self.get_argument('content')
 		did = self.get_argument('did')
-		last_msgid = self.get_argument('last_msgid')
-		result = MsgDao.pull_list(token,did,last_msgid)
-		self.write(result)
-
-class PullHandler(BaseHandler):
-	def get(self):
-		token = self.get_argument('token')
-		did = self.get_argument('did')
-		msgid = self.get_argument('msgid')
-		result = MsgDao.pull(token,did,msgid)
-		self.write(result)
-
+		user = self.get_user()
+		cid = MsgDao.push(title,content,did,user)
+		if cid == 0:
+			self.write(RESPONSE.FAIL)
+			return
+		template = IgetuiUtil.generateTrasmissionTemplate(transmissionContent = {'type':1})
+		response = IgetuiUtil.pushMessageToSingle(cid=cid,template=template)
+		print response
+		self.write('123')
 
 handlers = [
-	(r"/msg/pull_list", PullListHandler),
-	(r"/msg/pull", PullHandler),
+	(r"/msg/push", PushHandler),
 ]

@@ -1,18 +1,25 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import platform
+import os
+import sys
+reload(sys)
+
+pwd = os.getcwd()
+if platform.system().lower() == 'windows':
+	pwd += '\\sdk'
+	sys.setdefaultencoding('gbk')
+else:
+	pwd += '/sdk'
+	sys.setdefaultencoding('utf-8')
+sys.path.append(pwd)
+
 import tornado.ioloop
 import tornado.web
 import settings
 import handler
 
-import platform
-import sys
-reload(sys)
 
-if platform.system().lower() == 'windows':
-	sys.setdefaultencoding('gbk')
-else:
-	sys.setdefaultencoding('utf-8')
 
 application = tornado.web.Application(handler.handlers, **settings.__server_config__)
 

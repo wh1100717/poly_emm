@@ -50,8 +50,8 @@ def pushMessageToSingle(
     message.isOffline = isOffline
     message.offlineExpireTime = offlineExpireTime
     message.data = template
-    message.phoneTypeList.extend(phoneTypeList)
-    message.provinceList.extend(provinceList)
+    # message.phoneTypeList.extend(phoneTypeList)
+    # message.provinceList.extend(provinceList)
 
     target = Target()
     target.appId = appId

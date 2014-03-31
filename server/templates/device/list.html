@@ -127,9 +127,10 @@
                 <div class="tabbable">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#device_info" data-toggle="tab">Info</a></li>
-                        <li><a href="#device_loc" data-toggle="tab">Location</a></li>
-                        <li><a href="#device_app" data-toggle="tab">App</a></li>
+                        <li class="active"><a href="#device_info" data-toggle="tab">设备信息</a></li>
+                        <li><a href="#device_loc" data-toggle="tab">位置</a></li>
+                        <li><a href="#device_app" data-toggle="tab">应用</a></li>
+                        <li><a href="#device_msg" data-toggle="tab">消息</a></li>
                     </ul>
 
                     <!-- Tab panes -->
@@ -171,6 +172,28 @@
                                 <tbody></tbody>
                             </table>
                         </div>
+                        <div class="tab-pane" id="device_msg">
+                            <form id="msg-push-form" class="form-horizontal" role="form" action="/msg/push" method="post">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> title </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" placeholder="title" class="col-xs-10 col-sm-5" name="title"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> content </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" placeholder="content" class="col-xs-10 col-sm-5" name="content"/>
+                                    </div>
+                                </div>
+                                <input id="msg_push_did" type="text" name="did" style="display: none;"/>
+                                <button class="btn btn-info" type="button" onclick="msg_push()">
+                                    <i class="icon-ok bigger-110"></i>
+                                    提交
+                                </button>
+                            </form>
+                        </div>
+
                     </div>
                 </div>
             </div>

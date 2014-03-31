@@ -10,6 +10,7 @@ from controller import LocController
 from controller import AppController
 from controller import BlackListController
 from controller import AndroidController
+from controller import MsgController
 
 handlers = []
 
@@ -42,6 +43,8 @@ handlers += LocController.handlers
 handlers += AppController.handlers
 
 handlers += BlackListController.handlers
+
+handlers += MsgController.handlers
 
 handlers += AndroidController.handlers
 
