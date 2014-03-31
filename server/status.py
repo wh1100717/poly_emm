@@ -29,7 +29,7 @@ class RESPONSE:
 	#未授权
 	UN_AUTHENTIFIC = {'status':0, 'desc':'没有该设备的控制权限'}
 	WRONG_TID = {'status':0, 'desc':'错误的tid'}
-	WRONG_DID = {'status'：0, 'desc':'错误的did'}
+	WRONG_DID = {'status':0, 'desc':'错误的did'}
 	WRONG_TOKEN = {'status':0, 'desc':'错误的token'}
 	WRONG_ACTIVE_CODE = {'status':0, 'desc':'错误的active_code'}
 	WRONG_PHONE = {'status':0, 'desc':'错误的手机号'}

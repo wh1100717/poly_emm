@@ -16,6 +16,9 @@ class AddHandler(AuthenHandler):
 
 class ListHandler(AuthenHandler):
 	def get(self):
+		self.write(self.render_template('device/list'))
+
+	def post(self):
 		user = self.get_user()
 		response = RESPONSE.LIST_SUCCESS
 		response['data'] = DeviceDao.list(user)

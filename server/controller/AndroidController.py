@@ -21,6 +21,12 @@ class EnrollHandler(BaseHandler):
 		phone = self.get_argument('phone')
 		self.write(AndroidDao.enroll(tid, active_code, phone))
 
+	def post(self):
+		tid = self.get_argument('tid')
+		active_code = self.get_argument('active_code')
+		phone = self.get_argument('phone')
+		self.write(AndroidDao.enroll(tid, active_code, phone))
+
 class InitialHandler(BaseHandler):
 	'''设备初始化
 		paras:
@@ -79,7 +85,7 @@ handlers = [
 	(r"/android/enroll", EnrollHandler),
 	(r"/android/initial", InitialHandler),
 	(r"/android/pull", PullHandler),
-	(r"/android/resp", RespHanlder),
+	(r"/android/resp", RespHandler),
 ]
 
 

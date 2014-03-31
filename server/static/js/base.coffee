@@ -53,7 +53,7 @@ $ ->
 			menu_html = ""
 			for menu in menulist
 				submenu = menu['submenu']
-				if submenu is ""
+				if submenu is "" or submenu is undefined
 					menu_html += """
 						<li id="#{menu['id']}">
 							<a href = "javascript:void(0)" onclick="show_page('#{menu['id']}','#{menu['name']}')">

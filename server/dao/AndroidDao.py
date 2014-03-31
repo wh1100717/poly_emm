@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 from dao import UserDao
 from status import *
+from util import MongoUtil
+
+UserCollection = MongoUtil.db.user
 
 def enroll(tid, active_code, phone):
 	user = UserDao.get_user_by_tid(tid)

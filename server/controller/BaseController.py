@@ -9,15 +9,15 @@ class ConfigHandler(BaseHandler):
 		#TODO 根据UserDao根据user获取相应的配置权限来返回配置信息，以下为假数据
 		menulist = [
 			{
-				'id':'device_menu',
+				'id':'device_list',
 				'icon':'icon-laptop',
-				'name':'设备',
-				'submenu':[
-					{'name':'注册列表','id':'device_register'},
-					{'name':'激活设备','id':'device_active'},
-					# {'name':'在线记录','id':'device_online'},
-					# {'name':'设备组','id':'device_group'}
-					]
+				'name':'设备'
+				# 'submenu':[
+				# 	{'name':'注册列表','id':'device_register'},
+				# 	{'name':'激活设备','id':'device_active'},
+				# 	# {'name':'在线记录','id':'device_online'},
+				# 	# {'name':'设备组','id':'device_group'}
+				# 	]
 			},
 			# {
 			# 	'id':'policy_menu',
@@ -31,7 +31,7 @@ class ConfigHandler(BaseHandler):
 				'name':'应用',
 				'submenu':[
 					{'name':'应用列表','id':'app_list'},
-					{'name':'黑名单管理','id':'blacklist_list'},
+					{'name':'黑名单管理','id':'blacklist_list'}
 					# {'name':'ios应用','id':'#'},
 					# {'name':'ios应用策略','id':'#'},
 					# {'name':'ios应用审计','id':'#'}

@@ -1,0 +1,157 @@
+<!-- 添加设备Modal -->
+<div class="modal fade" id="device-add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 80%;">
+        <div class="modal-content" style="padding:5%;">
+            <div class="modal-head">
+                <h1 style="position: absolute;margin-top: -10px;">添加设备</h1>
+            </div>
+            <div class="modal-body">
+                <form id="device-add-form" class="form-horizontal" role="form" action="/device/add" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 手机号 </label>
+                        <div class="col-sm-9">
+                            <input type="text" placeholder="手机号" class="col-xs-10 col-sm-5" name="phone"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 拥有人 </label>
+                        <div class="col-sm-9">
+                            <input type="text" placeholder="拥有人" class="col-xs-10 col-sm-5" name="owner"/>
+                        </div>
+                    </div>
+                    <button class="btn btn-info" type="button" onclick="device_add()">
+                        <i class="icon-ok bigger-110"></i>
+                        提交
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 登记设备Modal -->
+<div class="modal fade" id="device-enroll" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 80%;">
+        <div class="modal-content" style="padding:5%;">
+            <div class="modal-head">
+                <h1 style="position: absolute;margin-top: -10px;">模拟登记设备</h1>
+            </div>
+            <div class="modal-body">
+                <form id="device-enroll-form" class="form-horizontal" role="form" action="/android/enroll" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> tid </label>
+                        <div class="col-sm-9">
+                            <input type="text" placeholder="tid" class="col-xs-10 col-sm-5" name="tid"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> active_code </label>
+                        <div class="col-sm-9">
+                            <input type="text" placeholder="active_code" class="col-xs-10 col-sm-5" name="active_code"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> phone </label>
+                        <div class="col-sm-9">
+                            <input type="text" placeholder="phone" class="col-xs-10 col-sm-5" name="phone"/>
+                        </div>
+                    </div>
+                    <button class="btn btn-info" type="button" onclick="device_enroll()">
+                        <i class="icon-ok bigger-110"></i>
+                        提交
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 设备详细Modal -->
+<div class="modal fade" id="device-detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 80%;">
+        <div class="modal-content" style="padding:5%;">
+            <div class="modal-head">
+                <h1 style="position: absolute;margin-top: -10px;">设备详细页</h1>
+            </div>
+
+            <div class="modal-body">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#device_info" data-toggle="tab">Info</a></li>
+                    <li><a href="#device_loc" data-toggle="tab">Location</a></li>
+                    <li><a href="#device_app" data-toggle="tab">App</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content" style="min-height:600px">
+                    <div class="tab-pane active" id="device_info">
+                        <div class="well">
+                            <h4 class="green smaller lighter">loc_interval:</h4>
+                            <span id="loc_interval"></span>
+                        </div>
+                        <div class="well">
+                            <h4 class="green smaller lighter">loc_mode:</h4>
+                            <span id="loc_mode"></span>
+                        </div>
+                        <div class="well">
+                            <h4 class="green smaller lighter">did:</h4>
+                            <span id="did"></span>
+                        </div>
+                        <div class="well">
+                            <h4 class="green smaller lighter">cid:</h4>
+                            <span id="cid"></span>
+                        </div>
+                        <div class="well">
+                            <h4 class="green smaller lighter">imei:</h4>
+                            <span id="imei"></span>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="device_loc">
+                        <div id="allmap" style="width: 95%;height: 600px;overflow: hidden;margin:0;"></div>
+                    </div>
+                    <div class="tab-pane" id="device_app">
+                        <table id="device_app_list" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>appName</th>
+                                    <th>appId</th>
+                                    <th>version</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <div class="table-header">
+        <span>设备列表</span>
+        <button class="btn btn-success"  data-toggle="modal" data-target="#device-add" style="height: 38px;float:right;">添加设备</button>
+        <button class="btn btn-success"  data-toggle="modal" data-target="#device-enroll" style="height: 38px;float:right;margin-right: 2px;">模拟激活</button>
+    </div>
+    <table id="device-list" class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>拥有人</th>
+                <th>手机号</th>
+                <th><i class="icon-time bigger-110 hidden-480"></i>创建时间</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+
+
+
+<!-- page specific plugin scripts -->
+
+<script src="static/assets/js/jquery.dataTables.min.js"></script>
+<script src="static/assets/js/jquery.dataTables.bootstrap.js"></script>
+<script src="/static/assets/js/jquery.form.js"></script>
+<script src="static/js/device/list.js"></script>

@@ -48,7 +48,7 @@ $(function() {
       for (_i = 0, _len = menulist.length; _i < _len; _i++) {
         menu = menulist[_i];
         submenu = menu['submenu'];
-        if (submenu === "") {
+        if (submenu === "" || submenu === void 0) {
           menu_html += "<li id=\"" + menu['id'] + "\">\n	<a href = \"javascript:void(0)\" onclick=\"show_page('" + menu['id'] + "','" + menu['name'] + "')\">\n		<i class=\"" + menu['icon'] + "\"></i>\n		<span class=\"menu-text\"> " + menu['name'] + " </span>\n	</a>\n</li>";
         } else {
           menu_html += "<li id=\"" + menu['id'] + "\">\n	<a href=\"javascript:void(0)\" class=\"dropdown-toggle\">\n		<i class=\"" + menu['icon'] + "\"></i>\n		<span class=\"menu-text\"> " + menu['name'] + " </span>\n                                <b class=\"arrow icon-angle-down\"></b>\n	</a>\n	<ul class=\"submenu\">";
