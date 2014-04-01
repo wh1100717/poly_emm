@@ -10,8 +10,10 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.igexin.slavesdk.MessageManager;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -89,7 +91,14 @@ public class MainActivity extends Activity implements OnClickListener {
 
 				}
 				Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-
+				Intent intent=new Intent();
+		    	intent.setClass(MainActivity.this,getui.class);
+		    	Bundle bundle=new Bundle();
+		    	bundle.putString("uid", s_uid);//用户ID
+		    	bundle.putString("uname", s_tid);//用户名
+		    	intent.putExtras(bundle);
+		    	startActivity(intent);
+		    	MainActivity.this.finish();//关闭当前视图
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
