@@ -46,13 +46,14 @@ import com.igexin.sdk.Consts;
 import com.igexin.sdk.aidl.GexinSdkNetstat;
 import com.igexin.sdk.aidl.Tag;
 import com.igexin.slavesdk.MessageManager;
+import android.content.BroadcastReceiver;
 
 public class getui extends Activity implements OnClickListener {
 
 	/**
 	 * 第三方应用Master Secret，修改为正确的值
 	 */
-	private static final String MASTERSECRET = "a02a76119b20d4e31620d7597a3b4f35";
+	private static final String MASTERSECRET = "rB2XGcvaEI7tKlOei2DEk2";
 
 	// 菜单
 	private static final int ADDTAG = 100;

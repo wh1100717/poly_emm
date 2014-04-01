@@ -50,6 +50,7 @@ __mongo_config__ = {
 __igetui_config__ ={
 	'APPID':'nWIRryAO53AfFBfZ0Rh8I2',
 	'APPKEY': 'Dsf5tKnaMp5KGad4XFV1k4',
+	'APPSECRET': 'TstciQh9S878e6AQrq6jP4',
 	'MASTERSECRET':'rB2XGcvaEI7tKlOei2DEk2',
 	'HOST':'http://sdk.open.api.igexin.com/apiex.htm',
 	'CALLBACKURL':'',

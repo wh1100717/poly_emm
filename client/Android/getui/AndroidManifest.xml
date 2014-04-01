@@ -52,10 +52,16 @@
         <meta-data
             android:name="appkey"
             android:value="Dsf5tKnaMp5KGad4XFV1k4" />
-        <meta-data
-            android:name="groupid"
-            android:value="" />
 
+        <receiver
+            android:name="com.example.getui.GexinSdkMsgReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.nWIRryAO53AfFBfZ0Rh8I2" />
+                <!-- com.igexin.sdk.action.第三方的appId -->
+            </intent-filter>
+        </receiver>
+        
         <activity
             android:name="com.igexin.sdk.SdkActivity"
             android:excludeFromRecents="true"

@@ -36,6 +36,7 @@ public final class R {
         public static final int btn_service=0x7f08000f;
         public static final int button1=0x7f080003;
         public static final int durationText=0x7f080013;
+        public static final int phone=0x7f080000;
         public static final int tid=0x7f080001;
         public static final int tvappid=0x7f080007;
         public static final int tvappkey=0x7f080004;
@@ -44,7 +45,6 @@ public final class R {
         public static final int tvlog=0x7f08000c;
         public static final int tvloglabel=0x7f08000b;
         public static final int tvmastersecret=0x7f080006;
-        public static final int uid=0x7f080000;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -69,6 +69,7 @@ public final class R {
         public static final int hello_world=0x7f050001;
         public static final int jihuo=0x7f050002;
         public static final int no_clientid=0x7f05000a;
+        public static final int phone=0x7f050005;
         public static final int pmsg=0x7f050010;
         public static final int psmsg=0x7f050011;
         public static final int send_msg=0x7f050016;
@@ -76,7 +77,6 @@ public final class R {
         public static final int start=0x7f05000b;
         public static final int stop=0x7f05000c;
         public static final int tid=0x7f050004;
-        public static final int uid=0x7f050005;
         public static final int up=0x7f050008;
     }
     public static final class style {

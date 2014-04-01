@@ -20,12 +20,12 @@
             android:layout_height="wrap_content"
             android:layout_x="40px"
             android:layout_y="28px"
-            android:text="@string/uid"
+            android:text="@string/phone"
             android:textSize="18sp" >
         </TextView>
 
         <EditText
-            android:id="@+id/uid"
+            android:id="@+id/phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_x="115px"

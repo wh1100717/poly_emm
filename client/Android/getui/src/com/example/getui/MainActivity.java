@@ -23,10 +23,10 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener {
 	Button loginButton;
-	EditText uid;
+	EditText phone;
 	EditText tid;
 	EditText active_code;
-	String s_uid;
+	String s_phone;
 	String s_tid;
 	String s_active_code;
 
@@ -36,7 +36,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_main);
 		loginButton = (Button) findViewById(R.id.button1);
 		loginButton.setOnClickListener(this);
-		uid = (EditText) findViewById(R.id.uid);
+		phone = (EditText) findViewById(R.id.phone);
 		tid = (EditText) findViewById(R.id.tid);
 		active_code = (EditText) findViewById(R.id.active_code);
 		MessageManager.getInstance().initialize(this.getApplicationContext());
@@ -54,15 +54,15 @@ public class MainActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		if (v == loginButton) {
 			// 提取用户名及密码值
-			s_uid = uid.getText().toString();
+			s_phone = phone.getText().toString();
 			s_tid = tid.getText().toString();
 			s_active_code = active_code.getText().toString();
-			if (s_uid.equals("")) {
-				Toast.makeText(this, "uid不可以为空！", Toast.LENGTH_SHORT).show();
+			if (s_phone.equals("")) {
+				Toast.makeText(this, "phone不可以为空！", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			if (s_tid.equals("")) {
-				Toast.makeText(this, "uid不可以为空", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "tid不可以为空", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			if (s_active_code.equals("")) {
@@ -71,7 +71,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 
 			String baseURL = "http://10.0.2.2/android/enroll?tid=" + s_tid
-					+ "&active_code=" + s_active_code + "&phone=" + s_uid;
+					+ "&active_code=" + s_active_code + "&phone=" + s_phone;
 			System.out.println(baseURL);
 			HttpGet httpGet = new HttpGet(baseURL);
 			HttpClient httpClient = new DefaultHttpClient();
