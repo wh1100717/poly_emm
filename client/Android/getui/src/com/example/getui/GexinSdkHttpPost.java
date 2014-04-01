@@ -28,24 +28,24 @@ public class GexinSdkHttpPost {
 			try {
 				url = new URL(SERVICEURL);
 				HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
-				urlConn.setDoInput(true); // 璁剧疆杈撳叆娴侀噰鐢ㄥ瓧鑺傛祦
-				urlConn.setDoOutput(true); // 璁剧疆杈撳嚭娴侀噰鐢ㄥ瓧鑺傛祦
+				urlConn.setDoInput(true); 
+				urlConn.setDoOutput(true); 
 				urlConn.setRequestMethod("POST");
-				urlConn.setUseCaches(false); // 璁剧疆缂撳瓨
+				urlConn.setUseCaches(false); 
 				urlConn.setRequestProperty("Charset", "utf-8");
 				urlConn.setConnectTimeout(CONNECTION_TIMEOUT_INT);
 				urlConn.setReadTimeout(READ_TIMEOUT_INT);
 
-				urlConn.connect(); // 杩炴帴鏃㈠線鏈嶅姟绔彂閫佹秷鎭�
+				urlConn.connect(); 
 
 				DataOutputStream dop = new DataOutputStream(urlConn.getOutputStream());
-				dop.write(param.getBytes("utf-8")); // 鍙戦�鍙傛暟
-				dop.flush(); // 鍙戦�锛屾竻绌虹紦瀛�
-				dop.close(); // 鍏抽棴
+				dop.write(param.getBytes("utf-8")); 
+				dop.flush(); 
+				dop.close(); 
 
-				// 涓嬮潰寮�鍋氭帴鏀跺伐浣�
+				
 				BufferedReader bufferReader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
-				String result = ""; // 鑾峰彇鏈嶅姟鍣ㄨ繑鍥炴暟鎹�
+				String result = ""; 
 				String readLine = null;
 				while ((readLine = bufferReader.readLine()) != null) {
 					result += readLine;
@@ -53,7 +53,7 @@ public class GexinSdkHttpPost {
 				bufferReader.close();
 				urlConn.disconnect();
 
-				System.out.println("result锛�" + result);
+				System.out.println("result" + result);
 
 			} catch (MalformedURLException e) {
 				e.printStackTrace();

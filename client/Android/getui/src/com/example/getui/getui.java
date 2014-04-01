@@ -1,7 +1,7 @@
 package com.example.getui;
 
 /*
- * ÍÆËÍSDKÑİÊ¾¹¤³Ì
+ * æ¨é€SDKæ¼”ç¤ºå·¥ç¨‹
  * 
  * SDK Ver: 1.1.14.2
  */
@@ -50,11 +50,11 @@ import com.igexin.slavesdk.MessageManager;
 public class getui extends Activity implements OnClickListener {
 
 	/**
-	 * µÚÈı·½Ó¦ÓÃMaster Secret£¬ĞŞ¸ÄÎªÕıÈ·µÄÖµ
+	 * ç¬¬ä¸‰æ–¹åº”ç”¨Master Secretï¼Œä¿®æ”¹ä¸ºæ­£ç¡®çš„å€¼
 	 */
 	private static final String MASTERSECRET = "a02a76119b20d4e31620d7597a3b4f35";
 
-	// ²Ëµ¥
+	// èœå•
 	private static final int ADDTAG = 100;
 	private static final int NETSTAT = 101;
 	private static final int VERSION = 102;
@@ -62,7 +62,7 @@ public class getui extends Activity implements OnClickListener {
 	private static final int SILENTTIME = 104;
 	private static final int EXIT = 106;
 
-	// UI¿Ø¼ş
+	// UIæ§ä»¶
 	private Button btn_clear = null;
 	private Button btn_service = null;
 	private Button btn_enablelog = null;
@@ -78,15 +78,15 @@ public class getui extends Activity implements OnClickListener {
 	private Button btn_send_msg = null;
 
 	/**
-	 * SDK·şÎñÊÇ·ñÆô¶¯
+	 * SDKæœåŠ¡æ˜¯å¦å¯åŠ¨
 	 */
 	private boolean tIsRunning = true;
 	private Context mContext = null;
 	private SimpleDateFormat formatter = null;
 	private Date curDate = null;
 
-	// SDK²ÎÊı£¬»á×Ô¶¯´ÓManifestÎÄ¼şÖĞ¶ÁÈ¡£¬µÚÈı·½ÎŞĞèĞŞ¸ÄÏÂÁĞ±äÁ¿£¬ÇëĞŞ¸ÄAndroidManifest.xmlÎÄ¼şÖĞÏàÓ¦µÄmeta-dataĞÅÏ¢¡£
-	// ĞŞ¸Ä·½Ê½²Î¼û¸öÍÆSDKÎÄµµ
+	// SDKå‚æ•°ï¼Œä¼šè‡ªåŠ¨ä»Manifestæ–‡ä»¶ä¸­è¯»å–ï¼Œç¬¬ä¸‰æ–¹æ— éœ€ä¿®æ”¹ä¸‹åˆ—å˜é‡ï¼Œè¯·ä¿®æ”¹AndroidManifest.xmlæ–‡ä»¶ä¸­ç›¸åº”çš„meta-dataä¿¡æ¯ã€‚
+	// ä¿®æ”¹æ–¹å¼å‚è§ä¸ªæ¨SDKæ–‡æ¡£
 	private String appkey = "";
 	private String appsecret = "";
 	private String appid = "";
@@ -95,8 +95,8 @@ public class getui extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// UI³õÊ¼»¯
-		setContentView(R.layout.activity_main);
+		// UIåˆå§‹åŒ–
+		setContentView(R.layout.getui);
 		mContext = this;
 		tIsRunning = true;
 		btn_clear = (Button) findViewById(R.id.btn_clear);
@@ -126,7 +126,7 @@ public class getui extends Activity implements OnClickListener {
 
 		formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-		// ´ÓAndroidManifest.xmlµÄmeta-dataÖĞ¶ÁÈ¡SDKÅäÖÃĞÅÏ¢
+		// ä»AndroidManifest.xmlçš„meta-dataä¸­è¯»å–SDKé…ç½®ä¿¡æ¯
 		String packageName = getApplicationContext().getPackageName();
 		ApplicationInfo appInfo;
 		try {
@@ -148,10 +148,10 @@ public class getui extends Activity implements OnClickListener {
 		tMasterSecretView.setText("MasterSecret=" + MASTERSECRET);
 		tAppIdView.setText("AppID=" + appid);
 
-		// SDK³õÊ¼»¯£¬µÚÈı·½³ÌĞòÆô¶¯Ê±£¬¶¼Òª½øĞĞSDK³õÊ¼»¯¹¤×÷
+		// SDKåˆå§‹åŒ–ï¼Œç¬¬ä¸‰æ–¹ç¨‹åºå¯åŠ¨æ—¶ï¼Œéƒ½è¦è¿›è¡ŒSDKåˆå§‹åŒ–å·¥ä½œ
 		Log.d("GexinSdkDemo", "initializing sdk...");
 		
-		MessageManager.getInstance().initialize(this.getApplicationContext());
+	
 	}
 
 	@Override
@@ -172,22 +172,22 @@ public class getui extends Activity implements OnClickListener {
 
 			final View view = new EditText(this);
 			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-			alertBuilder.setTitle("ÊäÈëÉÏ´«Êı¾İ").setNegativeButton("È¡Ïû", new DialogInterface.OnClickListener() {
+			alertBuilder.setTitle("è¾“å…¥ä¸Šä¼ æ•°æ®").setNegativeButton("å–æ¶ˆ", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					dialog.dismiss();
 				}
-			}).setPositiveButton("È·¶¨", new DialogInterface.OnClickListener() {
+			}).setPositiveButton("ç¡®å®š", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					TextView text = (TextView) view;
 
 					byte[] uploadData = text.getText().toString().getBytes();
 
-					// µÚÈı·½·¢ËÍÉÏĞĞÏûÏ¢²âÊÔ
+					// ç¬¬ä¸‰æ–¹å‘é€ä¸Šè¡Œæ¶ˆæ¯æµ‹è¯•
 					boolean result = MessageManager.getInstance().sendMessage(getui.this, String.valueOf(System.currentTimeMillis()),
 							uploadData);
 
-					Toast.makeText(mContext, "ÉÏ´«½á¹û:" + result, Toast.LENGTH_SHORT).show();
-					Log.d("GexinSdkDemo", "ÉÏ´«Êı¾İ:" + text.getText().toString());
+					Toast.makeText(mContext, "ä¸Šä¼ ç»“æœ:" + result, Toast.LENGTH_SHORT).show();
+					Log.d("GexinSdkDemo", "ä¸Šä¼ æ•°æ®:" + text.getText().toString());
 
 					dialog.dismiss();
 				}
@@ -195,7 +195,7 @@ public class getui extends Activity implements OnClickListener {
 			alertBuilder.create().show();
 
 		} else if (v == btn_clear) {
-			// ¿ªÆôÈÕÖ¾£¨½öÕë¶ÔÈÕÖ¾°æSDK£¬ÏÖÍø°æ±¾SDK²»Ö§³Ö¸Ã½Ó¿Ú£©
+			// å¼€å¯æ—¥å¿—ï¼ˆä»…é’ˆå¯¹æ—¥å¿—ç‰ˆSDKï¼Œç°ç½‘ç‰ˆæœ¬SDKä¸æ”¯æŒè¯¥æ¥å£ï¼‰
 			MessageManager.getInstance().setLogEnable(this.getApplicationContext(), true);
 
 			// clear log box
@@ -204,62 +204,62 @@ public class getui extends Activity implements OnClickListener {
 		} else if (v == btn_service) {
 			if (tIsRunning) {
 
-				// µ±Ç°ÎªÔËĞĞ×´Ì¬£¬Í£Ö¹SDK·şÎñ
+				// å½“å‰ä¸ºè¿è¡ŒçŠ¶æ€ï¼Œåœæ­¢SDKæœåŠ¡
 				Log.d("GexinSdkDemo", "stopping sdk...");
 				MessageManager.getInstance().stopService(this.getApplicationContext());
 
-				// UI¸üĞÂ
+				// UIæ›´æ–°
 				tView.setText(getResources().getString(R.string.no_clientid));
 				btn_service.setText(getResources().getString(R.string.start));
 
 				tIsRunning = false;
 			} else {
-				// µ±Ç°Î´ÔËĞĞ×´Ì¬£¬Æô¶¯SDK·şÎñ
+				// å½“å‰æœªè¿è¡ŒçŠ¶æ€ï¼Œå¯åŠ¨SDKæœåŠ¡
 				Log.d("GexinSdkDemo", "reinitializing sdk...");
 
-				// ÖØĞÂ³õÊ¼»¯sdk
+				// é‡æ–°åˆå§‹åŒ–sdk
 				MessageManager.getInstance().initialize(this.getApplicationContext());
 
-				// UI¸üĞÂ
+				// UIæ›´æ–°
 				btn_service.setText(getResources().getString(R.string.stop));
 				tIsRunning = true;
 			}
 		} else if (v == btn_enablelog) {
-			// ¿ªÆôÈÕÖ¾¹¦ÄÜ
+			// å¼€å¯æ—¥å¿—åŠŸèƒ½
 			MessageManager.getInstance().setLogEnable(this.getApplicationContext(), true);
 
-			Toast.makeText(this, "µ÷ÊÔÈÕÖ¾ÒÑ´ò¿ª", Toast.LENGTH_SHORT).show();
-			Log.d("GexinSdkDemo", "µ÷ÊÔÈÕÖ¾ÒÑ´ò¿ª");
+			Toast.makeText(this, "è°ƒè¯•æ—¥å¿—å·²æ‰“å¼€", Toast.LENGTH_SHORT).show();
+			Log.d("GexinSdkDemo", "è°ƒè¯•æ—¥å¿—å·²æ‰“å¼€");
 		} else if (v == btn_bindcell) {
-			// ²âÊÔºÅÂë°ó¶¨½Ó¿Ú
+			// æµ‹è¯•å·ç ç»‘å®šæ¥å£
 			MessageManager.getInstance().bindPhoneAddress(this.getApplicationContext());
-			Toast.makeText(this, "ºÅÂë°ó¶¨ÇëÇóÒÑ·¢ËÍ£¬ÇëÉÔºò...", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "å·ç ç»‘å®šè¯·æ±‚å·²å‘é€ï¼Œè¯·ç¨å€™...", Toast.LENGTH_SHORT).show();
 
 		} else if (v == btn_pmsg) {
 
 			if (isNetworkConnected()) {
 
 				Map<String, Object> param = new HashMap<String, Object>();
-				param.put("action", "pushmessage"); // pushmessageÎª½Ó¿ÚÃû£¬×¢ÒâÈ«²¿Ğ¡Ğ´
-				/*---ÒÔÏÂ´úÂëÓÃÓÚÉè¶¨½Ó¿ÚÏàÓ¦²ÎÊı---*/
+				param.put("action", "pushmessage"); // pushmessageä¸ºæ¥å£åï¼Œæ³¨æ„å…¨éƒ¨å°å†™
+				/*---ä»¥ä¸‹ä»£ç ç”¨äºè®¾å®šæ¥å£ç›¸åº”å‚æ•°---*/
 				param.put("appkey", appkey);
 				param.put("appid", appid);
-				// ×¢£ºÍ¸´«ÄÚÈİºóÃæĞèÓÃÀ´ÑéÖ¤½Ó¿Úµ÷ÓÃÊÇ·ñ³É¹¦£¬¼Ù¶¨ÌîĞ´Îªhello girl~
-				param.put("data", "ÕâÊÇÒ»ÌõÍ¸´«²âÊÔÏûÏ¢");
+				// æ³¨ï¼šé€ä¼ å†…å®¹åé¢éœ€ç”¨æ¥éªŒè¯æ¥å£è°ƒç”¨æ˜¯å¦æˆåŠŸï¼Œå‡å®šå¡«å†™ä¸ºhello girl~
+				param.put("data", "è¿™æ˜¯ä¸€æ¡é€ä¼ æµ‹è¯•æ¶ˆæ¯");
 
 				curDate = new Date(System.currentTimeMillis());
-				param.put("time", formatter.format(curDate)); // µ±Ç°ÇëÇóÊ±¼ä£¬¿ÉÑ¡
-				param.put("clientid", tView.getText().toString()); // Äú»ñÈ¡µÄClientID
-				param.put("expire", 3600); // ÏûÏ¢³¬Ê±Ê±¼ä£¬µ¥Î»ÎªÃë£¬¿ÉÑ¡
+				param.put("time", formatter.format(curDate)); // å½“å‰è¯·æ±‚æ—¶é—´ï¼Œå¯é€‰
+				param.put("clientid", tView.getText().toString()); // æ‚¨è·å–çš„ClientID
+				param.put("expire", 3600); // æ¶ˆæ¯è¶…æ—¶æ—¶é—´ï¼Œå•ä½ä¸ºç§’ï¼Œå¯é€‰
 
-				// Éú³ÉSignÖµ£¬ÓÃÓÚ¼øÈ¨
+				// ç”ŸæˆSignå€¼ï¼Œç”¨äºé‰´æƒ
 				param.put("sign", makeSign(MASTERSECRET, param));
 
 				GexinSdkHttpPost.httpPost(param);
 
 			} else {
 
-				Toast toast = Toast.makeText(this, "¶Ô²»Æğ£¬µ±Ç°ÍøÂç²»¿ÉÓÃ!", Toast.LENGTH_SHORT);
+				Toast toast = Toast.makeText(this, "å¯¹ä¸èµ·ï¼Œå½“å‰ç½‘ç»œä¸å¯ç”¨!", Toast.LENGTH_SHORT);
 
 				toast.show();
 			}
@@ -269,39 +269,39 @@ public class getui extends Activity implements OnClickListener {
 			if (isNetworkConnected()) {
 
 				Map<String, Object> param = new HashMap<String, Object>();
-				param.put("action", "pushSpecifyMessage"); // pushSpecifyMessageÎª½Ó¿ÚÃû£¬×¢Òâ´óĞ¡Ğ´
-				/*---ÒÔÏÂ´úÂëÓÃÓÚÉè¶¨½Ó¿ÚÏàÓ¦²ÎÊı---*/
+				param.put("action", "pushSpecifyMessage"); // pushSpecifyMessageä¸ºæ¥å£åï¼Œæ³¨æ„å¤§å°å†™
+				/*---ä»¥ä¸‹ä»£ç ç”¨äºè®¾å®šæ¥å£ç›¸åº”å‚æ•°---*/
 				param.put("appkey", appkey);
-				param.put("type", 2); // ÍÆËÍÀàĞÍ£º 2ÎªÏûÏ¢
-				param.put("pushTitle", "Í¨ÖªÀ¸²âÊÔ"); // pushTitleÇëÌîĞ´ÄúµÄÓ¦ÓÃÃû³Æ
+				param.put("type", 2); // æ¨é€ç±»å‹ï¼š 2ä¸ºæ¶ˆæ¯
+				param.put("pushTitle", "é€šçŸ¥æ æµ‹è¯•"); // pushTitleè¯·å¡«å†™æ‚¨çš„åº”ç”¨åç§°
 
-				// ÍÆËÍÏûÏ¢ÀàĞÍ£¬ÓĞTransmissionMsg¡¢LinkMsg¡¢NotifyMsgÈıÖÖ£¬´Ë´¦ÒÔLinkMsg¾ÙÀı
+				// æ¨é€æ¶ˆæ¯ç±»å‹ï¼Œæœ‰TransmissionMsgã€LinkMsgã€NotifyMsgä¸‰ç§ï¼Œæ­¤å¤„ä»¥LinkMsgä¸¾ä¾‹
 				param.put("pushType", "LinkMsg");
 
-				param.put("offline", true); // ÊÇ·ñ½øÈëÀëÏßÏûÏ¢
+				param.put("offline", true); // æ˜¯å¦è¿›å…¥ç¦»çº¿æ¶ˆæ¯
 
-				param.put("offlineTime", 72); // ÏûÏ¢ÀëÏß±£ÁôÊ±¼ä
-				param.put("priority", 1); // ÍÆËÍÈÎÎñÓÅÏÈ¼¶
+				param.put("offlineTime", 72); // æ¶ˆæ¯ç¦»çº¿ä¿ç•™æ—¶é—´
+				param.put("priority", 1); // æ¨é€ä»»åŠ¡ä¼˜å…ˆçº§
 
 				List<String> cidList = new ArrayList<String>();
-				cidList.add(tView.getText().toString()); // Äú»ñÈ¡µÄClientID
+				cidList.add(tView.getText().toString()); // æ‚¨è·å–çš„ClientID
 				param.put("tokenMD5List", cidList);
 
-				// Éú³ÉSignÖµ£¬ÓÃÓÚ¼øÈ¨£¬ĞèÒªMasterSecret£¬ÇëÎñ±ØÌîĞ´
+				// ç”ŸæˆSignå€¼ï¼Œç”¨äºé‰´æƒï¼Œéœ€è¦MasterSecretï¼Œè¯·åŠ¡å¿…å¡«å†™
 				param.put("sign", makeSign(MASTERSECRET, param));
 
-				// LinkMsgÏûÏ¢ÊµÌå
+				// LinkMsgæ¶ˆæ¯å®ä½“
 				Map<String, Object> linkMsg = new HashMap<String, Object>();
-				linkMsg.put("linkMsgIcon", "push.png"); // ÏûÏ¢ÔÚÍ¨ÖªÀ¸µÄÍ¼±ê
-				linkMsg.put("linkMsgTitle", "Í¨ÖªÀ¸²âÊÔ"); // ÍÆËÍÏûÏ¢µÄ±êÌâ
-				linkMsg.put("linkMsgContent", "ÕâÊÇÒ»Ìõ²âÊÔÏûÏ¢£¡"); // ÍÆËÍÏûÏ¢µÄÄÚÈİ
-				linkMsg.put("linkMsgUrl", "http://www.igexin.com/"); // µã»÷Í¨ÖªÌø×ªµÄÄ¿±êÍøÒ³
+				linkMsg.put("linkMsgIcon", "push.png"); // æ¶ˆæ¯åœ¨é€šçŸ¥æ çš„å›¾æ ‡
+				linkMsg.put("linkMsgTitle", "é€šçŸ¥æ æµ‹è¯•"); // æ¨é€æ¶ˆæ¯çš„æ ‡é¢˜
+				linkMsg.put("linkMsgContent", "è¿™æ˜¯ä¸€æ¡æµ‹è¯•æ¶ˆæ¯ï¼"); // æ¨é€æ¶ˆæ¯çš„å†…å®¹
+				linkMsg.put("linkMsgUrl", "http://www.igexin.com/"); // ç‚¹å‡»é€šçŸ¥è·³è½¬çš„ç›®æ ‡ç½‘é¡µ
 				param.put("msg", linkMsg);
 
 				GexinSdkHttpPost.httpPost(param);
 
 			} else {
-				Toast toast = Toast.makeText(this, "¶Ô²»Æğ£¬µ±Ç°ÍøÂç²»¿ÉÓÃ!", Toast.LENGTH_SHORT);
+				Toast toast = Toast.makeText(this, "å¯¹ä¸èµ·ï¼Œå½“å‰ç½‘ç»œä¸å¯ç”¨!", Toast.LENGTH_SHORT);
 				toast.show();
 			}
 		}
@@ -311,14 +311,14 @@ public class getui extends Activity implements OnClickListener {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case ADDTAG: {
-			// ²âÊÔaddTag½Ó¿Ú
+			// æµ‹è¯•addTagæ¥å£
 			final View view = new EditText(this);
 			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-			alertBuilder.setTitle("ÉèÖÃTag").setNegativeButton("È¡Ïû", new DialogInterface.OnClickListener() {
+			alertBuilder.setTitle("è®¾ç½®Tag").setNegativeButton("å–æ¶ˆ", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					dialog.dismiss();
 				}
-			}).setPositiveButton("È·¶¨", new DialogInterface.OnClickListener() {
+			}).setPositiveButton("ç¡®å®š", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					TextView tagText = (TextView) view;
 
@@ -330,31 +330,31 @@ public class getui extends Activity implements OnClickListener {
 						tagParam[i] = t;
 					}
 
-					Toast.makeText(mContext, "ÉèÖÃtag:" + tagText.getText().toString(), Toast.LENGTH_SHORT).show();
-					Log.d("GexinSdkDemo", "ÉèÖÃtag:" + tagText.getText().toString());
+					Toast.makeText(mContext, "è®¾ç½®tag:" + tagText.getText().toString(), Toast.LENGTH_SHORT).show();
+					Log.d("GexinSdkDemo", "è®¾ç½®tag:" + tagText.getText().toString());
 
 					int i = MessageManager.getInstance().setTag(mContext, tagParam);
 					String text = "ERROR";
 
 					switch (i) {
 					case Consts.SETTAG_SUCCESS:
-						text = "ÉèÖÃ±êÇ©³É¹¦";
+						text = "è®¾ç½®æ ‡ç­¾æˆåŠŸ";
 						break;
 					case Consts.SETTAG_ERROR_COUNT:
-						text = "ÉèÖÃ±êÇ©Ê§°Ü£¬tagÊıÁ¿¹ı´ó";
+						text = "è®¾ç½®æ ‡ç­¾å¤±è´¥ï¼Œtagæ•°é‡è¿‡å¤§";
 						break;
 					case Consts.SETTAG_ERROR_FREQUENCY:
-						text = "ÉèÖÃ±êÇ©Ê§°Ü£¬ÆµÂÊ¹ı¿ì";
+						text = "è®¾ç½®æ ‡ç­¾å¤±è´¥ï¼Œé¢‘ç‡è¿‡å¿«";
 						break;
 					case Consts.SETTAG_ERROR_REPEAT:
-						text = "ÉèÖÃ±êÇ©Ê§°Ü£¬±êÇ©ÖØ¸´";
+						text = "è®¾ç½®æ ‡ç­¾å¤±è´¥ï¼Œæ ‡ç­¾é‡å¤";
 						break;
 					case Consts.SETTAG_ERROR_UNBIND:
-						text = "ÉèÖÃ±êÇ©Ê§°Ü£¬aidl·şÎñÎ´°ó¶¨";
+						text = "è®¾ç½®æ ‡ç­¾å¤±è´¥ï¼ŒaidlæœåŠ¡æœªç»‘å®š";
 						break;
 					case Consts.SETTAG_ERROR_EXCEPTION:
 					default:
-						text = "ÉèÖÃ±êÇ©Ê§°Ü£¬setTagÒì³£";
+						text = "è®¾ç½®æ ‡ç­¾å¤±è´¥ï¼ŒsetTagå¼‚å¸¸";
 						break;
 					}
 
@@ -369,35 +369,35 @@ public class getui extends Activity implements OnClickListener {
 			break;
 		}
 		case NETSTAT: {
-			// ²âÊÔgetNetstat ÍøÂçÁ÷Á¿Í³¼Æ½Ó¿Ú
+			// æµ‹è¯•getNetstat ç½‘ç»œæµé‡ç»Ÿè®¡æ¥å£
 			GexinSdkNetstat netstat = new GexinSdkNetstat();
 			MessageManager.getInstance().getNetstat(this, netstat);
 			long inbound = GexinSdkNetstat.inboundBytes;
 			long outbound = GexinSdkNetstat.outboundBytes;
-			Toast.makeText(this, "×Ü¼ÆÁ÷Á¿Îª£º" + String.valueOf(inbound + outbound) + "Bytes", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "æ€»è®¡æµé‡ä¸ºï¼š" + String.valueOf(inbound + outbound) + "Bytes", Toast.LENGTH_SHORT).show();
 			break;
 		}
 		case VERSION: {
-			// ²âÊÔgetVersion»ñÈ¡°æ±¾ºÅ½Ó¿Ú
+			// æµ‹è¯•getVersionè·å–ç‰ˆæœ¬å·æ¥å£
 			String version = MessageManager.getInstance().getVersion(this);
-			Toast.makeText(this, "µ±Ç°sdk°æ±¾Îª£º" + version, Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "å½“å‰sdkç‰ˆæœ¬ä¸ºï¼š" + version, Toast.LENGTH_SHORT).show();
 			break;
 		}
 		case PHONEADDRESS: {
-			// ²âÊÔgetPhoneAddress»ñÈ¡ÊÖ»úºÅ½Ó¿Ú
+			// æµ‹è¯•getPhoneAddressè·å–æ‰‹æœºå·æ¥å£
 			String address = MessageManager.getInstance().getPhoneAddress(this);
-			Toast.makeText(this, "µ±Ç°ÊÖ»úºÅÎª£º" + address, Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "å½“å‰æ‰‹æœºå·ä¸ºï¼š" + address, Toast.LENGTH_SHORT).show();
 			break;
 		}
 		case SILENTTIME: {
-			// ²âÊÔsetSilentTimeÉèÖÃ¾²Ä¬Ê±¼ä½Ó¿Ú
+			// æµ‹è¯•setSilentTimeè®¾ç½®é™é»˜æ—¶é—´æ¥å£
 			final View view = LayoutInflater.from(this).inflate(R.layout.silent_setting, null);
 			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-			alertBuilder.setTitle("ÉèÖÃ¾²Ä¬Ê±¼ä¶Î").setNegativeButton("È¡Ïû", new DialogInterface.OnClickListener() {
+			alertBuilder.setTitle("è®¾ç½®é™é»˜æ—¶é—´æ®µ").setNegativeButton("å–æ¶ˆ", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					dialog.dismiss();
 				}
-			}).setPositiveButton("È·¶¨", new DialogInterface.OnClickListener() {
+			}).setPositiveButton("ç¡®å®š", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					TextView beginText = (TextView) view.findViewById(R.id.beginText);
 					TextView durationText = (TextView) view.findViewById(R.id.durationText);
@@ -407,8 +407,8 @@ public class getui extends Activity implements OnClickListener {
 
 					if (begin.equals("") || duration.equals("")) {
 
-						Toast.makeText(mContext, "ÉèÖÃ¾²Ä¬Ê±¼ä¶ÎÊ§°Ü£¬ÇëÊäÈë¾²Ä¬Ê±¼ä£¡", Toast.LENGTH_SHORT).show();
-						Log.d("GexinSdkDemo", "ÉèÖÃ¾²Ä¬Ê±¼ä¶ÎÊ§°Ü£¬ÇëÊäÈë¾²Ä¬Ê±¼ä£¡");
+						Toast.makeText(mContext, "è®¾ç½®é™é»˜æ—¶é—´æ®µå¤±è´¥ï¼Œè¯·è¾“å…¥é™é»˜æ—¶é—´ï¼", Toast.LENGTH_SHORT).show();
+						Log.d("GexinSdkDemo", "è®¾ç½®é™é»˜æ—¶é—´æ®µå¤±è´¥ï¼Œè¯·è¾“å…¥é™é»˜æ—¶é—´ï¼");
 
 					} else {
 
@@ -418,11 +418,11 @@ public class getui extends Activity implements OnClickListener {
 						boolean result = MessageManager.getInstance().setSilentTime(mContext, beginHour, durationHour);
 
 						if (result) {
-							Toast.makeText(mContext, "ÉèÖÃ¾²Ä¬Ê±¼ä¶Î begin:" + beginHour + " duration:" + durationHour, Toast.LENGTH_SHORT).show();
-							Log.d("GexinSdkDemo", "ÉèÖÃ¾²Ä¬Ê±¼ä¶Î begin:" + beginHour + " duration:" + durationHour);
+							Toast.makeText(mContext, "è®¾ç½®é™é»˜æ—¶é—´æ®µ begin:" + beginHour + " duration:" + durationHour, Toast.LENGTH_SHORT).show();
+							Log.d("GexinSdkDemo", "è®¾ç½®é™é»˜æ—¶é—´æ®µ begin:" + beginHour + " duration:" + durationHour);
 						} else {
-							Toast.makeText(mContext, "ÉèÖÃ¾²Ä¬Ê±¼ä¶ÎÊ§°Ü£¬È¡Öµ³¬·¶Î§ begin:" + beginHour + " duration:" + durationHour, Toast.LENGTH_SHORT).show();
-							Log.d("GexinSdkDemo", "ÉèÖÃ¾²Ä¬Ê±¼ä¶ÎÊ§°Ü£¬È¡Öµ³¬·¶Î§ begin:" + beginHour + " duration:" + durationHour);
+							Toast.makeText(mContext, "è®¾ç½®é™é»˜æ—¶é—´æ®µå¤±è´¥ï¼Œå–å€¼è¶…èŒƒå›´ begin:" + beginHour + " duration:" + durationHour, Toast.LENGTH_SHORT).show();
+							Log.d("GexinSdkDemo", "è®¾ç½®é™é»˜æ—¶é—´æ®µå¤±è´¥ï¼Œå–å€¼è¶…èŒƒå›´ begin:" + beginHour + " duration:" + durationHour);
 						}
 					}
 
@@ -433,7 +433,7 @@ public class getui extends Activity implements OnClickListener {
 			break;
 		}
 		case EXIT: {
-			// ½áÊø
+			// ç»“æŸ
 			finish();
 			break;
 		}
@@ -445,12 +445,12 @@ public class getui extends Activity implements OnClickListener {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0, ADDTAG, 0, "Ìí¼ÓTag");
-		menu.add(0, NETSTAT, 1, "Á÷Á¿Í³¼Æ");
-		menu.add(0, VERSION, 2, "µ±Ç°°æ±¾");
-		menu.add(0, PHONEADDRESS, 3, "²éÑ¯ÊÖ»úºÅ");
-		menu.add(0, SILENTTIME, 4, "ÉèÖÃ¾²Ä¬Ê±¼ä");
-		menu.add(0, EXIT, 5, "ÍË³ö");
+		menu.add(0, ADDTAG, 0, "æ·»åŠ Tag");
+		menu.add(0, NETSTAT, 1, "æµé‡ç»Ÿè®¡");
+		menu.add(0, VERSION, 2, "å½“å‰ç‰ˆæœ¬");
+		menu.add(0, PHONEADDRESS, 3, "æŸ¥è¯¢æ‰‹æœºå·");
+		menu.add(0, SILENTTIME, 4, "è®¾ç½®é™é»˜æ—¶é—´");
+		menu.add(0, EXIT, 5, "é€€å‡º");
 
 		return super.onCreateOptionsMenu(menu);
 
@@ -458,7 +458,7 @@ public class getui extends Activity implements OnClickListener {
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			// ·µ»Ø¼ü×îĞ¡»¯³ÌĞò
+			// è¿”å›é”®æœ€å°åŒ–ç¨‹åº
 			Intent intent = new Intent(Intent.ACTION_MAIN);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			intent.addCategory(Intent.CATEGORY_HOME);
@@ -471,7 +471,7 @@ public class getui extends Activity implements OnClickListener {
 
 	public boolean isNetworkConnected() {
 
-		// ÅĞ¶ÏÍøÂçÊÇ·ñÁ¬½Ó
+		// åˆ¤æ–­ç½‘ç»œæ˜¯å¦è¿æ¥
 		ConnectivityManager mConnectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
 
@@ -482,7 +482,7 @@ public class getui extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * Éú³ÉSign·½·¨
+	 * ç”ŸæˆSignæ–¹æ³•
 	 */
 	public static String makeSign(String masterSecret, Map<String, Object> params) throws IllegalArgumentException {
 		if (masterSecret == null || params == null) {
@@ -506,12 +506,12 @@ public class getui extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * MD5¼ÓÃÜ
+	 * MD5åŠ å¯†
 	 */
 	public static String getMD5Str(String sourceStr) {
 		byte[] source = sourceStr.getBytes();
 		String s = null;
-		char hexDigits[] = { // ÓÃÀ´½«×Ö½Ú×ª»»³É 16 ½øÖÆ±íÊ¾µÄ×Ö·û
+		char hexDigits[] = { // ç”¨æ¥å°†å­—èŠ‚è½¬æ¢æˆ 16 è¿›åˆ¶è¡¨ç¤ºçš„å­—ç¬¦
 		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 		java.security.MessageDigest md = null;
 		try {
@@ -523,20 +523,20 @@ public class getui extends Activity implements OnClickListener {
 		if (md == null)
 			return null;
 		md.update(source);
-		byte tmp[] = md.digest(); // MD5 µÄ¼ÆËã½á¹ûÊÇÒ»¸ö 128 Î»µÄ³¤ÕûÊı£¬
-		// ÓÃ×Ö½Ú±íÊ¾¾ÍÊÇ 16 ¸ö×Ö½Ú
-		char str[] = new char[16 * 2]; // Ã¿¸ö×Ö½ÚÓÃ 16 ½øÖÆ±íÊ¾µÄ»°£¬Ê¹ÓÃÁ½¸ö×Ö·û£¬
-		// ËùÒÔ±íÊ¾³É 16 ½øÖÆĞèÒª 32 ¸ö×Ö·û
-		int k = 0; // ±íÊ¾×ª»»½á¹ûÖĞ¶ÔÓ¦µÄ×Ö·ûÎ»ÖÃ
+		byte tmp[] = md.digest(); // MD5 çš„è®¡ç®—ç»“æœæ˜¯ä¸€ä¸ª 128 ä½çš„é•¿æ•´æ•°ï¼Œ
+		// ç”¨å­—èŠ‚è¡¨ç¤ºå°±æ˜¯ 16 ä¸ªå­—èŠ‚
+		char str[] = new char[16 * 2]; // æ¯ä¸ªå­—èŠ‚ç”¨ 16 è¿›åˆ¶è¡¨ç¤ºçš„è¯ï¼Œä½¿ç”¨ä¸¤ä¸ªå­—ç¬¦ï¼Œ
+		// æ‰€ä»¥è¡¨ç¤ºæˆ 16 è¿›åˆ¶éœ€è¦ 32 ä¸ªå­—ç¬¦
+		int k = 0; // è¡¨ç¤ºè½¬æ¢ç»“æœä¸­å¯¹åº”çš„å­—ç¬¦ä½ç½®
 		for (int i = 0; i < 16; i++) {
-			// ´ÓµÚÒ»¸ö×Ö½Ú¿ªÊ¼£¬¶Ô MD5 µÄÃ¿Ò»¸ö×Ö½Ú
-			// ×ª»»³É 16 ½øÖÆ×Ö·ûµÄ×ª»»
-			byte byte0 = tmp[i]; // È¡µÚ i ¸ö×Ö½Ú
-			str[k++] = hexDigits[byte0 >>> 4 & 0xf]; // È¡×Ö½ÚÖĞ¸ß 4 Î»µÄÊı×Ö×ª»»,
-			// >>> ÎªÂß¼­ÓÒÒÆ£¬½«·ûºÅÎ»Ò»ÆğÓÒÒÆ
-			str[k++] = hexDigits[byte0 & 0xf]; // È¡×Ö½ÚÖĞµÍ 4 Î»µÄÊı×Ö×ª»»
+			// ä»ç¬¬ä¸€ä¸ªå­—èŠ‚å¼€å§‹ï¼Œå¯¹ MD5 çš„æ¯ä¸€ä¸ªå­—èŠ‚
+			// è½¬æ¢æˆ 16 è¿›åˆ¶å­—ç¬¦çš„è½¬æ¢
+			byte byte0 = tmp[i]; // å–ç¬¬ i ä¸ªå­—èŠ‚
+			str[k++] = hexDigits[byte0 >>> 4 & 0xf]; // å–å­—èŠ‚ä¸­é«˜ 4 ä½çš„æ•°å­—è½¬æ¢,
+			// >>> ä¸ºé€»è¾‘å³ç§»ï¼Œå°†ç¬¦å·ä½ä¸€èµ·å³ç§»
+			str[k++] = hexDigits[byte0 & 0xf]; // å–å­—èŠ‚ä¸­ä½ 4 ä½çš„æ•°å­—è½¬æ¢
 		}
-		s = new String(str); // »»ºóµÄ½á¹û×ª»»Îª×Ö·û´®
+		s = new String(str); // æ¢åçš„ç»“æœè½¬æ¢ä¸ºå­—ç¬¦ä¸²
 		return s;
 	}
 

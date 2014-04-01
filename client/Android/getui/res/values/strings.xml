@@ -6,7 +6,7 @@
     <string name="jihuo">激活</string>
     <string name="active_code">激活码</string>
     <string name="tid">tid</string>
-    <string name="uid">uid</string>
+    <string name="uid">phone</string>
     <string name="action_settings">Settings</string>
     <string name="hello">Hello world!</string>
     <string name="up">绑定sdk</string>

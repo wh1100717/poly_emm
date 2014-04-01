@@ -39,6 +39,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		uid = (EditText) findViewById(R.id.uid);
 		tid = (EditText) findViewById(R.id.tid);
 		active_code = (EditText) findViewById(R.id.active_code);
+		MessageManager.getInstance().initialize(this.getApplicationContext());
 	}
 
 	@Override
@@ -52,20 +53,20 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		if (v == loginButton) {
-			// ÌáÈ¡ÓÃ»§Ãû¼°ÃÜÂëÖµ
+			// æå–ç”¨æˆ·ååŠå¯†ç å€¼
 			s_uid = uid.getText().toString();
 			s_tid = tid.getText().toString();
 			s_active_code = active_code.getText().toString();
 			if (s_uid.equals("")) {
-				Toast.makeText(this, "uid²»¿ÉÒÔÎª¿Õ£¡", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "uidä¸å¯ä»¥ä¸ºç©ºï¼", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			if (s_tid.equals("")) {
-				Toast.makeText(this, "uid²»¿ÉÒÔÎª¿Õ", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "uidä¸å¯ä»¥ä¸ºç©º", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			if (s_active_code.equals("")) {
-				Toast.makeText(this, "¼¤»îÂë²»¿ÉÒÔÎª¿Õ", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "æ¿€æ´»ç ä¸å¯ä»¥ä¸ºç©º", Toast.LENGTH_SHORT).show();
 				return;
 			}
 
@@ -79,7 +80,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 				HttpResponse response = httpClient.execute(httpGet);
 
-				// ÏÔÊ¾ÏìÓ¦
+				// æ˜¾ç¤ºå“åº”
 				HttpEntity httpEntity = response.getEntity();
 				InputStream inputStream = httpEntity.getContent();
 				BufferedReader reader = new BufferedReader(
@@ -93,12 +94,8 @@ public class MainActivity extends Activity implements OnClickListener {
 				Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 				Intent intent=new Intent();
 		    	intent.setClass(MainActivity.this,getui.class);
-		    	Bundle bundle=new Bundle();
-		    	bundle.putString("uid", s_uid);//ÓÃ»§ID
-		    	bundle.putString("uname", s_tid);//ÓÃ»§Ãû
-		    	intent.putExtras(bundle);
 		    	startActivity(intent);
-		    	MainActivity.this.finish();//¹Ø±Õµ±Ç°ÊÓÍ¼
+		    	MainActivity.this.finish();//å…³é—­å½“å‰è§†å›¾
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
