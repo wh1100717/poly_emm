@@ -9,6 +9,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 import com.igexin.slavesdk.MessageManager;
 import android.os.Bundle;
@@ -89,13 +92,19 @@ public class MainActivity extends Activity implements OnClickListener {
 				String line = "";
 				while (null != (line = reader.readLine())) {
 					result += line;
-
 				}
+				Object obj = JSONValue.parse(result);
+				JSONObject jsonObj = (JSONObject) obj;
+				System.out.println("======the 2nd element of array======");
+				System.out.println(jsonObj);
+				System.out.println(jsonObj.get("token"));
+				System.out.println();
+
 				Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-				Intent intent=new Intent();
-		    	intent.setClass(MainActivity.this,getui.class);
-		    	startActivity(intent);
-		    	MainActivity.this.finish();//关闭当前视图
+				Intent intent = new Intent();
+				intent.setClass(MainActivity.this, getui.class);
+				startActivity(intent);
+				MainActivity.this.finish();// 关闭当前视图
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
