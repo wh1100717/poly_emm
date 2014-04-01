@@ -24,6 +24,10 @@ import string
 import random
 from util import StringUtil
 from controller import UserController
+import urllib
+import urllib2
+import cookielib
+from dao import UserDao
 
 
 def random_tel():
@@ -36,7 +40,25 @@ def random_tel():
 
 tel = random_tel()
 random_name = StringUtil.token_generator()
-email = StringUtil.token_generator() + '@qq.com'
+# email = StringUtil.token_generator() + '@qq.com'
+
+#获取一个保存cookie的对象
+cj = cookielib.LWPCookieJar()
+#将一个保存cookie对象，和一个HTTP的cookie的处理器绑定
+cookie_support = urllib2.HTTPCookieProcessor(cj)
+#创建一个opener，将保存了cookie的http处理器，还有设置一个handler用于处理http的URL的打开
+opener = urllib2.build_opener(cookie_support, urllib2.HTTPHandler)
+#将包含了cookie、http处理器、http的handler的资源和urllib2对象板顶在一起
+urllib2.install_opener(opener)
+
+headers = {'User-Agent':'Mozilla/5.0 (X11; Linux i686; rv:8.0) Gecko/20100101 Firefox/8.0'}
+
+
+def test_LogoutHandler():
+	request = urllib2.Request('http://localhost/user/logout')
+	response = urllib2.urlopen(request) 
+	# assert cj._cookies['tid']=='' and cj._cookies['timestamp']==''
+
 
 
 def test_RegisterHandler_by_tel():
@@ -56,56 +78,119 @@ def test_RegisterHandler_by_tel():
 	assert register_tel['status'] == 1
 
 
-def test_RegisterHandler_by_email():
-	postData = {
-		'email_or_phone':email,
-		'user_name':random_name,
-		'pwd':'111111',
-		'pwd_confirm':'111111',
-		'accept':'on'
+# def test_RegisterHandler_by_email():
+# 	postData = {
+# 		'email_or_phone':email,
+# 		'user_name':random_name,
+# 		'pwd':'111111',
+# 		'pwd_confirm':'111111',
+# 		'accept':'on'
 
-	}
-	postData = urllib.urlencode(postData) 
-	request = urllib2.Request('http://localhost/user/register', postData)
-	response = urllib2.urlopen(request) 
-	register_email = response.read() 
-	register_email = eval(register_email)
-	assert register_email['status'] == 1
+# 	}
+# 	postData = urllib.urlencode(postData) 
+# 	request = urllib2.Request('http://localhost/user/register', postData)
+# 	response = urllib2.urlopen(request) 
+# 	register_email = response.read() 
+# 	register_email = eval(register_email)
+# 	assert register_email['status'] == 1
 
 
 def test_LoginHandler_by_tel():
+	#print tel
 	postData={
 		'email_or_phone':tel,
 		'pwd':'111111'
 	}
 	postData = urllib.urlencode(postData) 
-	request = urllib2.Request('http://localhost/user/login', postData) 
-	response = urllib2.urlopen(request) 
+	req  = urllib2.Request(
+        url = 'http://localhost/user/login',
+        data = postData,
+        headers = headers
+    )
+	response = urllib2.urlopen(req) 
 	text = response.read() 
 	text=eval(text)
+
+	#print "\n", cj._cookies
 	assert text['status'] ==1
 
 
-def test_LoginHandler_by_email():
+
+# def test_LoginHandler_by_email():
+
+# 	#获取一个保存cookie的对象
+# 	cj = cookielib.LWPCookieJar()
+# 	#将一个保存cookie对象，和一个HTTP的cookie的处理器绑定
+# 	cookie_support = urllib2.HTTPCookieProcessor(cj)
+# 	#创建一个opener，将保存了cookie的http处理器，还有设置一个handler用于处理http的URL的打开
+# 	opener = urllib2.build_opener(cookie_support, urllib2.HTTPHandler)
+# 	#将包含了cookie、http处理器、http的handler的资源和urllib2对象板顶在一起
+# 	urllib2.install_opener(opener)
+
+# 	postData={
+# 		'email_or_phone':email,
+# 		'pwd':'111111'
+# 	}
+# 	postData = urllib.urlencode(postData) 
+# 	request = urllib2.Request('http://localhost/user/login', postData) 
+# 	response = urllib2.urlopen(request) 
+# 	text = response.read() 
+# 	text=eval(text)
+# 	assert text['status'] ==1
+
+
+def test_AddHandler():
+		
 	postData={
-		'email_or_phone':email,
-		'pwd':'111111'
+		'phone':StringUtil.token_generator(),
+		'owner':StringUtil.token_generator(),
 	}
 	postData = urllib.urlencode(postData) 
-	request = urllib2.Request('http://localhost/user/login', postData) 
+	request = urllib2.Request(
+        url = 'http://localhost/device/add',
+        data = postData,
+        headers = headers
+    )
 	response = urllib2.urlopen(request) 
 	text = response.read() 
 	text=eval(text)
+
+	#print "\n",cj._cookies
+
 	assert text['status'] ==1
 
 
-
-# def test_AddHandler():
-# 	cj = cookielib.LWPCookieJar() 
-# 	cookie_support = urllib2.HTTPCookieProcessor(cj) 
-# 	opener = urllib2.build_opener(cookie_support, urllib2.HTTPHandler) 
-# 	urllib2.install_opener(opener) 
-
-
-# def test_LogoutHandler():
+# def test_ListHandler():
+# 	postData={
+# 	}
+# 	postData = urllib.urlencode(postData)
+# 	request = urllib2.Request(
+# 		url = 'http://localhost/device/list',
+# 		data = postData,
+# 		headers = headers
+# 	)
 	
+
+# 	response = urllib2.urlopen(request)
+# 	text = response.read()
+# 	print text
+# 	print type(text)
+# 	text = eval(text)
+
+# 	assert text['status'] == 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
