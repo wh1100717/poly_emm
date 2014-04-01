@@ -29,7 +29,7 @@ import urllib2
 import cookielib
 from dao import UserDao
 
-
+#生成随机电话号码
 def random_tel():
 	tel_list = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
 	tel_start = ['13','15','14','18']
@@ -41,6 +41,16 @@ def random_tel():
 tel = random_tel()
 random_name = StringUtil.token_generator()
 # email = StringUtil.token_generator() + '@qq.com'
+phone = StringUtil.token_generator()
+owner = StringUtil.token_generator()
+tid = ''
+active_code = ''
+token = ''
+did = StringUtil.token_generator()
+cid = StringUtil.token_generator()
+imei = StringUtil.token_generator()
+
+
 
 #获取一个保存cookie的对象
 cj = cookielib.LWPCookieJar()
@@ -142,8 +152,8 @@ def test_LoginHandler_by_tel():
 def test_AddHandler():
 		
 	postData={
-		'phone':StringUtil.token_generator(),
-		'owner':StringUtil.token_generator(),
+		'phone':phone,
+		'owner':owner,
 	}
 	postData = urllib.urlencode(postData) 
 	request = urllib2.Request(
@@ -160,26 +170,76 @@ def test_AddHandler():
 	assert text['status'] ==1
 
 
-# def test_ListHandler():
-# 	postData={
-# 	}
-# 	postData = urllib.urlencode(postData)
-# 	request = urllib2.Request(
-# 		url = 'http://localhost/device/list',
-# 		data = postData,
-# 		headers = headers
-# 	)
+
+def test_ListHandler():
+	postData={
+	}
+	postData = urllib.urlencode(postData)
+	request = urllib2.Request(
+		url = 'http://localhost/device/list',
+		data = postData,
+		headers = headers
+	)
+	response = urllib2.urlopen(request)
+	text = response.read()
+	text = text.replace('false','"false"')
+	text = eval(text)
+	# print text
 	
+	#模拟激活tid，active_code
+	global tid
+	global active_code
+	tid = text['data'][0]['tid']
+	active_code = text['data'][0]['active_code']
+	# print tid
+	# print active_code
 
-# 	response = urllib2.urlopen(request)
-# 	text = response.read()
-# 	print text
-# 	print type(text)
-# 	text = eval(text)
+	assert text['status'] == 1
 
-# 	assert text['status'] == 1
+#模拟激活
+def test_EnrollHandler():
+	
+	postData={
+			'tid':tid,
+			'active_code':active_code,
+			'phone':phone
+		}
+	postData = urllib.urlencode(postData) 
+	request = urllib2.Request(
+	    url = 'http://localhost/android/enroll',
+	    data = postData,
+	    headers = headers
+	)
+	response = urllib2.urlopen(request) 
+	text = response.read() 
+	text=eval(text)
+	
+	global token
+	token = text['token']
 
+	assert text['status'] ==1
 
+#模拟设备初始化
+def test_InitialHandler():
+	
+	postData={
+				'token':token,
+				'phone':phone,
+				'did':did,
+				'cid':cid,
+				'imei':imei
+			}
+	postData = urllib.urlencode(postData) 
+	request = urllib2.Request(
+	    url = 'http://localhost/android/initial',
+		data = postData,
+		headers = headers
+	)
+	response = urllib2.urlopen(request) 
+	text = response.read() 
+	text=eval(text)
+
+	assert text['status'] ==1
 
 
 
