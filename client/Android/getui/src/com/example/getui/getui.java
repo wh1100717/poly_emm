@@ -5,6 +5,9 @@ package com.example.getui;
  * 
  * SDK Ver: 1.1.14.2
  */
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,10 +16,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Random;
 import java.util.SortedMap;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.TreeMap;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -29,6 +41,8 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.provider.Settings.Secure;
+import android.telephony.TelephonyManager;
 import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -65,13 +79,17 @@ public class getui extends Activity implements OnClickListener {
 
 	// UI控件
 	private Button btn_clear = null;
+	private Button btn_jh = null;
 	private Button btn_service = null;
 	private Button btn_enablelog = null;
 	private Button btn_bindcell = null;
 	private TextView tAppkeyView = null;
+	private TextView tinitial = null;
 	private TextView tAppSecretView = null;
 	private TextView tAppIdView = null;
 	private TextView tMasterSecretView = null;
+	private TextView ttoken = null;
+	private TextView tphone = null;
 	public static TextView tView = null;
 	public static TextView tLogView = null;
 	private Button btn_pmsg = null;
@@ -91,10 +109,17 @@ public class getui extends Activity implements OnClickListener {
 	private String appkey = "";
 	private String appsecret = "";
 	private String appid = "";
-
+	private String token = "";
+	private String phone = "";
+	private String cid = "";
+	private TelephonyManager tm;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Intent intent = this.getIntent();
+		Bundle bundle = intent.getExtras();
+		token = bundle.getString("token");
+		phone = bundle.getString("phone");
 
 		// UI初始化
 		setContentView(R.layout.getui);
@@ -109,6 +134,7 @@ public class getui extends Activity implements OnClickListener {
 		btn_bindcell = (Button) findViewById(R.id.btn_bindcell);
 		btn_bindcell.setOnClickListener(this);
 		tView = (TextView) findViewById(R.id.tvclientid);
+		tinitial= (TextView) findViewById(R.id.tinitial);
 		tAppkeyView = (TextView) findViewById(R.id.tvappkey);
 		tAppSecretView = (TextView) findViewById(R.id.tvappsecret);
 		tMasterSecretView = (TextView) findViewById(R.id.tvmastersecret);
@@ -121,9 +147,11 @@ public class getui extends Activity implements OnClickListener {
 		btn_pmsg.setOnClickListener(this);
 		btn_psmsg = (Button) findViewById(R.id.btn_psmsg);
 		btn_psmsg.setOnClickListener(this);
-
+		btn_jh = (Button) findViewById(R.id.btn_jh);
 		btn_send_msg = (Button) findViewById(R.id.btn_send_msg);
 		btn_send_msg.setOnClickListener(this);
+		ttoken = (TextView) findViewById(R.id.tvtoken);
+		tphone = (TextView) findViewById(R.id.tvphone);
 
 		formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -131,12 +159,14 @@ public class getui extends Activity implements OnClickListener {
 		String packageName = getApplicationContext().getPackageName();
 		ApplicationInfo appInfo;
 		try {
-			appInfo = getPackageManager().getApplicationInfo(packageName, PackageManager.GET_META_DATA);
+			appInfo = getPackageManager().getApplicationInfo(packageName,
+					PackageManager.GET_META_DATA);
 			if (appInfo.metaData != null) {
 
 				appid = appInfo.metaData.getString("appid");
 				appsecret = appInfo.metaData.getString("appsecret");
-				appkey = (appInfo.metaData.get("appkey") != null) ? appInfo.metaData.get("appkey").toString() : null;
+				appkey = (appInfo.metaData.get("appkey") != null) ? appInfo.metaData
+						.get("appkey").toString() : null;
 			}
 
 		} catch (NameNotFoundException e) {
@@ -148,11 +178,13 @@ public class getui extends Activity implements OnClickListener {
 		tAppSecretView.setText("AppSecret=" + appsecret);
 		tMasterSecretView.setText("MasterSecret=" + MASTERSECRET);
 		tAppIdView.setText("AppID=" + appid);
+		ttoken.setText("Token:"+token);
+		tphone.setText("Phone:"+phone);
 
 		// SDK初始化，第三方程序启动时，都要进行SDK初始化工作
 		Log.d("GexinSdkDemo", "initializing sdk...");
-		
-	
+		tm = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);    
+
 	}
 
 	@Override
@@ -173,41 +205,101 @@ public class getui extends Activity implements OnClickListener {
 
 			final View view = new EditText(this);
 			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-			alertBuilder.setTitle("输入上传数据").setNegativeButton("取消", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					dialog.dismiss();
-				}
-			}).setPositiveButton("确定", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					TextView text = (TextView) view;
+			alertBuilder
+					.setTitle("输入上传数据")
+					.setNegativeButton("取消",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int which) {
+									dialog.dismiss();
+								}
+							})
+					.setPositiveButton("确定",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int which) {
+									TextView text = (TextView) view;
 
-					byte[] uploadData = text.getText().toString().getBytes();
+									byte[] uploadData = text.getText()
+											.toString().getBytes();
 
-					// 第三方发送上行消息测试
-					boolean result = MessageManager.getInstance().sendMessage(getui.this, String.valueOf(System.currentTimeMillis()),
-							uploadData);
+									// 第三方发送上行消息测试
+									boolean result = MessageManager
+											.getInstance()
+											.sendMessage(
+													getui.this,
+													String.valueOf(System
+															.currentTimeMillis()),
+													uploadData);
 
-					Toast.makeText(mContext, "上传结果:" + result, Toast.LENGTH_SHORT).show();
-					Log.d("GexinSdkDemo", "上传数据:" + text.getText().toString());
+									Toast.makeText(mContext, "上传结果:" + result,
+											Toast.LENGTH_SHORT).show();
+									Log.d("GexinSdkDemo", "上传数据:"
+											+ text.getText().toString());
 
-					dialog.dismiss();
-				}
-			}).setView(view);
+									dialog.dismiss();
+								}
+							}).setView(view);
 			alertBuilder.create().show();
 
-		} else if (v == btn_clear) {
-			// 开启日志（仅针对日志版SDK，现网版本SDK不支持该接口）
-			MessageManager.getInstance().setLogEnable(this.getApplicationContext(), true);
+		}  else if (v == btn_clear) {
+			Toast.makeText(this, "test", Toast.LENGTH_SHORT).show();
+//			// 开启日志（仅针对日志版SDK，现网版本SDK不支持该接口）
+//			MessageManager.getInstance().setLogEnable(
+//					this.getApplicationContext(), true);
+//
+//			// clear log box
+//			tLogView.setText("");
+			cid = tView.getText().toString();
+			String imei = Secure.getString(getBaseContext().getContentResolver(), Secure.ANDROID_ID);
+			String did = getRandomString(10);
+			
+			if (cid != null) {
+				String baseURL = "http://10.0.2.2/android/initial?token="
+						+ token + "&phone=" + phone + "&cid=" + cid + "&did="+did+"&imei="+imei;
+				System.out.println(baseURL);
+				HttpGet httpGet = new HttpGet(baseURL);
+				HttpClient httpClient = new DefaultHttpClient();
 
-			// clear log box
-			tLogView.setText("");
+				try {
+
+					HttpResponse response = httpClient.execute(httpGet);
+
+					// 显示响应
+					HttpEntity httpEntity = response.getEntity();
+					InputStream inputStream = httpEntity.getContent();
+					BufferedReader reader = new BufferedReader(
+							new InputStreamReader(inputStream));
+					String result = "";
+					String line = "";
+					while (null != (line = reader.readLine())) {
+						result += line;
+					}
+					Object obj = JSONValue.parse(result);
+					JSONObject jsonObj = (JSONObject) obj;
+
+					String tmp = jsonObj.get("status").toString();
+					if (tmp.equals("0")) {
+						Toast.makeText(this, "激活失败", Toast.LENGTH_SHORT).show();
+
+					} else if(tmp.equals("1")){
+						tinitial.setText(jsonObj.get("initial").toString());
+						Toast.makeText(this, "激活成功", Toast.LENGTH_SHORT).show();
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
 
 		} else if (v == btn_service) {
 			if (tIsRunning) {
 
 				// 当前为运行状态，停止SDK服务
 				Log.d("GexinSdkDemo", "stopping sdk...");
-				MessageManager.getInstance().stopService(this.getApplicationContext());
+				MessageManager.getInstance().stopService(
+						this.getApplicationContext());
 
 				// UI更新
 				tView.setText(getResources().getString(R.string.no_clientid));
@@ -219,7 +311,8 @@ public class getui extends Activity implements OnClickListener {
 				Log.d("GexinSdkDemo", "reinitializing sdk...");
 
 				// 重新初始化sdk
-				MessageManager.getInstance().initialize(this.getApplicationContext());
+				MessageManager.getInstance().initialize(
+						this.getApplicationContext());
 
 				// UI更新
 				btn_service.setText(getResources().getString(R.string.stop));
@@ -227,13 +320,15 @@ public class getui extends Activity implements OnClickListener {
 			}
 		} else if (v == btn_enablelog) {
 			// 开启日志功能
-			MessageManager.getInstance().setLogEnable(this.getApplicationContext(), true);
+			MessageManager.getInstance().setLogEnable(
+					this.getApplicationContext(), true);
 
 			Toast.makeText(this, "调试日志已打开", Toast.LENGTH_SHORT).show();
 			Log.d("GexinSdkDemo", "调试日志已打开");
 		} else if (v == btn_bindcell) {
 			// 测试号码绑定接口
-			MessageManager.getInstance().bindPhoneAddress(this.getApplicationContext());
+			MessageManager.getInstance().bindPhoneAddress(
+					this.getApplicationContext());
 			Toast.makeText(this, "号码绑定请求已发送，请稍候...", Toast.LENGTH_SHORT).show();
 
 		} else if (v == btn_pmsg) {
@@ -260,7 +355,8 @@ public class getui extends Activity implements OnClickListener {
 
 			} else {
 
-				Toast toast = Toast.makeText(this, "对不起，当前网络不可用!", Toast.LENGTH_SHORT);
+				Toast toast = Toast.makeText(this, "对不起，当前网络不可用!",
+						Toast.LENGTH_SHORT);
 
 				toast.show();
 			}
@@ -302,7 +398,8 @@ public class getui extends Activity implements OnClickListener {
 				GexinSdkHttpPost.httpPost(param);
 
 			} else {
-				Toast toast = Toast.makeText(this, "对不起，当前网络不可用!", Toast.LENGTH_SHORT);
+				Toast toast = Toast.makeText(this, "对不起，当前网络不可用!",
+						Toast.LENGTH_SHORT);
 				toast.show();
 			}
 		}
@@ -315,56 +412,72 @@ public class getui extends Activity implements OnClickListener {
 			// 测试addTag接口
 			final View view = new EditText(this);
 			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-			alertBuilder.setTitle("设置Tag").setNegativeButton("取消", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					dialog.dismiss();
-				}
-			}).setPositiveButton("确定", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					TextView tagText = (TextView) view;
+			alertBuilder
+					.setTitle("设置Tag")
+					.setNegativeButton("取消",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int which) {
+									dialog.dismiss();
+								}
+							})
+					.setPositiveButton("确定",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int which) {
+									TextView tagText = (TextView) view;
 
-					String[] tags = tagText.getText().toString().split(",");
-					Tag[] tagParam = new Tag[tags.length];
-					for (int i = 0; i < tags.length; i++) {
-						Tag t = new Tag();
-						t.setName(tags[i]);
-						tagParam[i] = t;
-					}
+									String[] tags = tagText.getText()
+											.toString().split(",");
+									Tag[] tagParam = new Tag[tags.length];
+									for (int i = 0; i < tags.length; i++) {
+										Tag t = new Tag();
+										t.setName(tags[i]);
+										tagParam[i] = t;
+									}
 
-					Toast.makeText(mContext, "设置tag:" + tagText.getText().toString(), Toast.LENGTH_SHORT).show();
-					Log.d("GexinSdkDemo", "设置tag:" + tagText.getText().toString());
+									Toast.makeText(
+											mContext,
+											"设置tag:"
+													+ tagText.getText()
+															.toString(),
+											Toast.LENGTH_SHORT).show();
+									Log.d("GexinSdkDemo", "设置tag:"
+											+ tagText.getText().toString());
 
-					int i = MessageManager.getInstance().setTag(mContext, tagParam);
-					String text = "ERROR";
+									int i = MessageManager.getInstance()
+											.setTag(mContext, tagParam);
+									String text = "ERROR";
 
-					switch (i) {
-					case Consts.SETTAG_SUCCESS:
-						text = "设置标签成功";
-						break;
-					case Consts.SETTAG_ERROR_COUNT:
-						text = "设置标签失败，tag数量过大";
-						break;
-					case Consts.SETTAG_ERROR_FREQUENCY:
-						text = "设置标签失败，频率过快";
-						break;
-					case Consts.SETTAG_ERROR_REPEAT:
-						text = "设置标签失败，标签重复";
-						break;
-					case Consts.SETTAG_ERROR_UNBIND:
-						text = "设置标签失败，aidl服务未绑定";
-						break;
-					case Consts.SETTAG_ERROR_EXCEPTION:
-					default:
-						text = "设置标签失败，setTag异常";
-						break;
-					}
+									switch (i) {
+									case Consts.SETTAG_SUCCESS:
+										text = "设置标签成功";
+										break;
+									case Consts.SETTAG_ERROR_COUNT:
+										text = "设置标签失败，tag数量过大";
+										break;
+									case Consts.SETTAG_ERROR_FREQUENCY:
+										text = "设置标签失败，频率过快";
+										break;
+									case Consts.SETTAG_ERROR_REPEAT:
+										text = "设置标签失败，标签重复";
+										break;
+									case Consts.SETTAG_ERROR_UNBIND:
+										text = "设置标签失败，aidl服务未绑定";
+										break;
+									case Consts.SETTAG_ERROR_EXCEPTION:
+									default:
+										text = "设置标签失败，setTag异常";
+										break;
+									}
 
-					Toast.makeText(mContext, text, Toast.LENGTH_SHORT).show();
-					Log.d("GexinSdkDemo", text);
+									Toast.makeText(mContext, text,
+											Toast.LENGTH_SHORT).show();
+									Log.d("GexinSdkDemo", text);
 
-					dialog.dismiss();
-				}
-			}).setView(view);
+									dialog.dismiss();
+								}
+							}).setView(view);
 			alertBuilder.create().show();
 
 			break;
@@ -375,61 +488,104 @@ public class getui extends Activity implements OnClickListener {
 			MessageManager.getInstance().getNetstat(this, netstat);
 			long inbound = GexinSdkNetstat.inboundBytes;
 			long outbound = GexinSdkNetstat.outboundBytes;
-			Toast.makeText(this, "总计流量为：" + String.valueOf(inbound + outbound) + "Bytes", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this,
+					"总计流量为：" + String.valueOf(inbound + outbound) + "Bytes",
+					Toast.LENGTH_SHORT).show();
 			break;
 		}
 		case VERSION: {
 			// 测试getVersion获取版本号接口
 			String version = MessageManager.getInstance().getVersion(this);
-			Toast.makeText(this, "当前sdk版本为：" + version, Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "当前sdk版本为：" + version, Toast.LENGTH_SHORT)
+					.show();
 			break;
 		}
 		case PHONEADDRESS: {
 			// 测试getPhoneAddress获取手机号接口
 			String address = MessageManager.getInstance().getPhoneAddress(this);
-			Toast.makeText(this, "当前手机号为：" + address, Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "当前手机号为：" + address, Toast.LENGTH_SHORT)
+					.show();
 			break;
 		}
 		case SILENTTIME: {
 			// 测试setSilentTime设置静默时间接口
-			final View view = LayoutInflater.from(this).inflate(R.layout.silent_setting, null);
+			final View view = LayoutInflater.from(this).inflate(
+					R.layout.silent_setting, null);
 			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-			alertBuilder.setTitle("设置静默时间段").setNegativeButton("取消", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					dialog.dismiss();
-				}
-			}).setPositiveButton("确定", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					TextView beginText = (TextView) view.findViewById(R.id.beginText);
-					TextView durationText = (TextView) view.findViewById(R.id.durationText);
+			alertBuilder
+					.setTitle("设置静默时间段")
+					.setNegativeButton("取消",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int which) {
+									dialog.dismiss();
+								}
+							})
+					.setPositiveButton("确定",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int which) {
+									TextView beginText = (TextView) view
+											.findViewById(R.id.beginText);
+									TextView durationText = (TextView) view
+											.findViewById(R.id.durationText);
 
-					String begin = beginText.getText().toString();
-					String duration = durationText.getText().toString();
+									String begin = beginText.getText()
+											.toString();
+									String duration = durationText.getText()
+											.toString();
 
-					if (begin.equals("") || duration.equals("")) {
+									if (begin.equals("") || duration.equals("")) {
 
-						Toast.makeText(mContext, "设置静默时间段失败，请输入静默时间！", Toast.LENGTH_SHORT).show();
-						Log.d("GexinSdkDemo", "设置静默时间段失败，请输入静默时间！");
+										Toast.makeText(mContext,
+												"设置静默时间段失败，请输入静默时间！",
+												Toast.LENGTH_SHORT).show();
+										Log.d("GexinSdkDemo",
+												"设置静默时间段失败，请输入静默时间！");
 
-					} else {
+									} else {
 
-						int beginHour = Integer.valueOf(begin);
-						int durationHour = Integer.valueOf(duration);
+										int beginHour = Integer.valueOf(begin);
+										int durationHour = Integer
+												.valueOf(duration);
 
-						boolean result = MessageManager.getInstance().setSilentTime(mContext, beginHour, durationHour);
+										boolean result = MessageManager
+												.getInstance().setSilentTime(
+														mContext, beginHour,
+														durationHour);
 
-						if (result) {
-							Toast.makeText(mContext, "设置静默时间段 begin:" + beginHour + " duration:" + durationHour, Toast.LENGTH_SHORT).show();
-							Log.d("GexinSdkDemo", "设置静默时间段 begin:" + beginHour + " duration:" + durationHour);
-						} else {
-							Toast.makeText(mContext, "设置静默时间段失败，取值超范围 begin:" + beginHour + " duration:" + durationHour, Toast.LENGTH_SHORT).show();
-							Log.d("GexinSdkDemo", "设置静默时间段失败，取值超范围 begin:" + beginHour + " duration:" + durationHour);
-						}
-					}
+										if (result) {
+											Toast.makeText(
+													mContext,
+													"设置静默时间段 begin:"
+															+ beginHour
+															+ " duration:"
+															+ durationHour,
+													Toast.LENGTH_SHORT).show();
+											Log.d("GexinSdkDemo",
+													"设置静默时间段 begin:"
+															+ beginHour
+															+ " duration:"
+															+ durationHour);
+										} else {
+											Toast.makeText(
+													mContext,
+													"设置静默时间段失败，取值超范围 begin:"
+															+ beginHour
+															+ " duration:"
+															+ durationHour,
+													Toast.LENGTH_SHORT).show();
+											Log.d("GexinSdkDemo",
+													"设置静默时间段失败，取值超范围 begin:"
+															+ beginHour
+															+ " duration:"
+															+ durationHour);
+										}
+									}
 
-					dialog.dismiss();
-				}
-			}).setView(view);
+									dialog.dismiss();
+								}
+							}).setView(view);
 			alertBuilder.create().show();
 			break;
 		}
@@ -473,7 +629,8 @@ public class getui extends Activity implements OnClickListener {
 	public boolean isNetworkConnected() {
 
 		// 判断网络是否连接
-		ConnectivityManager mConnectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+		ConnectivityManager mConnectivityManager = (ConnectivityManager) this
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
 
 		if (mNetworkInfo != null) {
@@ -485,9 +642,11 @@ public class getui extends Activity implements OnClickListener {
 	/**
 	 * 生成Sign方法
 	 */
-	public static String makeSign(String masterSecret, Map<String, Object> params) throws IllegalArgumentException {
+	public static String makeSign(String masterSecret,
+			Map<String, Object> params) throws IllegalArgumentException {
 		if (masterSecret == null || params == null) {
-			throw new IllegalArgumentException("masterSecret and params can not be null.");
+			throw new IllegalArgumentException(
+					"masterSecret and params can not be null.");
 		}
 
 		if (!(params instanceof SortedMap)) {
@@ -497,7 +656,8 @@ public class getui extends Activity implements OnClickListener {
 		StringBuilder input = new StringBuilder(masterSecret);
 		for (Entry<String, Object> entry : params.entrySet()) {
 			Object value = entry.getValue();
-			if (value instanceof String || value instanceof Integer || value instanceof Long) {
+			if (value instanceof String || value instanceof Integer
+					|| value instanceof Long) {
 				input.append(entry.getKey());
 				input.append(entry.getValue());
 			}
@@ -513,7 +673,8 @@ public class getui extends Activity implements OnClickListener {
 		byte[] source = sourceStr.getBytes();
 		String s = null;
 		char hexDigits[] = { // 用来将字节转换成 16 进制表示的字符
-		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd',
+				'e', 'f' };
 		java.security.MessageDigest md = null;
 		try {
 			md = java.security.MessageDigest.getInstance("MD5");
@@ -540,5 +701,15 @@ public class getui extends Activity implements OnClickListener {
 		s = new String(str); // 换后的结果转换为字符串
 		return s;
 	}
+	public static String getRandomString(int length) { //length表示生成字符串的长度
+	    String base = "abcdefghijklmnopqrstuvwxyz0123456789";   
+	    Random random = new Random();   
+	    StringBuffer sb = new StringBuffer();   
+	    for (int i = 0; i < length; i++) {   
+	        int number = random.nextInt(base.length());   
+	        sb.append(base.charAt(number));   
+	    }   
+	    return sb.toString();   
+	 }  
 
 }

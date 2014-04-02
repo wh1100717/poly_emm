@@ -46,7 +46,7 @@ def list(user):
 #返回设备详细信息
 def detail(did,user):
 	for device in user['devices']:
-		if device['did'] == did:
+		if device.has_key['did'] and device['did'] == did:
 			cid = device['cid'] if device.has_key('cid') else "N/A"
 			imei = device['imei'] if device.has_key('imei') else "N/A"
 			return {

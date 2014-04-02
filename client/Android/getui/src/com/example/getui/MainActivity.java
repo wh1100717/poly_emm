@@ -15,8 +15,10 @@ import org.json.simple.JSONValue;
 
 import com.igexin.slavesdk.MessageManager;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -43,6 +45,27 @@ public class MainActivity extends Activity implements OnClickListener {
 		tid = (EditText) findViewById(R.id.tid);
 		active_code = (EditText) findViewById(R.id.active_code);
 		MessageManager.getInstance().initialize(this.getApplicationContext());
+		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+				.detectDiskReads().detectDiskWrites().detectNetwork()
+				.penaltyLog().build());
+		StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+				.detectLeakedSqlLiteObjects().detectLeakedClosableObjects()
+				.penaltyLog().penaltyDeath().build());
+		SharedPreferences sp = getPreferences(MODE_PRIVATE);
+		String s_token = sp.getString("token", null);
+		String s_phone = sp.getString("phone", null);
+		
+		if (s_token != null) {
+			Intent intent = new Intent();
+			intent.setClass(MainActivity.this, getui.class);
+			Bundle bundle = new Bundle();
+			bundle.putString("token", s_token);
+			bundle.putString("phone", s_phone);
+			intent.putExtras(bundle);
+			startActivity(intent);
+			MainActivity.this.finish();//
+		}
+
 	}
 
 	@Override
@@ -93,21 +116,37 @@ public class MainActivity extends Activity implements OnClickListener {
 				while (null != (line = reader.readLine())) {
 					result += line;
 				}
+
 				Object obj = JSONValue.parse(result);
 				JSONObject jsonObj = (JSONObject) obj;
-				System.out.println("======the 2nd element of array======");
-				System.out.println(jsonObj);
-				System.out.println(jsonObj.get("token"));
-				System.out.println();
 
-				Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-				Intent intent = new Intent();
-				intent.setClass(MainActivity.this, getui.class);
-				startActivity(intent);
-				MainActivity.this.finish();// 关闭当前视图
+				String tmp = jsonObj.get("status").toString();
+				if (tmp.equals("0")) {
+					Toast.makeText(this, "该设备已激活", Toast.LENGTH_SHORT).show();
+
+				} else if (tmp.equals("1")) {
+					String token = "";
+					token = jsonObj.get("token").toString();
+					Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent();
+					intent.setClass(MainActivity.this, getui.class);
+					Bundle bundle = new Bundle();
+					bundle.putString("token", token);
+					bundle.putString("phone", s_phone);
+					intent.putExtras(bundle);
+					startActivity(intent);
+					MainActivity.this.finish();// 关闭当前视图
+					SharedPreferences sp = getPreferences(MODE_PRIVATE);
+					SharedPreferences.Editor editor = sp.edit();
+					editor.putString("token", token);
+					editor.putString("phone", s_phone);
+					editor.commit();
+				}
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
+
 }

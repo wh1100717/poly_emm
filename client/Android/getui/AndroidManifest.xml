@@ -61,7 +61,7 @@
                 <!-- com.igexin.sdk.action.第三方的appId -->
             </intent-filter>
         </receiver>
-        
+
         <activity
             android:name="com.igexin.sdk.SdkActivity"
             android:excludeFromRecents="true"
@@ -71,7 +71,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
             <intent-filter>
                 <action android:name="com.igexin.action.popupact.com.example.getui" />
-<!-- 					com.igexin.action.popupact.第三方的包名 -->
+                <!-- com.igexin.action.popupact.第三方的包名 -->
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -173,6 +173,7 @@
         </activity>
     </application>
 
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

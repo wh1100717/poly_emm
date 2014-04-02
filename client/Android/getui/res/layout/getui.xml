@@ -14,9 +14,22 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:text="@string/hello" />
+        
 
         <TextView
             android:id="@+id/tvappkey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="" />
+        <TextView
+            android:id="@+id/tvtoken"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="" />
+        <TextView
+            android:id="@+id/tvphone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -140,6 +153,19 @@
             android:layout_gravity="center_vertical"
             android:text="@string/bindcell" >
         </Button>
+        <Button
+            android:id="@+id/btn_jh"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/init" >
+        </Button>
+        <TextView
+            android:id="@+id/tinitial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="content" />
     </LinearLayout>
 
 </ScrollView>

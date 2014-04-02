@@ -14,7 +14,7 @@
     <string name="no_clientid">(none)</string>
     <string name="start">启动</string>
     <string name="stop">停止</string>
-    <string name="clear">清除日志</string>
+    <string name="clear">激活設備</string>
     <string name="enablelog">开启debug日志</string>
     <string name="bindcell">绑定手机号</string>
     <string name="pmsg">透传测试</string>
@@ -24,5 +24,5 @@
     <string name="duration">持续时间(h)</string>
     <string name="set_heartbeat">心跳间隔(s)</string>
     <string name="send_msg">上传数据</string>
-
+	<string name="init">初始化</string>
 </resources>
