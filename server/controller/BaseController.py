@@ -37,18 +37,18 @@ class ConfigHandler(BaseHandler):
 					# {'name':'ios应用审计','id':'#'}
 					]
 			},
-			# {
-			# 	'id':'content_menu',
-			# 	'icon':'icon-folder-open-alt',
-			# 	'name':'内容',
-			# 	'submenu':[
+			{
+				'id':'content_menu',
+				'icon':'icon-folder-open-alt',
+				'name':'内容',
+				'submenu':[
 			# 		{'name':'文件推送','id':'#'},
 			# 		{'name':'通讯录管理','id':'#'},
-			# 		{'name':'推送消息','id':'#'},
+					{'name':'推送消息','id':'msg_list'},
 			# 		{'name':'目录推送','id':'#'},
 			# 		{'name':'文件加密新华','id':'#'}
-			# 		]
-			# },
+					]
+			},
 			# {
 			# 	'id':'user_menu',
 			# 	'icon':'icon-user',

@@ -61,5 +61,32 @@ def push(title,content,did,user):
 				})
 		return msg['cid']
 	return 0
+def add(title,content,user):
+	msg = {
+		'msg_id': MongoUtil.getNextSequence('msg_id'),
+		'title': title,
+		'content': content,
+		'tid': user['tid'],
+		'time': time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+			
+	}
+	MsgCollection.insert(msg)
+	return RESPONSE.SUCCESS
+def delete(msg_id,user):
 
+	MsgCollection.remove({'msg_id':int(msg_id)})
+	return RESPONSE.SUCCESS
+def list(user):
+	tid = user['tid']
+	msg_lists = MsgCollection.find({'tid':tid})
+	data = []
+	for msg_list in msg_lists:
+		msg_info = {}
+		msg_info['msg_id'] = msg_list['msg_id']
+		msg_info['title'] = msg_list['title']
+		msg_info['content'] = msg_list['content']
+		msg_info['time'] = msg_list['time']
+		data.append(msg_info)
+	
+	return data
 
