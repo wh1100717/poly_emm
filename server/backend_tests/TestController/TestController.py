@@ -52,6 +52,20 @@ def random_email_or_phone():
 	return random_value
 
 
+def UniversalTest_post(postData,url):
+	postData = urllib.urlencode(postData) 
+	request = urllib2.Request(
+        url = url,
+        data = postData,
+        headers = headers
+    )
+	response = urllib2.urlopen(request) 
+	text = response.read() 
+	text=eval(text)
+	assert text['status'] ==1
+	
+
+
 log_way = random_email_or_phone()
 random_name = StringUtil.token_generator()
 phone = StringUtil.token_generator()
@@ -62,6 +76,9 @@ token = ''
 did = StringUtil.token_generator()
 cid = StringUtil.token_generator()
 imei = StringUtil.token_generator()
+title = StringUtil.token_generator()
+content = StringUtil.token_generator()
+msg_id = ''
 
 
 
@@ -76,13 +93,13 @@ urllib2.install_opener(opener)
 
 headers = {'User-Agent':'Mozilla/5.0 (X11; Linux i686; rv:8.0) Gecko/20100101 Firefox/8.0'}
 
-
+#登出
 def test_LogoutHandler():
 	request = urllib2.Request('http://localhost/user/logout')
 	response = urllib2.urlopen(request) 
 	# assert cj._cookies['tid']=='' and cj._cookies['timestamp']==''
 
-
+#注册
 def test_RegisterHandler():
 	postData = {
 		'email_or_phone':log_way,
@@ -102,51 +119,32 @@ def test_RegisterHandler():
 
 
 
-
+#登录
 def test_LoginHandler():
+
 	#print tel
 	postData={
 		'email_or_phone':log_way,
 		'pwd':'111111'
 	}
-	postData = urllib.urlencode(postData) 
-	req  = urllib2.Request(
-        url = 'http://localhost/user/login',
-        data = postData,
-        headers = headers
-    )
-	response = urllib2.urlopen(req) 
-	text = response.read() 
-	text=eval(text)
-
+	url = 'http://localhost/user/login'
+	UniversalTest_post(postData, url)
 	#print "\n", cj._cookies
-	assert text['status'] ==1
+	
 
 
 
-
+#添加设备
 def test_AddHandler():
 		
 	postData={
 		'phone':phone,
-		'owner':owner,
+		'owner':owner
 	}
-	postData = urllib.urlencode(postData) 
-	request = urllib2.Request(
-        url = 'http://localhost/device/add',
-        data = postData,
-        headers = headers
-    )
-	response = urllib2.urlopen(request) 
-	text = response.read() 
-	text=eval(text)
+	url = 'http://localhost/device/add'
+	UniversalTest_post(postData, url)
 
-	#print "\n",cj._cookies
-
-	assert text['status'] ==1
-
-
-
+#设备列表
 def test_ListHandler():
 	postData={
 	}
@@ -205,17 +203,48 @@ def test_InitialHandler():
 				'cid':cid,
 				'imei':imei
 			}
-	postData = urllib.urlencode(postData) 
+	url = 'http://localhost/android/initial'
+	UniversalTest_post(postData, url)
+
+
+#消息添加
+def test_Msg_AddHandler():
+	postData = {
+		'title':title,
+		'content':content
+	}
+	url = 'http://localhost/msg/add'
+	UniversalTest_post(postData, url)
+
+
+#消息列表
+def test_Msg_ListHandler():
+	postData={
+	}
+	postData = urllib.urlencode(postData)
 	request = urllib2.Request(
-	    url = 'http://localhost/android/initial',
+		url = 'http://localhost/msg/list',
 		data = postData,
 		headers = headers
 	)
-	response = urllib2.urlopen(request) 
-	text = response.read() 
-	text=eval(text)
+	response = urllib2.urlopen(request)
+	text = response.read()
+	text = text.replace('false','"false"')
+	text = eval(text)
 
-	assert text['status'] ==1
+	#取msg_id
+	global msg_id
+	msg_id = text['data'][1]['msg_id']
+	assert text['status'] == 1
+
+
+#消息删除
+def test_Msg_DelHandler():
+	postData = {
+		'msg_id':msg_id
+	}
+	url = 'http://localhost/msg/del'
+	UniversalTest_post(postData, url)
 
 
 
