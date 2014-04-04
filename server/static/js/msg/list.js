@@ -44,11 +44,11 @@ $(function() {
         'html': true
       });
       $(".btn-confirm").confirm({
-        text: "Yes?",
-        title: "1111",
+        text: "是否删除该消息",
+        title: "删除消息",
         confirm: function(button) {
           $('#msg-delete').val(msg_id);
-          return $.ajax({
+          $.ajax({
             "type": "get",
             "contentType": "application/json",
             "url": "/msg/delete?msg_id=" + msg_id,
@@ -58,12 +58,13 @@ $(function() {
               }
             }
           });
+          return show_page('msg_list', '推送消息');
         },
         cancel: function(button) {
           return alert('no');
         },
-        confirmButton: "Yes",
-        cancelButton: "No"
+        confirmButton: "确定",
+        cancelButton: "取消"
       });
     }
   });

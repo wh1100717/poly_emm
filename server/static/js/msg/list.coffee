@@ -40,8 +40,8 @@ $ ->
 			$("#msg-list").dataTable().fnAddData table_data
 			$('[data-rel=tooltip]').tooltip({'html':true})
 			$(".btn-confirm").confirm {
-				text: "Yes?"
-				title: "1111"
+				text: "是否删除该消息"
+				title: "删除消息"
 				confirm: (button) ->
 					
 					$('#msg-delete').val(msg_id)
@@ -54,10 +54,11 @@ $ ->
 							if resp.status is 1
 								alert('删除成功')
 					}
+					show_page('msg_list','推送消息')	
 				cancel: (button) ->
 					alert 'no'
-				confirmButton: "Yes"
-				cancelButton: "No"
+				confirmButton: "确定"
+				cancelButton: "取消"
 			}
 			return
 	}
@@ -70,18 +71,4 @@ $ ->
 
 @msg_delete = (msg_id) ->
 	root.msg_id = msg_id
-# 	$('#msg-delete').val(msg_id)
-
-# 	$.ajax {
-# 		"type":"get"
-# 		"contentType":"application/json"
-# 		"url":"/msg/delete?msg_id="+msg_id
-# 		"success": (resp) ->
-			
-			
-# 			if resp.status is 1
-# 				alert('删除成功')
-# 	}
-
-
 
