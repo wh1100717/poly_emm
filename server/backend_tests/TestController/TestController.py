@@ -81,7 +81,7 @@ content = StringUtil.token_generator()
 msg_id = ''
 
 
-
+#cookie
 #获取一个保存cookie的对象
 cj = cookielib.LWPCookieJar()
 #将一个保存cookie对象，和一个HTTP的cookie的处理器绑定
@@ -114,7 +114,7 @@ def test_RegisterHandler():
 	response = urllib2.urlopen(request) 
 	text = response.read() 
 	text = eval(text)
-	#print log_way
+	print log_way
 	assert text['status'] == 1
 
 
@@ -231,20 +231,18 @@ def test_Msg_ListHandler():
 	text = response.read()
 	text = text.replace('false','"false"')
 	text = eval(text)
+	print text
 
 	#取msg_id
 	global msg_id
-	msg_id = text['data'][1]['msg_id']
+	msg_id = text['data'][0]['msg_id']
 	assert text['status'] == 1
 
 
 #消息删除
-def test_Msg_DelHandler():
-	postData = {
-		'msg_id':msg_id
-	}
-	url = 'http://localhost/msg/del'
-	UniversalTest_post(postData, url)
+def test_Msg_DeleHandler():
+	request = urllib2.Request('http://localhost/msg/delete?msg_id=%d'%msg_id)
+	response = urllib2.urlopen(request)
 
 
 
