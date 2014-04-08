@@ -30,6 +30,508 @@
 </div>
 
 
+
+
+<div class="modal fade" id="msg-pull" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 80%;">
+        <div class="modal-content" style="padding:5%;">
+            <div class="modal-head">
+                <h1 style="position: absolute;margin-top: -10px;">推送消息</h1>
+            </div>
+            <div class="modal-body">
+                
+
+                <!-- <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front no-close ui-dialog-buttons ui-draggable ui-resizable" tabindex="-1" role="dialog" aria-describedby="apps_form_div" aria-labelledby="ui-id-1" style="position: absolute; height: auto; width: 930px; top: 53.5px; left: 66px; display: block;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span id="ui-id-1" class="ui-dialog-title">黑名单应用管理</span><button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button" aria-disabled="false" title="close"><span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span><span class="ui-button-text">close</span></button></div><div id="apps_form_div" align="center" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 0px; max-height: none; height: 396px;"> -->
+
+
+
+
+
+
+
+<meta http-equiv="pragma" content="no-cache">
+<title>管理黑名单应用</title>
+<style>
+.EditMain{ width:910px;overflow:hidden; margin:0 auto;height:400px; font-size:12px;}
+.EditMain .fl{ float:left; display:inline;}
+.EditMain .fr{ float:right; display:inline;}
+.EditMain .bor_type{ width:400px; border:1px solid #999999;height:400px;overflow-y: auto;overflow-x:hidden;}
+.EditMain #edit_cen{ text-align:center; width:90px;height:290px;}
+.EditMain .rig_td9 {width:98%; margin-left:1%}
+.EditMain .rig_td9 td{word-wrap:break-word; font-size:12px;}
+.edit_tit{ background:#f1f1f1; border-bottom:1px solid #999999; overflow:hidden; width:100%; line-height:25px; margin-bottom:10px;}
+.btn_search{ vertical-align:middle; width:45px;}
+.EditMain .rig_td13{width:98%;margin-left:1%}
+</style>
+ 
+
+
+<div class="iframe_main">
+    <div class="EditMain">
+        <div class="fl bor_type" id="edit_fl">
+            <div class="edit_tit" align="center">
+
+                    <!-- <input type="hidden" name="id" id="id" value="29"> -->
+                    <input type="hidden" name="msg_id" id="msg_id" value="">
+
+                    <span id="spanSearch">
+                        <input type="text" id="textSearch" maxlength="8" onkeydown="EnterPress(event)">
+                        <input type="button" value="查询" onclick="doSearch()">
+                    </span>
+            </div>
+                    <table class="rig_td9" border="0" cellpadding="0" cellspacing="1" id="listdata" border="1">
+                        <tbody><tr id="titleTr">
+                            <td width="200" class="rig_td10"><input type="checkbox" id="all_list" name="chek_list" value="0"></td>
+                            <td width="200" class="rig_td10">拥有人</td>
+                            <td width="200" class="rig_td10">设备名</td>
+                        </tr>
+                    <tr class="rig_td11"><td><input type="checkbox" name="chek_list" value="1" disabled="disabled"></td><td><img src="http://test.polysaas.com/resource//baidu/2013-07-23/icon/fa25bc315c6034a81c887a10ca1349540923763d.jpg" height="20" width="20"></td><td><p style="width:200px;overflow:hidden">微信</p></td></tr><tr class="rig_td12"><td><input type="checkbox" name="chek_list" value="2" disabled="disabled"></td><td><img src="http://test.polysaas.com/resource//baidu/2013-07-23/icon/d9a1cd11728b47103d602853c2cec3fdfd0323e6.jpg" height="20" width="20"></td><td><p style="width:200px;overflow:hidden">QQ</p></td></tr><tr class="rig_td11"><td><input type="checkbox" name="chek_list" value="3" disabled="disabled"></td><td><img src="http://test.polysaas.com/resource//baidu/2013-07-23/icon/6af790529822720e84fc836b7acb0a46f21fab75.jpg" height="20" width="20"></td><td><p style="width:200px;overflow:hidden">UC浏览器</p></td></tr><tr class="rig_td12"><td><input type="checkbox" name="chek_list" value="4"></td><td><img src="http://test.polysaas.com/resource//baidu/2013-07-23/icon/6c2442a7d933c89526f83df8d01373f0830200ab.jpg" height="20" width="20"></td><td><p style="width:200px;overflow:hidden">百度手机助手</p></td></tr><tr class="rig_td11"><td><input type="checkbox" name="chek_list" value="5"></td><td><img src="http://test.polysaas.com/resource//baidu/2013-07-23/icon/cc51f3deb48f8c5458b994ac3b292df5e1fe7fcf.jpg" height="20" width="20"></td><td><p style="width:200px;overflow:hidden">PPS影音</p></td></tr><tr class="rig_td12"><td><input type="checkbox" name="chek_list" value="6"></td><td><img src="http://test.polysaas.com/resource//baidu/2013-07-23/icon/c818972bd40735fa511ab33e9f510fb30e24084b.jpg" height="20" width="20"></td><td><p style="width:200px;overflow:hidden">QQ空间</p></td></tr><tr class="rig_td11"><td><input type="checkbox" name="chek_list" value="7"></td><td><img src="http://test.polysaas.com/resource//baidu/2013-07-23/icon/aaea15ce36d3d539501a2b623b87e950352ab068.jpg" height="20" width="20"></td><td><p style="width:200px;overflow:hidden">优酷</p></td></tr><tr class="rig_td12"><td><input type="checkbox" name="chek_list" value="8"></td><td><img src="http://test.polysaas.com/resource//baidu/2013-07-23/icon/15c6a7efce1b9d1666053fecf2deb48f8d546479.jpg" height="20" width="20"></td><td><p style="width:200px;overflow:hidden">微博</p></td></tr><tr class="rig_td11"><td><input type="checkbox" name="chek_list" value="9"></td><td><img src="http://test.polysaas.com/resource//baidu/2013-07-23/icon/91d3572c11dfa9eca55ff43363d0f703918fc1a5.jpg" height="20" width="20"></td><td><p style="width:200px;overflow:hidden">QQ2011</p></td></tr><tr class="rig_td12"><td><input type="checkbox" name="chek_list" value="10"></td><td><img src="http://test.polysaas.com/resource//baidu/2013-07-23/icon/ff82d158ccbf6c81afd30167bd3eb13532fa405c.jpg" height="20" width="20"></td><td><p style="width:200px;overflow:hidden">爱奇艺视频</p></td></tr></tbody></table>
+    <table class="rig_td13" cellpadding="0" cellspacing="0">
+        <tbody><tr align="center">
+            <td id="pagination">
+                
+
+<table>
+    <tbody><tr>
+        <td colspan="6" class="font12hui" align="center" bgcolor="#FFFFFF">
+            <div id="pagination" align="right">
+                <a href="javascript:void(0)" id="aFirstPage" onclick="toFirstPage()" style="display:inline"><img src="/admin/img/foot_1.png"></a>
+                <a href="javascript:void(0)" id="aPrevPage" onclick="toPrevPage()" style="display:inline"><img src="/admin/img/foot_3.png"></a>
+                &nbsp;
+                <font size="2" id="fPageNow">1</font>
+                &nbsp;
+                <a href="javascript:void(0)" id="aNextPage" onclick="toNextPage()" style="display:inline"><img src="/admin/img/foot_4.png"></a>
+                <a href="javascript:void(0)" id="aEndPage" onclick="toEndPage()" style="display:inline"><img src="/admin/img/foot_2.png"></a>
+                <font size="2" id="fPageCount">共1页</font>
+                <span id="spanPageSize" style="display: none;">
+                    <font size="2">
+                    每页显示
+                    <select id="selectPageSize" onchange="pageSizeChange()">                
+                        <option value="10" selected="selected">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                    条数据
+                    </font>
+                </span>
+                <span id="spanTotalCount">
+                    <font size="2" id="fTotalCount"></font>
+                </span>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6" align="center" bgcolor="#FFFFFF">
+            <div id="processing" class="font12hui"></div>
+        </td>
+    </tr>
+
+</tbody></table>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    initPage();
+});
+    var page = {
+        pageNow:1,
+        pageSize:10,
+        totalCount:0,
+        totalPageCount:0
+    };
+    function initPage(){
+        if($("#offon_Search").val() == "true"){
+            var columnsStr = $("#offon_Search").attr("title");
+            var columns = columnsStr.split("|");
+            $("#selectSearch").find("option").remove();
+            for(var i=0; i<columns.length; i++){
+                var column = columns[i];
+                var vtitle = column.split(":")[0];
+                var vname = column.split(":")[1];
+                $("#selectSearch").append("<option value='" + vname + "'>" + vtitle + "</option>");
+            }
+        }
+    }
+    function restorePage(){
+        page = new Object();
+        page.pageNow = 1;
+        page.pageSize = 10;
+        page.totalCount = 0;
+        page.totalPageCount = 0;
+    }
+    function restorePageAndAjaxList(){
+        restorePage();
+        if($("#offon_SetPageSize").val()== "true"){
+            page.pageSize = $("#selectPageSize").val();
+        }
+        doAjaxList();
+    }
+    function setPage(pageTemp){
+        page = pageTemp;
+        page.totalPageCount = (page.totalCount%page.pageSize==0)?(page.totalCount/page.pageSize):parseInt(page.totalCount/page.pageSize + 1);
+        $('#selectPageSize option').each(function(i){
+            if($(this).val() == page.pageSize) {
+                $(this).attr("selected", "selected");
+            }
+        });
+    }
+    function getPage(){
+        if($("#offon_SetPageSize").val()== "true"){
+            page.pageSize = $("#selectPageSize").val();
+        }
+        return page;
+    }
+    function setPageCount(count){
+        page.totalCount = count;
+        page.totalPageCount = (count%page.pageSize==0)?(count/page.pageSize):parseInt(count/page.pageSize + 1);
+    }
+    function toFirstPage(){
+        if(page.pageNow <= 1)
+            return;
+        page.pageNow = 1;
+        doAjaxList();
+        showPage();
+    }
+    function toPrevPage(){
+        if(page.pageNow <= 1)
+            return;
+        page.pageNow = page.pageNow-1;
+        doAjaxList();
+        showPage();
+    }
+    function toNextPage(){
+        if(page.pageNow>=page.totalPageCount)
+            return;
+        page.pageNow = page.pageNow+1;
+        doAjaxList();
+        showPage();
+    }
+    function toEndPage(){
+        if(page.pageNow>=page.totalPageCount)
+            return;
+        page.pageNow = page.totalPageCount;
+        doAjaxList();
+        showPage();
+    }
+    
+    function showPage(){
+        if($("#offon_SetPageSize").val()== "true"){
+            $("#spanPageSize").show();
+        } else {
+            $("#spanPageSize").hide();
+        }
+        if(page.totalCount==0){
+            $("#fPageNow").html("无数据");
+            $("#fPageCount").html("");
+            $("#aFirstPage").attr("style","display:none");
+            $("#aPrevPage").attr("style","display:none");
+            $("#aEndPage").attr("style","display:none");
+            $("#aNextPage").attr("style","display:none");
+            $("#spanTotalCount").hide();
+        } else {
+//          if(page.pageNow == 1){
+//              $("#aFirstPage").attr("style","display:none");
+//              $("#aPrevPage").attr("style","display:none");
+//          } else {
+//              $("#aFirstPage").attr("style","display:false");
+//              $("#aPrevPage").attr("style","display:false");
+//          }
+//          if(page.pageNow == page.totalPageCount){
+//              $("#aEndPage").attr("style","display:none");
+//              $("#aNextPage").attr("style","display:none");
+//          } else {
+//              $("#aEndPage").attr("style","display:false");
+//              $("#aNextPage").attr("style","display:false");
+//          }
+            $("#fPageNow").html(page.pageNow);
+            $("#fPageCount").html("共" + page.totalPageCount + "页");
+            $("#fPageCount").show();
+            $("#fPageNow").html(page.pageNow);
+            $("#aFirstPage").attr("style","display:inline");
+            $("#aPrevPage").attr("style","display:inline");
+            $("#aEndPage").attr("style","display:inline");
+            $("#aNextPage").attr("style","display:inline");
+            if($("#offon_TotalCount").val() == "true"){
+                $("#fTotalCount").html("共" + page.totalCount + "条数据");
+                $("#spanTotalCount").show();
+            }
+            if($("#offon_Search").val() == "true"){
+                $("#spanSearch").show();
+            } else {
+                $("#spanSearch").hide();
+            }
+        }
+    }
+    
+    function pageSizeChange(){
+        restorePage();
+        doAjaxList();
+    }
+    function doSearch(){
+        restorePage();
+        doAjaxList();
+    }
+    function doAjaxList(){
+        if($("#offon_SetPageSize").val()== "true"){
+            page.pageSize = $("#selectPageSize").val();
+        }
+        if($("#offon_Search").val() == "true"){
+            var columnName = $("#selectSearch").val();
+            var searchValue = $("#textSearch").val();
+            var queryObj = null;
+            if(searchValue != undefined && searchValue !=null && searchValue != ""){
+                if (columnName == 'h.start_time') {
+                    if (!checkDateTime(searchValue)) {
+                        alert("日期格式不正确，请检查");
+                        return;
+                    }
+                }
+                queryObj = {"key":columnName,"value":searchValue};
+            }
+            page.queryObj = queryObj;
+        }
+        eval($("#ajaxListFunctionName").val()).apply(this);
+        //ajaxList();
+    }
+    function checkDateTime(str) {  
+        var reg = /^(\d+)-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2})$/; 
+        var r = str.match(reg); 
+        var d;
+        if(r == null) {
+            reg = /^(\d+)-(\d{1,2})-(\d{1,2})$/; 
+            r = str.match(reg); 
+            if (r == null) {
+                return false; 
+            } else {
+                r[2]=r[2]-1;
+                d = new Date(r[1], r[2],r[3]);
+            }
+        } else {
+            r[2]=r[2]-1;
+            d = new Date(r[1], r[2],r[3], r[4],r[5]);
+            if(d.getHours() != r[4])return false; 
+            if(d.getMinutes() != r[5])return false; 
+        }
+        if(d.getFullYear() != r[1])return false; 
+        if(d.getMonth() != r[2])return false; 
+        if(d.getDate() != r[3])return false; 
+        return true;
+    } 
+</script>
+
+
+                <input type="hidden" id="ajaxListFunctionName" value="ajaxList">
+                <input type="hidden" id="offon_SetPageSize" value="false">
+                <input type="hidden" id="offon_TotalCount" value="false">
+                <input type="hidden" id="offon_Search" value="true" title="黑名单1:app_name">
+            </td>
+        </tr>
+    </tbody></table>
+        </div>
+                    <div class="fl" id="edit_cen">
+                        <input type="button" name="Submit" value=" 选择&gt;&gt; " onclick="right_move()"><br><br>
+                        <input type="button" name="Submit2" value=" 删  除 " onclick="del_right();">
+                    </div>
+                    <div class="fl bor_type" id="edit_fr">
+                        <div class="edit_tit" align="center" height="33px" style="height: 36px; padding-top: 5px;">已选设备</div>
+                        <table id="detail" class="rig_td9" cellpadding="0" cellspacing="1" width="100%">
+                            <tbody><tr>
+                              <td width="200" class="rig_td11"><input type="checkbox" id="all_list2" name="chek_list" value="0"></td>
+                              <td width="200" class="rig_td11">拥有人</td>
+                              <td width="200" class="rig_td11">设备</td>
+                            </tr>
+                            
+                            
+                            <tr>
+                                <td width="40" class="rig_td11"><input type="checkbox" id="all_list" name="chek_list" value="3"></td>
+                                <td class="rig_td11"><img src="http://test.polysaas.com/resource//baidu/2013-07-23/icon/6af790529822720e84fc836b7acb0a46f21fab75.jpg" height="20" width="20"></td>
+                                <td class="rig_td11">UC浏览器</td>
+                            </tr>
+                            
+                            <tr>
+                                <td width="40" class="rig_td11"><input type="checkbox" id="all_list" name="chek_list" value="2"></td>
+                                <td class="rig_td11"><img src="http://test.polysaas.com/resource//baidu/2013-07-23/icon/d9a1cd11728b47103d602853c2cec3fdfd0323e6.jpg" height="20" width="20"></td>
+                                <td class="rig_td11">QQ</td>
+                            </tr>
+                            
+                            <tr>
+                                <td width="40" class="rig_td11"><input type="checkbox" id="all_list" name="chek_list" value="1"></td>
+                                <td class="rig_td11"><img src="http://test.polysaas.com/resource//baidu/2013-07-23/icon/fa25bc315c6034a81c887a10ca1349540923763d.jpg" height="20" width="20"></td>
+                                <td class="rig_td11">微信</td>
+                            </tr>
+                                
+                        </tbody></table>
+                    </div>
+    </div>  
+</div>  
+
+
+</div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">确定</span></button><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">取消</span></button></div></div><div class="ui-resizable-handle ui-resizable-n" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-s" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-sw" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-ne" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-nw" style="z-index: 90;"></div></div>
+                <!-- <form id="msg-add-form" class="form-horizontal" role="form" action="/msg/add" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 标题 </label>
+                        <div class="col-sm-9">
+                            <input type="text" placeholder="标题" class="col-xs-10 col-sm-5" name="title"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 内容 </label>
+                        <div class="col-sm-9">
+                            <textarea placeholder="内容" class="col-xs-10 col-sm-5" name="content" rows="6" ></textarea>
+                        </div>
+                    </div>
+                    <button class="btn btn-info" type="button" onclick="msg_add()">
+                        <i class="icon-ok bigger-110"></i>
+                        添加
+                    </button>
+                </form> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        $("#add_app_form").onkeydown = function(e){
+            var e = e || event;
+            var keyNum = e.which || e.keyCode;
+            return keyNum==13 ? false : true;
+        };
+        $("#edit_fl #all_list").click(function(){
+           $("#edit_fl input:checkbox[name=chek_list]").prop('checked',$(this).prop('checked'));                                                                
+        })
+        $("#edit_fr #all_list2").click(function(){
+           $("#edit_fr input:checkbox[name=chek_list]").prop('checked',$(this).prop('checked'));                                                                
+        })
+        
+    })
+
+    /*
+    获取右侧左右数据id字符串的的方法，测试弹出在右侧表格‘图标’所在td中的onclick事件中。实际调用getFrdata()时可将alert(str);删除，返回值即为id字符串。
+    */
+    function getFrdata()
+    {   
+         var edit_fr_num="";
+         var str="";
+         $("#edit_fr input:checkbox[name=chek_list]").each(function(){  
+             if($(this).attr('value')!=0)
+             {
+                 edit_fr_num=$(this).attr('value');
+                 str=edit_fr_num+","+str; 
+                return str;
+             }
+        })
+        return str;
+    }
+
+    function right_move()
+    {
+        var data_list=[];
+        var is_fla;
+        var text2;
+        $("#edit_fr #all").attr('checked',false);
+        $("#edit_fl input:checkbox[name=chek_list]:checked").each(function(){ 
+              if($(this).attr("value")!=0 && $(this).prop("disabled")==false )
+              {
+                  text2=$(this).parent();
+                  text2="<tr><td class='rig_td11'>"+text2.html()+"</td><td class='rig_td11'>"+text2.next().html()+"</td><td class='rig_td11'>"+text2.next().next().html()+"</td></tr>";
+                  data_list[data_list.length]=[$(this).attr("value"),text2];
+                  $(this).attr("disabled",true);
+                return data_list;
+              }
+         })
+
+        $("#edit_fr input:checkbox[name=chek_list]").each(function(){   
+             is_fla=true;        
+             for(var k=0;k<data_list.length;k++)
+             {
+                  if($(this).attr("value")==data_list[k][0])
+                  {
+                      return is_fla=false;
+                  } 
+             }
+             
+        })
+          
+        if(is_fla)
+        {
+            for(var i=0;i<data_list.length;i++)
+            {
+                $("#edit_fr table").append(data_list[i][1])
+            }
+            $("#edit_fl input:checkbox[name=chek_list]:checkbox:checked").attr("checked",false);
+        }
+
+
+    }
+
+    // 删除右边黑名单
+    function del_right()
+    {
+        $("#edit_fr input:checkbox[name=chek_list]").each(function(){   
+             if($(this).attr("checked") && $(this).attr("value")!=0 )
+             {
+                 $(this).parent().parent().remove();
+                 var temp=$(this);
+                 $("#edit_fl input:checkbox[name=chek_list]").each(function(){
+                     if($(this).attr("value")==temp.attr("value")){
+                         $(this).attr("disabled",false);
+                     } 
+                 })
+                 
+             }
+            
+          }) 
+    }
+
+
+    function initList(listBean){
+        var beans = listBean.appList;
+        var listHtml = "";
+        for(var i=0;i<beans.length;i++){
+            var bean = beans[i];
+            listHtml += "<tr class='" + (i % 2 == 0 ? "rig_td11" : "rig_td12") + "'>";
+            listHtml +=  "<td><input type='checkbox' name='chek_list' value='"+(bean.id==null?"":bean.id)+"' /></td>"
+            listHtml +=  "<td><img src='" + (bean.icon==null?"":bean.icon) + "' height='20' width='20' /></td>";
+            listHtml +=  "<td><p style='width:200px;overflow:hidden'>" + (bean.appName==null?"":bean.appName) + "</p></td>";
+            // listHtml +=  "<td>" + (bean.appPackage==null?"":bean.appPackage) + "</td>";
+            listHtml +=  "</tr>";
+        }
+        $("#listdata").append(listHtml);
+    }
+
+    /*130627 cj 10:32*/
+    function initStatus()
+    { 
+        $("#edit_fr input:checkbox[name=chek_list]").each(function(){   
+                 var temp=$(this);
+                 $("#edit_fl input:checkbox[name=chek_list]").each(function(){
+                   if($(this).attr("value")==temp.attr("value")&& $(this).attr("value")!=0){
+                       $(this).attr("disabled",true);
+                      
+                       } 
+                 })
+            
+          })    
+    }
+
+    function EnterPress(e){ //传入 event 
+        var e = e || window.event; 
+        if(e.keyCode == 13){ 
+             doSearch(); 
+             //e.keyCode = 0 ;
+            return false;
+        } 
+        
+    } 
+
+</script>
+
+
+
+
+
+
 <div class="table-responsive">
     <div class="table-header">
         <span>消息列表</span>
