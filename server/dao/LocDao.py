@@ -21,7 +21,7 @@ def update(token,did,loc_info):
 	return {'status':1}
 
 def latest(user, did):
-	devices = user['devices']
+	devices = DeviceDao.get_devices_by_user(user)
 	for device in devices:
 		if device['did'] == did:
 			device_loc = LocCollection.find_one({'did':did})
