@@ -30,6 +30,7 @@ class PushHandler(AuthenHandler):
 		device_lists = self.get_argument('device_lists')
 		user = self.get_user()
 		self.write(PolicyDao.push(policy_id,device_lists,user))
+#策略列表
 class ListHandler(AuthenHandler):
 	def get(self):
 		self.write(self.render_template('policy/list'))
