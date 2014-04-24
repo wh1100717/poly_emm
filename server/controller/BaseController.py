@@ -9,7 +9,7 @@ class ConfigHandler(BaseHandler):
 		#TODO 根据UserDao根据user获取相应的配置权限来返回配置信息，以下为假数据
 		menulist = [
 			{
-				'id':'device_list',
+				'id':'html_device',
 				'icon':'icon-laptop',
 				'name':'设备'
 				# 'submenu':[

@@ -38,7 +38,7 @@ root = exports ? this
 	$.ajax {
 		"type":"get"
 		"contentType":"application/json"
-		"url":"/device/" + did
+		"url":"/devices/" + did
 		"success": (resp) ->
 			data = resp.data
 			$('#loc_interval').html data['loc_interval']
@@ -72,7 +72,7 @@ $ ->
 		} 	
 	}
 	$.ajax {
-		"type": "post",
+		"type": "get",
 		"url": "devices",
 		"success": (data) ->
 			console.log data

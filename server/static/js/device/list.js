@@ -57,7 +57,7 @@ this.show_detail = function(did) {
   return $.ajax({
     "type": "get",
     "contentType": "application/json",
-    "url": "/device/" + did,
+    "url": "/devices/" + did,
     "success": function(resp) {
       var data;
       data = resp.data;
@@ -89,7 +89,7 @@ $(function() {
     }
   });
   $.ajax({
-    "type": "post",
+    "type": "get",
     "url": "devices",
     "success": function(data) {
       var d, data_list, table_data, tmp, _i, _len;
