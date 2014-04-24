@@ -27,7 +27,7 @@ this.device_add = function() {
 
 this.device_enroll = function() {
   return $('#device-enroll-form').ajaxSubmit(function(data) {
-    alert(data['status']);
+    alert(data['token']);
     $('#device-enroll').on('hidden.bs.modal', function() {
       return show_page('device_list', '设备');
     });
@@ -57,7 +57,7 @@ this.show_detail = function(did) {
   return $.ajax({
     "type": "get",
     "contentType": "application/json",
-    "url": "/device/detail?did=" + did,
+    "url": "/device/" + did,
     "success": function(resp) {
       var data;
       data = resp.data;
@@ -90,7 +90,7 @@ $(function() {
   });
   $.ajax({
     "type": "post",
-    "url": "device/list",
+    "url": "devices",
     "success": function(data) {
       var d, data_list, table_data, tmp, _i, _len;
       console.log(data);

@@ -19,6 +19,7 @@ def enroll(tid, active_code, phone):
 				device['active'] = True
 				UserCollection.update({'tid':user['tid']},user)
 				RESPONSE.ENROLL_SUCCESS['token'] = user['token']
+				print RESPONSE.ENROLL_SUCCESS['token'] 
 				return RESPONSE.ENROLL_SUCCESS
 			else:
 				return RESPONSE.WRONG_ACTIVE_CODE

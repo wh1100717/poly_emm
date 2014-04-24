@@ -25,15 +25,14 @@ class ListHandler(AuthenHandler):
 		self.write(response)
 
 class DetailHandler(AuthenHandler):
-	def get(self):
-		did = self.get_argument('did')
+	def get(self,did):
 		user = self.get_user()
 		response = RESPONSE.LIST_SUCCESS
 		response['data'] = DeviceDao.detail(did,user)
 		self.write(response)
 
 handlers = [
-	(r"/device/add",AddHandler),
-	(r"/device/list", ListHandler),
-	(r"/device/detail", DetailHandler),
+	(r"/device",AddHandler),
+	(r"/devices", ListHandler),
+	(r"/device/([1-9]+)", DetailHandler),
 ]

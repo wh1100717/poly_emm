@@ -17,7 +17,7 @@ root = exports ? this
 
 @device_enroll = ->
 	$('#device-enroll-form').ajaxSubmit (data) ->
-		alert(data['status'])
+		alert(data['token'])
 		$('#device-enroll').on 'hidden.bs.modal', -> show_page('device_list','设备')			
 		$('#device-enroll').modal('hide')
 
@@ -38,7 +38,7 @@ root = exports ? this
 	$.ajax {
 		"type":"get"
 		"contentType":"application/json"
-		"url":"/device/detail?did=" + did
+		"url":"/device/" + did
 		"success": (resp) ->
 			data = resp.data
 			$('#loc_interval').html data['loc_interval']
@@ -73,7 +73,7 @@ $ ->
 	}
 	$.ajax {
 		"type": "post",
-		"url": "device/list",
+		"url": "devices",
 		"success": (data) ->
 			console.log data
 			data_list = data['data']

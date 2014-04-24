@@ -28,17 +28,7 @@ class RegisterHandler(BaseHandler):
 		email_or_phone = self.get_argument('email_or_phone')
 		user_name = self.get_argument('user_name')
 		pwd = self.get_argument('pwd')
-		pwd_confirm = self.get_argument('pwd_confirm')
-		accept = self.get_argument('accept', default='off')
-
-		#如果用户不接受使用条款，则注册失败
-		if accept != 'on':
-			self.write(RESPONSE.UN_ACCEPT)
-			return
-		#如果用户密码和确认密码不同，则注册失败
-		if pwd != pwd_confirm:
-			self.write(RESPONSE.DIFF_PASSWORD)
-			return
+		
 		enroll_type = StringUtil.is_email_or_phone(email_or_phone)
 		if enroll_type == 'neither':
 			#如果用户输入不是邮箱或者电话号，则注册失败
