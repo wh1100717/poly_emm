@@ -20,26 +20,27 @@ from util import IgetuiUtil
 # 		response = IgetuiUtil.pushMessageToSingle(cid=cid,template=template)
 # 		print response
 # 		self.write('123')
-class AddHandler(AuthenHandler):
+class MsgsHandler(AuthenHandler):
+	#Add Msg
 	def post(self):
 		title = self.get_argument('title')
 		content = self.get_argument('content')
 		user = self.get_user()
 		self.write(MsgDao.add(title,content,user))
 
-class DeleHandler(AuthenHandler):
+	#list Msg
 	def get(self):
-		msg_id = self.get_argument('msg_id')
-		user = self.get_user()
-		self.write(MsgDao.delete(msg_id,user))
-class ListHandler(AuthenHandler):
-	def get(self):
-		self.write(self.render_template('msg/list'))
-	def post(self):
 		user = self.get_user()
 		response = RESPONSE.LIST_SUCCESS
 		response['data'] = MsgDao.list(user)
 		self.write(response)
+	
+	#Delete Msg
+	def delete(self,msgid):
+		user = self.get_user()
+		self.write(MsgDao.delete(msgid,user))
+
+
 class PushHandler(AuthenHandler):
 	def post(self):
 		msg_id = self.get_argument('msg_id')
@@ -55,7 +56,6 @@ class PushHandler(AuthenHandler):
 		
 handlers = [
 	(r"/msg/push", PushHandler),
-	(r"/msg/add", AddHandler),
-	(r"/msg/delete", DeleHandler),
-	(r"/msg/list", ListHandler),
+	(r"/msgs", MsgsHandler),
+	(r"/msgs/([1-9]+)", MsgsHandler),
 ]

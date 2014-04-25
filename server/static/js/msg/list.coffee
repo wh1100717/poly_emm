@@ -23,8 +23,8 @@ $ ->
 		} 	
 	}
 	$.ajax {
-		"type": "post",
-		"url": "msg/list",
+		"type": "get",
+		"url": "msgs",
 		"success": (data) ->
 			console.log data
 			data_list = data['data']
@@ -47,9 +47,9 @@ $ ->
 					$('#msg-delete').val(msg_id)
 
 					$.ajax {
-						"type":"get"
+						"type":"delete"
 						"contentType":"application/json"
-						"url":"/msg/delete?msg_id="+msg_id
+						"url":"/msgs/"+msg_id
 						"success": (resp) ->
 							if resp.status is 1
 								alert('删除成功')

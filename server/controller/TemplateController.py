@@ -5,6 +5,12 @@ from status import *
 class DeviceHandler(AuthenHandler):
 	def get(self):
 		self.write(self.render_template('device/list'))
+class MsgHandler(AuthenHandler):
+	def get(self):
+		self.write(self.render_template('msg/list'))
+
 handlers = [
-	(r"/html/device", DeviceHandler)
+	(r"/html/device", DeviceHandler),
+	(r"/html/msg",MsgHandler)
 ]
+

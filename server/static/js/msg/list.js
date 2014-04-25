@@ -22,8 +22,8 @@ $(function() {
     }
   });
   return $.ajax({
-    "type": "post",
-    "url": "msg/list",
+    "type": "get",
+    "url": "msgs",
     "success": function(data) {
       var d, data_list, table_data, tmp, _i, _len;
       console.log(data);
@@ -49,9 +49,9 @@ $(function() {
         confirm: function(button) {
           $('#msg-delete').val(msg_id);
           $.ajax({
-            "type": "get",
+            "type": "delete",
             "contentType": "application/json",
-            "url": "/msg/delete?msg_id=" + msg_id,
+            "url": "/msgs/" + msg_id,
             "success": function(resp) {
               if (resp.status === 1) {
                 return alert('删除成功');

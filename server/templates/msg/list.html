@@ -6,7 +6,7 @@
                 <h1 style="position: absolute;margin-top: -10px;">添加消息</h1>
             </div>
             <div class="modal-body">
-                <form id="msg-add-form" class="form-horizontal" role="form" action="/msg/add" method="post">
+                <form id="msg-add-form" class="form-horizontal" role="form" action="/msgs" method="post">
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 标题 </label>
                         <div class="col-sm-9">
@@ -551,7 +551,7 @@ $(document).ready(function() {
     </table>
 </div>
 
-<button class="confirm" type="button">Delete the comment</button>
+<!--<button class="confirm" type="button">Delete the comment</button>-->
 
 
 <!-- page specific plugin scripts -->
@@ -562,6 +562,7 @@ $(document).ready(function() {
 <script src="static/assets/js/jquery.confirm.js"></script>
 <script src="static/js/msg/list.js"></script>
 
+<!--
 <script>
 $(".confirm").confirm({
     text: "Are you sure you want to delete that comment?",
@@ -577,3 +578,4 @@ $(".confirm").confirm({
     post: true
 });
 </script>
+-->
