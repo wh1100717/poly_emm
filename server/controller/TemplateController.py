@@ -8,9 +8,13 @@ class DeviceHandler(AuthenHandler):
 class MsgHandler(AuthenHandler):
 	def get(self):
 		self.write(self.render_template('msg/list'))
+class DocHandler(AuthenHandler):
+	def get(self):
+		self.write(self.render_template('doc/list'))
 
 handlers = [
 	(r"/html/device", DeviceHandler),
-	(r"/html/msg",MsgHandler)
+	(r"/html/msg",MsgHandler),
+	(r"/html/doc",DocHandler)
 ]
 

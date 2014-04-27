@@ -12,6 +12,7 @@ from controller import BlackListController
 from controller import AndroidController
 from controller import MsgController
 from controller import TemplateController
+from controller import DocController
 
 handlers = []
 
@@ -50,5 +51,7 @@ handlers += MsgController.handlers
 handlers += AndroidController.handlers
 
 handlers += TemplateController.handlers
+
+handlers += DocController.handlers
 
 handlers += [(r"^/(.*)$", AuthenHandler)]
