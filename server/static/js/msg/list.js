@@ -70,6 +70,50 @@ $(function() {
   });
 });
 
+this.msg_pull = function() {
+  $('#device-list').dataTable({
+    "bRetrieve": true,
+    "bDestroy": true,
+    "oLanguage": {
+      "sLengthMenu": "每页显示 _MENU_ 条记录",
+      "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+      "sInfoEmpty": "&nbsp;",
+      "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
+      "oPaginate": {
+        "sFirst": "首页",
+        "sPrevious": "前一页",
+        "sNext": "后一页",
+        "sLast": "尾页"
+      },
+      "sSearch": "搜索: ",
+      "sZeroRecords": "没有检索到数据",
+      "sProcessing": "<img src='./loading.gif' />"
+    }
+  });
+  return $.ajax({
+    "type": "get",
+    "url": "devices",
+    "success": function(data) {
+      var d, data_list, table_data, tmp, _i, _len;
+      console.log(data);
+      data_list = data['data'];
+      table_data = [];
+      for (_i = 0, _len = data_list.length; _i < _len; _i++) {
+        d = data_list[_i];
+        tmp = [];
+        tmp.push("<input type=\"checkbox\" name=\"chek_list\" value=\"1\">");
+        tmp.push(d['owner']);
+        tmp.push(d['phone']);
+        table_data.push(tmp);
+      }
+      $("#device-list").dataTable().fnAddData(table_data);
+      $('[data-rel=tooltip]').tooltip({
+        'html': true
+      });
+    }
+  });
+};
+
 this.msg_add = function() {
   return $('#msg-add-form').ajaxSubmit(function(data) {
     if (data.status === 1) {

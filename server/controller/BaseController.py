@@ -44,7 +44,7 @@ class ConfigHandler(BaseHandler):
 				'submenu':[
 			# 		{'name':'文件推送','id':'#'},
 			# 		{'name':'通讯录管理','id':'#'},
-					{'name':'推送消息','id':'html_msg'},
+					{'name':'消息','id':'html_msg'},
 			# 		{'name':'目录推送','id':'#'},
 			# 		{'name':'文件加密新华','id':'#'}
 					]
