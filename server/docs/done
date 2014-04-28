@@ -1,0 +1,24 @@
+ CREATE
+ 
+    /*[DEFINER = { user | CURRENT_USER }]*/
+     PROCEDURE `polymdm`.`ff`()
+     /*LANGUAGE SQL
+     | [NOT] DETERMINISTIC
+     | { CONTAINS SQL | NO SQL | READS SQL DATA | MODIFIES SQL DATA }
+     | SQL SECURITY { DEFINER | INVOKER }
+     | COMMENT 'string'*/
+     BEGIN
+ declare i BIGINT;
+ set i=1;
+ while i<=90000 do
+ begin
+ INSERT mdm_device_enrollment (username,domain,department,request_time,platform,mdm_policy,enrollment_url,device_no,registion_time,passcode,enrollment_status,corporate_id,partner_id,customer_id,dept_id,login_name)  VALUES (concat('kings_user',i),'polysaas.com','1111','2013-12-20 10:13:12','1',1,'http://10.1.2.205:8080/polyemm.apk',concat('kings_user',i),'2013-12-20 10:13:12',concat('kings_user',i),0,25,'20','25',-1,concat('kings_user',i));
+ set i=i+1;
+ end;
+ end while;
+    END
+    
+    
+    
+    
+    http://10.1.2.208:8080/resource/20/25/-1/apk/jp.co.tritech.android.smartextension.statusview15.apk

@@ -19,19 +19,19 @@ class ConfigHandler(BaseHandler):
 				# 	# {'name':'设备组','id':'device_group'}
 				# 	]
 			},
-			# {
-			# 	'id':'policy_menu',
-			# 	'icon':'icon-key',
-			# 	'name':'策略',
-			# 	'submenu':[{'name':'策略列表','id':'policy'}]
-			# },
+			{
+				'id':'policy_menu',
+				'icon':'icon-key',
+				'name':'策略',
+				'submenu':[{'name':'策略列表','id':'html_policy'}]
+			},
 			{
 				'id':'app_menu',
 				'icon':'icon-list',
 				'name':'应用',
 				'submenu':[
-					{'name':'应用列表','id':'app_list'},
-					{'name':'黑名单管理','id':'blacklist_list'}
+					{'name':'应用列表','id':'html_app'},
+					#{'name':'黑名单管理','id':'blacklist_list'}
 					# {'name':'ios应用','id':'#'},
 					# {'name':'ios应用策略','id':'#'},
 					# {'name':'ios应用审计','id':'#'}
@@ -42,9 +42,9 @@ class ConfigHandler(BaseHandler):
 				'icon':'icon-folder-open-alt',
 				'name':'内容',
 				'submenu':[
-					{'name':'文件推送','id':'html_doc'},
+					{'name':'文件列表','id':'html_doc'},
 			# 		{'name':'通讯录管理','id':'#'},
-					{'name':'消息','id':'html_msg'},
+					{'name':'消息列表','id':'html_msg'},
 			# 		{'name':'目录推送','id':'#'},
 			# 		{'name':'文件加密新华','id':'#'}
 					]

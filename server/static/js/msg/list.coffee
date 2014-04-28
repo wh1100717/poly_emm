@@ -90,6 +90,7 @@ $ ->
 			"sProcessing": "<img src='./loading.gif' />"
 		} 	
 	}
+	$("#device-list").dataTable().fnClearTable()
 	$.ajax {
 		"type": "get",
 		"url": "devices",

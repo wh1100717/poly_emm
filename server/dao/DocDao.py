@@ -11,7 +11,13 @@ import os
 DocCollection = MongoUtil.db.doc
 UserCollection = MongoUtil.db.user
 
-def upload(doc_name,upload_path,user):
+def upload(file_metas,upload_path,user):
+	for meta in file_metas:
+		doc_name=meta['filename']
+        filepath=os.path.join(upload_path,doc_name)
+        with open(filepath,'wb') as up:      #有些文件需要已二进制的形式存储，实际中可以更改
+        	up.write(meta['body'])
+
 	doc = {
 		'doc_id': MongoUtil.getNextSequence('doc_id'),
 		'doc_name': doc_name,
