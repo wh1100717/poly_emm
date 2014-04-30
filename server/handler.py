@@ -13,6 +13,7 @@ from controller import AndroidController
 from controller import MsgController
 from controller import TemplateController
 from controller import DocController
+from controller import PolicyController
 
 handlers = []
 
@@ -53,5 +54,7 @@ handlers += AndroidController.handlers
 handlers += TemplateController.handlers
 
 handlers += DocController.handlers
+
+handlers += PolicyController.handlers
 
 handlers += [(r"^/(.*)$", AuthenHandler)]
