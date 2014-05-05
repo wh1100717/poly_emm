@@ -10,7 +10,7 @@ class ConfigHandler(BaseHandler):
 		menulist = [
 			{
 				'id':'html_device',
-				'icon':'icon-laptop',
+				'icon':'icon-mobile-phone',
 				'name':'设备'
 				# 'submenu':[
 				# 	{'name':'注册列表','id':'device_register'},
@@ -21,7 +21,7 @@ class ConfigHandler(BaseHandler):
 			},
 			{
 				'id':'policy_menu',
-				'icon':'icon-key',
+				'icon':'icon-folder-open-alt',
 				'name':'策略',
 				'submenu':[{'name':'策略列表','id':'html_policy'}]
 			},
@@ -39,7 +39,7 @@ class ConfigHandler(BaseHandler):
 			},
 			{
 				'id':'content_menu',
-				'icon':'icon-folder-open-alt',
+				'icon':'icon-book',
 				'name':'内容',
 				'submenu':[
 					{'name':'文件列表','id':'html_doc'},
@@ -78,7 +78,7 @@ class ConfigHandler(BaseHandler):
 		]
 		self.write(
 			{
-				"back_image":"static/image/logo.png",
+				"back_image":"static/image/logo1.png",
 				"back_title":"企业移动管理平台",
 				"back_username":user['user_name'],
 				"back_userrole":user['role'],
