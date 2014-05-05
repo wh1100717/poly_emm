@@ -77,6 +77,45 @@
 			.signup-box {
 				top: -245.5px;
 			}
+
+			.login-layout .widget-box {
+				background-color: rgba(255, 255, 255, 0);
+			}
+
+			.widget-body {
+				background-color: rgba(255,255,255,0);
+			}
+
+			.login-layout .widget-box .widget-main {
+				background-color: rgba(247,247,247,.9);
+			}
+
+			@media (max-width:768px) {
+				.image {
+					position: static;
+					width: 100%;
+				}
+
+				#logo,
+				#background {
+					position: static;
+				}
+
+				.fixed {
+					position: static;
+					width: 100%;
+				}
+
+				.login-box {
+					top: 0px;
+				}
+				.forgot-box {
+					top: 0px;
+				}
+				.signup-box {
+					top: 0px;
+				}
+			}
 		</style>
 
 	</head>
@@ -137,7 +176,6 @@
 															</label>
 
 															<button type="button" onclick="login_submit()" class="width-35 pull-right btn btn-sm btn-primary">
-																<i class="icon-key"></i>
 																登录
 															</button>
 														</div>
@@ -190,7 +228,6 @@
 
 														<div class="clearfix">
 															<button type="button" class="width-45 pull-right btn btn-sm btn-danger">
-																<i class="icon-lightbulb"></i>
 																发送确认邮件!
 															</button>
 														</div>
