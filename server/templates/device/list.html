@@ -1,26 +1,25 @@
 <!-- 添加设备Modal -->
 <div class="modal fade" id="device-add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width: 80%;">
-        <div class="modal-content" style="padding:5%;">
+    <div class="modal-dialog" style="width: 35%;padding-top:120px;">
+        <div class="modal-content" style="padding:5%;padding-bottom:0;text-align:right">
             <div class="modal-head">
-                <h1 style="position: absolute;margin-top: -10px;">添加设备</h1>
+                <h3 style="position: absolute;margin-top: -5px;left: 40%;font-weight:bold;">添加设备</h3>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="border-top: 1px solid #ccc;">
                 <form id="device-add-form" class="form-horizontal" role="form" action="/devices" method="post">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 手机号 </label>
-                        <div class="col-sm-9">
-                            <input type="text" placeholder="手机号" class="col-xs-10 col-sm-5" name="phone"/>
+                        <label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 手机号 </label>
+                        <div class="col-sm-10">
+                            <input type="text" placeholder="手机号" class="col-xs-10 col-sm-10" name="phone"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 拥有人 </label>
-                        <div class="col-sm-9">
-                            <input type="text" placeholder="拥有人" class="col-xs-10 col-sm-5" name="owner"/>
+                        <label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 拥有人 </label>
+                        <div class="col-sm-10">
+                            <input type="text" placeholder="拥有人" class="col-xs-10 col-sm-10" name="owner"/>
                         </div>
                     </div>
-                    <button class="btn btn-info" type="button" onclick="device_add()">
-                        <i class="icon-ok bigger-110"></i>
+                    <button class="btn btn-info" type="button" onclick="device_add()" style="padding: 0 6px;">
                         提交
                     </button>
                 </form>
@@ -31,33 +30,32 @@
 
 <!-- 登记设备Modal -->
 <div class="modal fade" id="device-enroll" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width: 80%;">
-        <div class="modal-content" style="padding:5%;">
+    <div class="modal-dialog" style="width: 45%;padding-top:120px;">
+        <div class="modal-content" style="padding:5%;padding-bottom:0;text-align:right">
             <div class="modal-head">
-                <h1 style="position: absolute;margin-top: -10px;">模拟登记设备</h1>
+                <h3 style="position: absolute;margin-top: -5px;left: 40%;font-weight:bold;">模拟登记设备</h3>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="border-top: 1px solid #ccc;">
                 <form id="device-enroll-form" class="form-horizontal" role="form" action="/android/enroll" method="post">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> tid </label>
-                        <div class="col-sm-9">
-                            <input type="text" placeholder="tid" class="col-xs-10 col-sm-5" name="tid"/>
+                        <label class="col-sm-2 control-label no-padding-right" for="form-field-1"> tid </label>
+                        <div class="col-sm-10">
+                            <input type="text" placeholder="tid" class="col-xs-10 col-sm-10" name="tid"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> active_code </label>
-                        <div class="col-sm-9">
-                            <input type="text" placeholder="active_code" class="col-xs-10 col-sm-5" name="active_code"/>
+                        <label class="col-sm-2 control-label no-padding-right" for="form-field-1"> active_code </label>
+                        <div class="col-sm-10">
+                            <input type="text" placeholder="active_code" class="col-xs-10 col-sm-10" name="active_code"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> phone </label>
-                        <div class="col-sm-9">
-                            <input type="text" placeholder="phone" class="col-xs-10 col-sm-5" name="phone"/>
+                        <label class="col-sm-2 control-label no-padding-right" for="form-field-1"> phone </label>
+                        <div class="col-sm-10">
+                            <input type="text" placeholder="phone" class="col-xs-10 col-sm-10" name="phone"/>
                         </div>
                     </div>
-                    <button class="btn btn-info" type="button" onclick="device_enroll()">
-                        <i class="icon-ok bigger-110"></i>
+                    <button class="btn btn-info" type="button" onclick="device_enroll()" style="padding: 0 6px;">
                         提交
                     </button>
                 </form>
@@ -68,45 +66,44 @@
 
 <!-- 设备初始化Modal -->
 <div class="modal fade" id="device-initial" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width: 80%;">
-        <div class="modal-content" style="padding:5%;">
+    <div class="modal-dialog" style="width: 35%;padding-top:120px;" >
+        <div class="modal-content" style="padding:5%;padding-bottom:0;text-align:right">
             <div class="modal-head">
-                <h1 style="position: absolute;margin-top: -10px;">模拟设备初始化</h1>
+                <h3 style="position: absolute;margin-top: -5px;left: 30%;font-weight:bold;">模拟设备初始化</h3>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="border-top: 1px solid #ccc;">
                 <form id="device-initial-form" class="form-horizontal" role="form" action="/android/initial" method="post">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> token </label>
-                        <div class="col-sm-9">
-                            <input type="text" placeholder="token" class="col-xs-10 col-sm-5" name="token"/>
+                        <label class="col-sm-2 control-label no-padding-right" for="form-field-1"> token </label>
+                        <div class="col-sm-10">
+                            <input type="text" placeholder="token" class="col-xs-10 col-sm-10" name="token"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> phone </label>
-                        <div class="col-sm-9">
-                            <input type="text" placeholder="phone" class="col-xs-10 col-sm-5" name="phone"/>
+                        <label class="col-sm-2 control-label no-padding-right" for="form-field-1"> phone </label>
+                        <div class="col-sm-10">
+                            <input type="text" placeholder="phone" class="col-xs-10 col-sm-10" name="phone"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> did </label>
-                        <div class="col-sm-9">
-                            <input type="text" placeholder="did" class="col-xs-10 col-sm-5" name="did"/>
+                        <label class="col-sm-2 control-label no-padding-right" for="form-field-1"> did </label>
+                        <div class="col-sm-10">
+                            <input type="text" placeholder="did" class="col-xs-10 col-sm-10" name="did"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> cid </label>
-                        <div class="col-sm-9">
-                            <input type="text" placeholder="cid" class="col-xs-10 col-sm-5" name="cid"/>
+                        <label class="col-sm-2 control-label no-padding-right" for="form-field-1"> cid </label>
+                        <div class="col-sm-10">
+                            <input type="text" placeholder="cid" class="col-xs-10 col-sm-10" name="cid"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> imei </label>
-                        <div class="col-sm-9">
-                            <input type="text" placeholder="imei" class="col-xs-10 col-sm-5" name="imei"/>
+                        <label class="col-sm-2 control-label no-padding-right" for="form-field-1"> imei </label>
+                        <div class="col-sm-10">
+                            <input type="text" placeholder="imei" class="col-xs-10 col-sm-10" name="imei"/>
                         </div>
                     </div>
-                    <button class="btn btn-info" type="button" onclick="device_initial()">
-                        <i class="icon-ok bigger-110"></i>
+                    <button class="btn btn-info" type="button" onclick="device_initial()" style="padding: 0 6px;">
                         提交
                     </button>
                 </form>
