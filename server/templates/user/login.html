@@ -69,13 +69,13 @@
 			}
 
 			.login-box {
-				top: -153.5px;
+				top: -156.5px;
 			}
 			.forgot-box {
-				top: -143px;
+				top: -146px;
 			}
 			.signup-box {
-				top: -245.5px;
+				top: -248.5px;
 			}
 
 			.login-layout .widget-box {
@@ -90,7 +90,34 @@
 				background-color: rgba(247,247,247,.9);
 			}
 
-			@media (max-width:768px) {
+			@media (max-width: @screen-xs-max) {
+				.image {
+					position: static;
+					width: 100%;
+				}
+
+				#logo,
+				#background {
+					position: static;
+				}
+
+				.fixed {
+					position: static;
+					width: 100%;
+				}
+
+				.login-box {
+					top: 0px;
+				}
+				.forgot-box {
+					top: 0px;
+				}
+				.signup-box {
+					top: 0px;
+				}
+			}
+
+			@media (max-width: 767px) {
 				.image {
 					position: static;
 					width: 100%;
