@@ -1,7 +1,7 @@
 
 <div class="modal fade" id="doc-upload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width: 35%;padding-top:120px;">
-        <div class="modal-content" style="padding:5%;padding-bottom:0;text-align:right">
+    <div class="modal-dialog" style="width: 40%;padding-top:120px;">
+        <div class="modal-content" style="padding:5%;padding-bottom:0;">
             <div class="modal-head">
                 <div class="center">
                     <h3 style="margin-top: -5px;font-weight:bold;">上传文档</h3>
@@ -12,7 +12,9 @@
                     <input type='button' class='col-sm-4 btn btn-info' value='选择文件' style="padding: 0 6px;"/>
                     <input type='text' name='textfield' id='textfield' class='col-sm-8 txt' style="height: 30px;"/>
                     <input type='file' name='file' onchange="document.getElementById('textfield').value=this.value" style="top: -30px;width: 100%;height: 30px;opacity: 0;"/><br/>
-                    <input class="btn btn-info" type='button' value='提交' onclick="app_upload()" style="padding: 0 6px;"/>
+                    <div class="right" style="text-align: right;">
+                        <input class="btn btn-info" type='button' value='提交' onclick="doc_upload()" style="padding: 0 6px;"/>
+                    </div>
                 </form>
             </div>
         </div>
