@@ -1,11 +1,13 @@
 <div class="modal fade" id="policy-add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width: 80%;">
-        <div class="modal-content" style="padding:5%;">
+    <div class="modal-dialog" style="width: 40%;padding-top:120px;">
+        <div class="modal-content" style="padding:5%;padding-bottom:0;">
             <div class="modal-head">
-                <h1 style="position: absolute;margin-top: -10px;">添加策略</h1>
+                <div class="center">
+                    <h3 style="margin-top: -5px;font-weight:bold;">添加策略</h3>
+                </div>
             </div>
 
-            <div class="modal-body">
+            <div class="modal-body" style="margin-top: 15px;border-top: 1px solid #ccc;">
                 <div class="tabbable">
                     <!--Nav tabs -->
                     <ul class="nav nav-tabs">
@@ -17,7 +19,7 @@
                     </ul>
 
                     <!--Tab panes -->
-                    <div class="tab-content" style="min-height:600px">
+                    <div class="tab-content" style="min-height:250px;margin-bottom:15px;">
                         <div class="tab-pane active" id="policy-info">
                             <form id="policy-add-form" class="form-horizontal" role="form" action="/policies" method="post">
                                 <input type="hidden" id='policy_id' class="col-xs-10 col-sm-5" name="policy_id" value="0"/>
@@ -26,7 +28,7 @@
                                         策略名称
                                     </label>
                                     <div class="col-sm-9">
-                                        <input type="text" id='policy_name'placeholder="策略名称" class="col-xs-10 col-sm-5" name="policy_name"/>
+                                        <input type="text" id='policy_name'placeholder="策略名称" class="col-xs-10 col-sm-10" name="policy_name"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -34,7 +36,7 @@
                                         策略平台
                                     </label>
                                     <div class="col-sm-9">
-                                        <input type="text" id='platform' placeholder="策略平台" class="col-xs-10 col-sm-5" name="platform"/>
+                                        <input type="text" id='platform' placeholder="策略平台" class="col-xs-10 col-sm-10" name="platform"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -42,7 +44,7 @@
                                         策略内容
                                     </label>
                                     <div class="col-sm-9">
-                                        <input type="text" id='content' placeholder="策略内容" class="col-xs-10 col-sm-5" name="content"/>
+                                        <input type="text" id='content' placeholder="策略内容" class="col-xs-10 col-sm-10" name="content"/>
                                     </div>
                                 </div>
                                 
@@ -98,26 +100,28 @@
                         </div>
                             
                         <div class="tab-pane" id="policy_wifi">
-                            
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> wifi名称 </label>
-                                <div class="col-sm-9">
-                                    <input type="text" placeholder="wifi名称" class="col-xs-10 col-sm-5" name="wifi_name"/>
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> wifi名称 </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" placeholder="wifi名称" class="col-xs-10 col-sm-10" name="wifi_name"/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> wifi密码 </label>
-                                <div class="col-sm-9">
-                                    <input type="text" placeholder="wifi密码" class="col-xs-10 col-sm-5" name="wifi_pwd"/>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> wifi密码 </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" placeholder="wifi密码" class="col-xs-10 col-sm-10" name="wifi_pwd"/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-info" type="button" onclick="policy_add()">
-                    <i class="icon-ok bigger-110"></i>
-                    添加
-                </button>
+                <div class="right" style="text-align: right;">
+                    <button class="btn btn-info" type="button" onclick="policy_add()" style="padding: 0 6px;">
+                        提交
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -323,7 +327,7 @@
 <div class="table-responsive">
     <div class="table-header">
         <span>策略列表</span>
-        <button class="btn btn-success"  data-toggle="modal" data-target="#policy-add" style="height: 38px;float:right;">添加策略</button>
+        <button class="btn btn-success"  data-toggle="modal" data-target="#policy-add" style="height: 38px;line-height:16px;float:right;">添加策略</button>
         </div>
     <table id="policy-list" class="table table-striped table-bordered table-hover">
         <thead>
