@@ -152,10 +152,19 @@
 				}
 			}
 		</style>
-
+		<!-- 动态获取背景图片的高度，使其上下居中 -->
+		<script type="text/javascript">
+			setInterval(function(){
+				var logo_height = 84;
+				var background_height = document.getElementById("background").offsetHeight;
+				var top_value = logo_height + background_height/2;
+				document.getElementById("logo").style.top = "-" + top_value + "px";
+				document.getElementById("background").style.top = "-" + top_value + "px";
+			}, 50);
+		</script>
 	</head>
 
-<body class="login-layout">
+	<body class="login-layout">
 		<div class="main-container">
 				<div class="image">
 					<div class="row">
@@ -390,13 +399,6 @@
 			 jQuery('.widget-box.visible').removeClass('visible');
 			 jQuery('#'+id).addClass('visible');
 			}
-		</script>
-		<script type="text/javascript">
-			var logo_height = 84;
-			var background_height = document.getElementById("background").offsetHeight;
-			var top_value = logo_height + background_height/2;
-			document.getElementById("logo").style.top = "-" + top_value + "px";
-			document.getElementById("background").style.top = "-" + top_value + "px";
-		</script>
+		</script>				
 	</body>
 </html>
