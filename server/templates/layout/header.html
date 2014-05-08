@@ -31,6 +31,16 @@
 		<![endif]-->
 		<link rel="stylesheet" href="/static/css/common.css" />
 		<style>
+			body.navbar-fixed{
+				padding-top: 60px;
+			}
+			body.breadcrumbs-fixed{
+				padding-top: 99px;
+			}
+			.sidebar.sidebar-fixed,
+			.breadcrumbs.breadcrumbs-fixed{
+				top: 60px;
+			}
 			.nav-list>li>a>[class="icon-mobile-phone"]:first-child{
 				font-size: 26px;
 			}
@@ -53,12 +63,16 @@
 				height: 60px;
 				line-height:60px;
 			}
+			.breadcrumbs{
+				min-height: 39px;
+				line-height: 38px;
+			}
 			.modal-dialog{
 				width: 60%;
 			}
 		</style>
 	</head>
-	<body>
+	<body class="navbar-fixed breadcrumbs-fixed">
 
 		<!-- 最上方导航栏 -->
 		<%include file="navbar.html"/>
@@ -73,7 +87,7 @@
 				<%include file="sidebar.html"/>
 				
 				<div class="main-content">
-					<div class="breadcrumbs" id="breadcrumbs">
+					<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
 						<script type="text/javascript">
 							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
 						</script>
