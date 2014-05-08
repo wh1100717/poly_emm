@@ -40,7 +40,7 @@ $ ->
 			$("#msg-list").dataTable().fnAddData table_data
 			$('[data-rel=tooltip]').tooltip({'html':true})
 			$(".btn-confirm").confirm {
-				text: "是否删除该消息"
+				text: "确认删除该消息？"
 				title: "删除消息"
 				confirm: (button) ->
 					

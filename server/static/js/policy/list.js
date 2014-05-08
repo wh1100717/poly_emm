@@ -44,7 +44,7 @@ $(function() {
         'html': true
       });
       $(".btn-confirm").confirm({
-        text: "是否删除该策略",
+        text: "确认删除该策略？",
         title: "删除策略",
         confirm: function(button) {
           $('#policy-delete').val(policy_id);

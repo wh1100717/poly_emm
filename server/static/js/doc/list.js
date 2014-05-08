@@ -43,7 +43,7 @@ $(function() {
         'html': true
       });
       $(".btn-confirm").confirm({
-        text: "是否删除该文档",
+        text: "确认删除该文档？",
         title: "删除文档",
         confirm: function(button) {
           $('#doc-delete').val(doc_id);

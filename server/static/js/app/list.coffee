@@ -39,7 +39,7 @@ $ ->
 			$("#app-list").dataTable().fnAddData table_data
 			$('[data-rel=tooltip]').tooltip({'html':true})
 			$(".btn-confirm").confirm {
-				text: "是否删除该应用"
+				text: "确认删除该应用？"
 				title: "删除应用"
 				confirm: (button) ->
 					

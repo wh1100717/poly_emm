@@ -44,7 +44,7 @@ $(function() {
         'html': true
       });
       $(".btn-confirm").confirm({
-        text: "是否删除该消息",
+        text: "确认删除该消息？",
         title: "删除消息",
         confirm: function(button) {
           $('#msg-delete').val(msg_id);

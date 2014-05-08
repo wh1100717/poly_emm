@@ -40,7 +40,7 @@ $ ->
 			$("#policy-list").dataTable().fnAddData table_data
 			$('[data-rel=tooltip]').tooltip({'html':true})
 			$(".btn-confirm").confirm {
-				text: "是否删除该策略"
+				text: "确认删除该策略？"
 				title: "删除策略"
 				confirm: (button) ->
 					

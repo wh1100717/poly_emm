@@ -126,13 +126,15 @@
 
 <!-- 设备详细Modal -->
 <div class="modal fade" id="device-detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width: 80%;">
-        <div class="modal-content" style="padding:5%;">
+    <div class="modal-dialog" style="width: 40%;padding-top:120px;">
+        <div class="modal-content" style="padding:5%;padding-bottom:0;">
             <div class="modal-head">
-                <h1 style="position: absolute;margin-top: -10px;">设备详细页</h1>
+                <div class="center">
+                    <h3 style="margin-top: -5px;font-weight:bold;">设备详细页</h3>
+                </div>
             </div>
 
-            <div class="modal-body">
+            <div class="modal-body" style="margin-top: 15px;border-top: 1px solid #ccc;">
                 <div class="tabbable">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs">
@@ -143,7 +145,7 @@
                     </ul>
 
                     <!-- Tab panes -->
-                    <div class="tab-content" style="min-height:600px">
+                    <div class="tab-content" style="min-height:150px;margin-bottom:15px;">
                         <div class="tab-pane active" id="device_info">
                             <div class="well">
                                 <h4 class="green smaller lighter">loc_interval:</h4>
@@ -186,20 +188,21 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> title </label>
                                     <div class="col-sm-9">
-                                        <input type="text" placeholder="title" class="col-xs-10 col-sm-5" name="title"/>
+                                        <input type="text" placeholder="title" class="col-xs-10 col-sm-10" name="title"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> content </label>
                                     <div class="col-sm-9">
-                                        <input type="text" placeholder="content" class="col-xs-10 col-sm-5" name="content"/>
+                                        <input type="text" placeholder="content" class="col-xs-10 col-sm-10" name="content"/>
                                     </div>
                                 </div>
                                 <input id="msg_push_did" type="text" name="did" style="display: none;"/>
-                                <button class="btn btn-info" type="button" onclick="msg_push()">
-                                    <i class="icon-ok bigger-110"></i>
-                                    提交
-                                </button>
+                                <div class="right" style="text-align: right;">
+                                    <button class="btn btn-info" type="button" onclick="msg_push()" style="padding: 0 6px;">
+                                        提交
+                                    </button>
+                                </div>
                             </form>
                         </div>
 

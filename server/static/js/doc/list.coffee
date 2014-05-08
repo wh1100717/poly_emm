@@ -39,7 +39,7 @@ $ ->
 			$("#doc-list").dataTable().fnAddData table_data
 			$('[data-rel=tooltip]').tooltip({'html':true})
 			$(".btn-confirm").confirm {
-				text: "是否删除该文档"
+				text: "确认删除该文档？"
 				title: "删除文档"
 				confirm: (button) ->
 					

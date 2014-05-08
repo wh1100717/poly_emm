@@ -43,7 +43,7 @@ $(function() {
         'html': true
       });
       $(".btn-confirm").confirm({
-        text: "是否删除该应用",
+        text: "确认删除该应用？",
         title: "删除应用",
         confirm: function(button) {
           $('#app-delete').val(app_id);
