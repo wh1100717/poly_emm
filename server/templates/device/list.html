@@ -222,10 +222,10 @@
     <table id="device-list" class="table table-striped table-bordered table-hover">
         <thead>
             <tr>
-                <th>拥有人</th>
-                <th>手机号</th>
-                <th><i class="icon-time bigger-110 hidden-480"></i>创建时间</th>
-                <th></th>
+                <th id="device-list1">拥有人</th>
+                <th id="device-list2">手机号</th>
+                <th id="device-list3"><i class="icon-time bigger-110 hidden-480"></i>创建时间</th>
+                <th id="device-list4"></th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -241,3 +241,9 @@
 <script src="static/assets/js/jquery.dataTables.bootstrap.js"></script>
 <script src="/static/assets/js/jquery.form.js"></script>
 <script src="static/js/device/list.js"></script>
+<script>
+    document.getElementById("device-list1").style.width = "auto";
+    document.getElementById("device-list2").style.width = "auto";
+    document.getElementById("device-list3").style.width = "auto";
+    document.getElementById("device-list4").style.width = "81px";
+</script>

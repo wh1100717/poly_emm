@@ -62,10 +62,10 @@
     <table id="doc-list" class="table table-striped table-bordered table-hover">
         <thead>
             <tr>
-                <th>文档id</th>
-                <th>文档名</th>
-                <th><i class="icon-time bigger-110 hidden-480"></i>上传时间</th>
-                <th></th>
+                <th id="doc-list1">文档id</th>
+                <th id="doc-list2">文档名</th>
+                <th id="doc-list3"><i class="icon-time bigger-110 hidden-480"></i>上传时间</th>
+                <th id="doc-list4"></th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -82,3 +82,9 @@
 <script src="static/assets/js/jquery.form.js"></script>
 <script src="static/assets/js/jquery.confirm.js"></script>
 <script src="static/js/doc/list.js"></script>
+<script>
+    document.getElementById("doc-list1").style.width = "auto";
+    document.getElementById("doc-list2").style.width = "auto";
+    document.getElementById("doc-list3").style.width = "auto";
+    document.getElementById("doc-list4").style.width = "97px";
+</script>
