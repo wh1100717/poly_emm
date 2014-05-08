@@ -35,7 +35,7 @@ $ ->
 				tmp.push d['policy_name']
 				tmp.push d['platform']
 				tmp.push d['time']
-				tmp.push """<button type='button' class='btn btn-xs btn-success btn-confirm' data-toggle='modal' data-target='#policy-delete' onclick='policy_delete("#{d['policy_id']}")'>删除</button><button type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#policy-pull' onclick='policy_pull("#{d['policy_id']}")'>推送</button><button type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#policy-add' onclick='policy_edit("#{d['policy_id']}")'>编辑</button>"""
+				tmp.push """<button type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#policy-add' onclick='policy_edit("#{d['policy_id']}")'>编辑</button><button type='button' class='btn btn-xs btn-info' data-toggle='modal' data-target='#policy-pull' onclick='policy_pull("#{d['policy_id']}")'>推送</button><button type='button' class='btn btn-xs btn-danger btn-confirm' data-toggle='modal' data-target='#policy-delete' onclick='policy_delete("#{d['policy_id']}")'>删除</button>"""
 				table_data.push tmp
 			$("#policy-list").dataTable().fnAddData table_data
 			$('[data-rel=tooltip]').tooltip({'html':true})

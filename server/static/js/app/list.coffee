@@ -34,7 +34,7 @@ $ ->
 				tmp.push d['app_id']
 				tmp.push d['app_name']
 				tmp.push d['time']
-				tmp.push """<button type='button' class='btn btn-xs btn-success btn-confirm' data-toggle='modal' data-target='#app-delete' onclick='app_delete("#{d['app_id']}")'>删除</button><button type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#app-pull' onclick='app_pull("#{d['app_id']}")'>推送</button>"""
+				tmp.push """<button type='button' class='btn btn-xs btn-info' data-toggle='modal' data-target='#app-pull' onclick='app_pull("#{d['app_id']}")'>推送</button><button type='button' class='btn btn-xs btn-danger btn-confirm' data-toggle='modal' data-target='#app-delete' onclick='app_delete("#{d['app_id']}")'>删除</button>"""
 				table_data.push tmp
 			$("#app-list").dataTable().fnAddData table_data
 			$('[data-rel=tooltip]').tooltip({'html':true})

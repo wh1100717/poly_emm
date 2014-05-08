@@ -35,7 +35,7 @@ $(function() {
         tmp.push(d['doc_id']);
         tmp.push(d['doc_name']);
         tmp.push(d['time']);
-        tmp.push("<button type='button' class='btn btn-xs btn-success btn-confirm' data-toggle='modal' data-target='#doc-delete' onclick='doc_delete(\"" + d['doc_id'] + "\")'>删除</button><button type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#doc-pull' onclick='doc_pull(\"" + d['doc_id'] + "\")'>推送</button>");
+        tmp.push("<button type='button' class='btn btn-xs btn-info' data-toggle='modal' data-target='#doc-pull' onclick='doc_pull(\"" + d['doc_id'] + "\")'>推送</button><button type='button' class='btn btn-xs btn-danger btn-confirm' data-toggle='modal' data-target='#doc-delete' onclick='doc_delete(\"" + d['doc_id'] + "\")'>删除</button>");
         table_data.push(tmp);
       }
       $("#doc-list").dataTable().fnAddData(table_data);

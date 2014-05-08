@@ -36,7 +36,7 @@ $(function() {
         tmp.push(d['title']);
         tmp.push(d['content']);
         tmp.push(d['time']);
-        tmp.push("<button type='button' class='btn btn-xs btn-success btn-confirm' data-toggle='modal' data-target='#msg-delete' onclick='msg_delete(\"" + d['msg_id'] + "\")'>删除</button><button type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#msg-pull' onclick='msg_pull(\"" + d['msg_id'] + "\")'>推送</button>");
+        tmp.push("<button type='button' class='btn btn-xs btn-info' data-toggle='modal' data-target='#msg-pull' onclick='msg_pull(\"" + d['msg_id'] + "\")'>推送</button><button type='button' class='btn btn-xs btn-danger btn-confirm' data-toggle='modal' data-target='#msg-delete' onclick='msg_delete(\"" + d['msg_id'] + "\")'>删除</button>");
         table_data.push(tmp);
       }
       $("#msg-list").dataTable().fnAddData(table_data);
