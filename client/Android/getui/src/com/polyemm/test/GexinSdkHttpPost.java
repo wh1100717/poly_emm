@@ -1,4 +1,4 @@
-package com.example.getui;
+package com.polyemm.test;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -13,7 +13,7 @@ import org.json.simple.JSONObject;
 
 public class GexinSdkHttpPost {
 
-	public static final String SERVICEURL = "http://sdk.open.api.igexin.com/service";
+	public static final String SERVICEURL = "http://10.0.2.2/android/pull";
 	public static final int CONNECTION_TIMEOUT_INT = 8000;
 	public static final int READ_TIMEOUT_INT = 5000;
 

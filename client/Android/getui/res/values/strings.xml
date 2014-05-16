@@ -11,7 +11,7 @@
     <string name="hello">Hello world!</string>
     <string name="up">绑定sdk</string>
     <string name="down">解绑sdk</string>
-    <string name="no_clientid">(none)</string>
+    <string name="no_clientid"></string>
     <string name="start">启动</string>
     <string name="stop">停止</string>
     <string name="clear">激活設備</string>

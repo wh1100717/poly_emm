@@ -1,4 +1,4 @@
-package com.example.getui;
+package com.polyemm.test;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -14,6 +14,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
 import com.igexin.slavesdk.MessageManager;
+
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.app.Activity;
@@ -54,7 +55,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		SharedPreferences sp = getPreferences(MODE_PRIVATE);
 		String s_token = sp.getString("token", null);
 		String s_phone = sp.getString("phone", null);
-		
+
 		if (s_token != null) {
 			Intent intent = new Intent();
 			intent.setClass(MainActivity.this, getui.class);
@@ -121,6 +122,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				JSONObject jsonObj = (JSONObject) obj;
 
 				String tmp = jsonObj.get("status").toString();
+				System.out.println(tmp);
 				if (tmp.equals("0")) {
 					Toast.makeText(this, "该设备已激活", Toast.LENGTH_SHORT).show();
 

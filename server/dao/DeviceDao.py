@@ -31,7 +31,8 @@ def add(phone,owner,user):
 		'active_code':StringUtil.active_code_generator(),
 		'active':False,
 		'owner':owner,
-		'time':time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+		'time':time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())),
+		'pull_info':[]
 	}
 	user['devices'].append(device)
 	UserCollection.update({'tid':user['tid']},user)

@@ -14,7 +14,7 @@ from controller import MsgController
 from controller import TemplateController
 from controller import DocController
 from controller import PolicyController
-
+from controller import PushController
 handlers = []
 
 '''
@@ -57,4 +57,7 @@ handlers += DocController.handlers
 
 handlers += PolicyController.handlers
 
+handlers += PushController.handlers
+
 handlers += [(r"^/(.*)$", AuthenHandler)]
+

@@ -65,8 +65,8 @@ $ ->
 
 
 # $ ->
-@msg_pull = ->
-	$('#device-list').dataTable {
+@msg_pull = (msg_id)->
+	$('#push-list').dataTable {
 		# "aoColumns": [
 		# 	{ "bSortable": false },
 		# 	null, null,null, null, null,
@@ -90,23 +90,22 @@ $ ->
 			"sProcessing": "<img src='./loading.gif' />"
 		} 	
 	}
-	$("#device-list").dataTable().fnClearTable()
+	$("#push-list").dataTable().fnClearTable()
 	$.ajax {
 		"type": "get",
-		"url": "devices",
+		"url": "push/devices",
 		"success": (data) ->
 			console.log data
 			data_list = data['data']
 			table_data = []
 			for d in data_list
 				tmp = []
-				tmp.push """
-					<input type="checkbox" name="chek_list" value="1">
-				"""
+				tmp.push '<input type="checkbox" name="check_list" value="'+d['did']+'">'
 				tmp.push d['owner']
 				tmp.push d['phone']
 				table_data.push tmp
-			$("#device-list").dataTable().fnAddData table_data
+			$("#msg_id").val(msg_id)
+			$("#push-list").dataTable().fnAddData table_data
 			$('[data-rel=tooltip]').tooltip({'html':true})
 			return
 	}
@@ -122,3 +121,9 @@ $ ->
 @msg_delete = (msg_id) ->
 	root.msg_id = msg_id
 
+@msg_push = ->
+	$('#msg-push-form').ajaxSubmit (data) ->
+		if data.status is 1
+			alert('推送成功')
+		$('#push-list').on 'hidden.bl.modal', -> show_page('msg_list','推送消息')
+		$('#push-list').modal('hide')

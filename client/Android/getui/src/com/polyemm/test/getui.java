@@ -1,4 +1,4 @@
-package com.example.getui;
+package com.polyemm.test;
 
 /*
  * 推送SDK演示工程
@@ -60,6 +60,7 @@ import com.igexin.sdk.Consts;
 import com.igexin.sdk.aidl.GexinSdkNetstat;
 import com.igexin.sdk.aidl.Tag;
 import com.igexin.slavesdk.MessageManager;
+
 import android.content.BroadcastReceiver;
 
 public class getui extends Activity implements OnClickListener {

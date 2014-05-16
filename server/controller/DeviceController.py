@@ -32,5 +32,5 @@ class DetailHandler(AuthenHandler):
 handlers = [
 	(r"/devices",DevicesHandler),
 	
-	(r"/devices/([1-9]+)", DetailHandler),
+	(r"/devices/(.*)", DetailHandler),
 ]

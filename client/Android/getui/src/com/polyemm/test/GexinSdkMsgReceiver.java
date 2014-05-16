@@ -1,4 +1,4 @@
-package com.example.getui;
+package com.polyemm.test;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
