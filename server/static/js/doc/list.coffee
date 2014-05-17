@@ -62,8 +62,8 @@ $ ->
 			return
 	}
 
-@doc_pull = ->
-	$('#device-list').dataTable {
+@doc_pull = (doc_id) ->
+	$('#push-list').dataTable {
 		# "aoColumns": [
 		# 	{ "bSortable": false },
 		# 	null, null,null, null, null,
@@ -87,23 +87,22 @@ $ ->
 			"sProcessing": "<img src='./loading.gif' />"
 		} 	
 	}
-	$("#device-list").dataTable().fnClearTable()
+	$("#push-list").dataTable().fnClearTable()
 	$.ajax {
 		"type": "get",
-		"url": "devices",
+		"url": "push/devices",
 		"success": (data) ->
 			console.log data
 			data_list = data['data']
 			table_data = []
 			for d in data_list
 				tmp = []
-				tmp.push """
-					<input type="checkbox" name="chek_list" value="1">
-				"""
+				tmp.push '<input type="checkbox" name="chek_list" value="'+d['did']+'">'
 				tmp.push d['owner']
 				tmp.push d['phone']
 				table_data.push tmp
-			$("#device-list").dataTable().fnAddData table_data
+			$("#doc_id").val(doc_id)
+			$("#push-list").dataTable().fnAddData table_data
 			$('[data-rel=tooltip]').tooltip({'html':true})
 			return
 	}
@@ -111,10 +110,17 @@ $ ->
 @doc_upload = ->
 	$('#doc-upload-form').ajaxSubmit (data) ->
 		if data.status is 1
-			alert('upload成功')
+			alert('上传成功')
 		$('#doc-upload').on 'hidden.bs.modal', -> show_page('html_doc','文档列表')			
 		$('#doc-upload').modal('hide')
 
 @doc_delete = (doc_id) ->
 	root.doc_id = doc_id
 
+@doc_push = ->
+	$('#doc-push-form').ajaxSubmit (data) ->
+		if data.status is 1
+			alert('推送成功')
+		$('#push-list').on 'hidden.bl.modal', -> show_page('doc_list','推送文档')
+		$('#push-list').modal('hide')
+		

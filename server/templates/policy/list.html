@@ -175,16 +175,20 @@
                 </div>
             </div>
             <div class="modal-body" style="margin-top: 15px;border-top: 1px solid #ccc;">
-                <table id="device-list" class="table table-striped table-bordered table-hover">                    
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>拥有人</th>
-                            <th>手机号</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+                <form id="policy-push-form" class="form-horizontal" role="form" action="/push/send" method="post">
+                    <input type="hidden" name="push_type_id" id="policy_id">
+                    <input type="hidden" name="type" id="type" value="policy">
+                    <table id="push-list" class="table table-striped table-bordered table-hover">                    
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>拥有人</th>
+                                <th>手机号</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </form>
                 <div class="right" style="text-align: right;">
                     <button class="btn btn-info" type="button" onclick="policy_push()" style="padding: 0 6px;">
                             提交

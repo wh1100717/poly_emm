@@ -65,8 +65,8 @@ $ ->
 
 
 # $ ->
-@policy_pull = ->
-	$('#device-list').dataTable {
+@policy_pull = (policy_id) ->
+	$('#push-list').dataTable {
 		# "aoColumns": [
 		# 	{ "bSortable": false },
 		# 	null, null,null, null, null,
@@ -90,23 +90,22 @@ $ ->
 			"sProcessing": "<img src='./loading.gif' />"
 		} 	
 	}
-	$("#device-list").dataTable().fnClearTable()
+	$("#push-list").dataTable().fnClearTable()
 	$.ajax {
 		"type": "get",
-		"url": "devices",
+		"url": "push/devices",
 		"success": (data) ->
 			console.log data
 			data_list = data['data']
 			table_data = []
 			for d in data_list
 				tmp = []
-				tmp.push """
-					<input type="checkbox" name="chek_list" value="1">
-				"""
+				tmp.push '<input type="checkbox" name="chek_list" value="'+d['did']+'">'
 				tmp.push d['owner']
 				tmp.push d['phone']
 				table_data.push tmp
-			$("#device-list").dataTable().fnAddData table_data
+			$("#policy_id").val(policy_id)
+			$("#push-list").dataTable().fnAddData table_data
 			$('[data-rel=tooltip]').tooltip({'html':true})
 			return
 	}
@@ -167,4 +166,12 @@ $ ->
 	# 		alert('修改成功')
 	# 	$('#policy-edit').on 'hidden.bs.modal', -> show_page('policy_list','策略')			
 	# 	$('#policy-edit').modal('hide')
+
+@policy_push = ->
+	$('#policy-push-form').ajaxSubmit (data) ->
+		if data.status is 1
+			alert('推送成功')
+		$('#push-list').on 'hidden.bl.modal', -> show_page('policy_list','策略')
+		$('#push-list').modal('hide')
+
 

@@ -70,8 +70,8 @@ $(function() {
   });
 });
 
-this.policy_pull = function() {
-  $('#device-list').dataTable({
+this.policy_pull = function(policy_id) {
+  $('#push-list').dataTable({
     "bRetrieve": true,
     "bDestroy": true,
     "oLanguage": {
@@ -90,10 +90,10 @@ this.policy_pull = function() {
       "sProcessing": "<img src='./loading.gif' />"
     }
   });
-  $("#device-list").dataTable().fnClearTable();
+  $("#push-list").dataTable().fnClearTable();
   return $.ajax({
     "type": "get",
-    "url": "devices",
+    "url": "push/devices",
     "success": function(data) {
       var d, data_list, table_data, tmp, _i, _len;
       console.log(data);
@@ -102,12 +102,13 @@ this.policy_pull = function() {
       for (_i = 0, _len = data_list.length; _i < _len; _i++) {
         d = data_list[_i];
         tmp = [];
-        tmp.push("<input type=\"checkbox\" name=\"chek_list\" value=\"1\">");
+        tmp.push('<input type="checkbox" name="chek_list" value="' + d['did'] + '">');
         tmp.push(d['owner']);
         tmp.push(d['phone']);
         table_data.push(tmp);
       }
-      $("#device-list").dataTable().fnAddData(table_data);
+      $("#policy_id").val(policy_id);
+      $("#push-list").dataTable().fnAddData(table_data);
       $('[data-rel=tooltip]').tooltip({
         'html': true
       });
@@ -160,5 +161,17 @@ this.policy_modify = function() {
       return show_page('policy_list', '策略');
     });
     return $('#policy-edit').modal('hide');
+  });
+};
+
+this.policy_push = function() {
+  return $('#policy-push-form').ajaxSubmit(function(data) {
+    if (data.status === 1) {
+      alert('推送成功');
+    }
+    $('#push-list').on('hidden.bl.modal', function() {
+      return show_page('policy_list', '策略');
+    });
+    return $('#push-list').modal('hide');
   });
 };

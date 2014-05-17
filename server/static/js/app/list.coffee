@@ -62,8 +62,8 @@ $ ->
 			return
 	}
 
-@app_pull = ->
-	$('#device-list').dataTable {
+@app_pull = (app_id) ->
+	$('#push-list').dataTable {
 		# "aoColumns": [
 		# 	{ "bSortable": false },
 		# 	null, null,null, null, null,
@@ -87,23 +87,22 @@ $ ->
 			"sProcessing": "<img src='./loading.gif' />"
 		} 	
 	}
-	$("#device-list").dataTable().fnClearTable()
+	$("#push-list").dataTable().fnClearTable()
 	$.ajax {
 		"type": "get",
-		"url": "devices",
+		"url": "push/devices",
 		"success": (data) ->
 			console.log data
 			data_list = data['data']
 			table_data = []
 			for d in data_list
 				tmp = []
-				tmp.push """
-					<input type="checkbox" name="chek_list" value="1">
-				"""
+				tmp.push '<input type="checkbox" name="chek_list" value="'+d['did']+'">'
 				tmp.push d['owner']
 				tmp.push d['phone']
 				table_data.push tmp
-			$("#device-list").dataTable().fnAddData table_data
+			$("#app_id").val(app_id)
+			$("#push-list").dataTable().fnAddData table_data
 			$('[data-rel=tooltip]').tooltip({'html':true})
 			return
 	}
@@ -112,9 +111,15 @@ $ ->
 	$('#app-upload-form').ajaxSubmit (data) ->
 		if data.status is 1
 			alert('upload成功')
-		$('#app-upload').on 'hidden.bs.modal', -> show_page('html_app','推送应用')			
+		$('#app-upload').on 'hidden.bs.modal', -> show_page('html_app','应用列表')			
 		$('#app-upload').modal('hide')
 
 @app_delete = (app_id) ->
 	root.app_id = app_id
 
+@app_push = ->
+	$('#app-push-form').ajaxSubmit (data) ->
+		if data.status is 1
+			alert('推送成功')
+		$('#push-list').on 'hidden.bl.modal', -> show_page('app_list','推送应用')
+		$('#push-list').modal('hide')

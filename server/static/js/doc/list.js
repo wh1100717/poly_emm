@@ -69,8 +69,8 @@ $(function() {
   });
 });
 
-this.doc_pull = function() {
-  $('#device-list').dataTable({
+this.doc_pull = function(doc_id) {
+  $('#push-list').dataTable({
     "bRetrieve": true,
     "bDestroy": true,
     "oLanguage": {
@@ -89,10 +89,10 @@ this.doc_pull = function() {
       "sProcessing": "<img src='./loading.gif' />"
     }
   });
-  $("#device-list").dataTable().fnClearTable();
+  $("#push-list").dataTable().fnClearTable();
   return $.ajax({
     "type": "get",
-    "url": "devices",
+    "url": "push/devices",
     "success": function(data) {
       var d, data_list, table_data, tmp, _i, _len;
       console.log(data);
@@ -101,12 +101,13 @@ this.doc_pull = function() {
       for (_i = 0, _len = data_list.length; _i < _len; _i++) {
         d = data_list[_i];
         tmp = [];
-        tmp.push("<input type=\"checkbox\" name=\"chek_list\" value=\"1\">");
+        tmp.push('<input type="checkbox" name="chek_list" value="' + d['did'] + '">');
         tmp.push(d['owner']);
         tmp.push(d['phone']);
         table_data.push(tmp);
       }
-      $("#device-list").dataTable().fnAddData(table_data);
+      $("#doc_id").val(doc_id);
+      $("#push-list").dataTable().fnAddData(table_data);
       $('[data-rel=tooltip]').tooltip({
         'html': true
       });
@@ -117,7 +118,7 @@ this.doc_pull = function() {
 this.doc_upload = function() {
   return $('#doc-upload-form').ajaxSubmit(function(data) {
     if (data.status === 1) {
-      alert('upload成功');
+      alert('上传成功');
     }
     $('#doc-upload').on('hidden.bs.modal', function() {
       return show_page('html_doc', '文档列表');
@@ -128,4 +129,16 @@ this.doc_upload = function() {
 
 this.doc_delete = function(doc_id) {
   return root.doc_id = doc_id;
+};
+
+this.doc_push = function() {
+  return $('#doc-push-form').ajaxSubmit(function(data) {
+    if (data.status === 1) {
+      alert('推送成功');
+    }
+    $('#push-list').on('hidden.bl.modal', function() {
+      return show_page('doc_list', '推送文档');
+    });
+    return $('#push-list').modal('hide');
+  });
 };
