@@ -142,8 +142,8 @@ def NotificationTemplateDemo():
     template.appKey = APPKEY
     template.transmissionType = 1
     template.transmissionContent = u"请填入透传内容"
-    template.title = u"请填入通知标题"
-    template.text = u"请填入通知内容"
+    template.title = u"您收到了新的推送"
+    template.text = u"您有新的推送请注意查收"
     template.logo = "icon.png"
     template.logoURL = ""
     template.isRing = True

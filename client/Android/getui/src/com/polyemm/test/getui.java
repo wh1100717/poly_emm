@@ -91,6 +91,7 @@ public class getui extends Activity implements OnClickListener {
 	private TextView tMasterSecretView = null;
 	private TextView ttoken = null;
 	private TextView tphone = null;
+	private TextView tpdid = null;
 	public static TextView tView = null;
 	public static TextView tLogView = null;
 	private Button btn_pmsg = null;
@@ -113,6 +114,7 @@ public class getui extends Activity implements OnClickListener {
 	private String token = "";
 	private String phone = "";
 	private String cid = "";
+	private String did ="";
 	private TelephonyManager tm;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -121,7 +123,7 @@ public class getui extends Activity implements OnClickListener {
 		Bundle bundle = intent.getExtras();
 		token = bundle.getString("token");
 		phone = bundle.getString("phone");
-
+		did = bundle.getString("did");
 		// UI初始化
 		setContentView(R.layout.getui);
 		mContext = this;
@@ -153,7 +155,7 @@ public class getui extends Activity implements OnClickListener {
 		btn_send_msg.setOnClickListener(this);
 		ttoken = (TextView) findViewById(R.id.tvtoken);
 		tphone = (TextView) findViewById(R.id.tvphone);
-
+		tpdid = (TextView) findViewById(R.id.tvdid);
 		formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		// 从AndroidManifest.xml的meta-data中读取SDK配置信息
@@ -181,11 +183,14 @@ public class getui extends Activity implements OnClickListener {
 		tAppIdView.setText("AppID=" + appid);
 		ttoken.setText("Token:"+token);
 		tphone.setText("Phone:"+phone);
+		tpdid.setText("did:"+did);
 
 		// SDK初始化，第三方程序启动时，都要进行SDK初始化工作
 		Log.d("GexinSdkDemo", "initializing sdk...");
 		tm = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);    
-
+		String result = pullinfo();
+		System.out.println("sadasd:"+result);
+		tLogView.setText(result);
 	}
 
 	@Override
@@ -253,7 +258,7 @@ public class getui extends Activity implements OnClickListener {
 //			tLogView.setText("");
 			cid = tView.getText().toString();
 			String imei = Secure.getString(getBaseContext().getContentResolver(), Secure.ANDROID_ID);
-			String did = getRandomString(10);
+			
 			
 			if (cid != null) {
 				String baseURL = "http://10.0.2.2/android/initial?token="
@@ -333,34 +338,10 @@ public class getui extends Activity implements OnClickListener {
 			Toast.makeText(this, "号码绑定请求已发送，请稍候...", Toast.LENGTH_SHORT).show();
 
 		} else if (v == btn_pmsg) {
-
-			if (isNetworkConnected()) {
-
-				Map<String, Object> param = new HashMap<String, Object>();
-				param.put("action", "pushmessage"); // pushmessage为接口名，注意全部小写
-				/*---以下代码用于设定接口相应参数---*/
-				param.put("appkey", appkey);
-				param.put("appid", appid);
-				// 注：透传内容后面需用来验证接口调用是否成功，假定填写为hello girl~
-				param.put("data", "这是一条透传测试消息");
-
-				curDate = new Date(System.currentTimeMillis());
-				param.put("time", formatter.format(curDate)); // 当前请求时间，可选
-				param.put("clientid", tView.getText().toString()); // 您获取的ClientID
-				param.put("expire", 3600); // 消息超时时间，单位为秒，可选
-
-				// 生成Sign值，用于鉴权
-				param.put("sign", makeSign(MASTERSECRET, param));
-
-				GexinSdkHttpPost.httpPost(param);
-
-			} else {
-
-				Toast toast = Toast.makeText(this, "对不起，当前网络不可用!",
-						Toast.LENGTH_SHORT);
-
-				toast.show();
-			}
+			String result = pullinfo();
+			System.out.println("sadasd:"+result);
+			tLogView.setText(result);
+			
 
 		} else if (v == btn_psmsg) {
 
@@ -712,5 +693,37 @@ public class getui extends Activity implements OnClickListener {
 	    }   
 	    return sb.toString();   
 	 }  
+	public  String pullinfo(){
+		String result="";
+		if (isNetworkConnected()) {
+
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("action", "pushmessage"); // pushmessage为接口名，注意全部小写
+			/*---以下代码用于设定接口相应参数---*/
+			param.put("appkey", appkey);
+			param.put("appid", appid);
+			// 注：透传内容后面需用来验证接口调用是否成功，假定填写为hello girl~
+			param.put("data", "这是一条透传测试消息");
+
+			curDate = new Date(System.currentTimeMillis());
+			param.put("time", formatter.format(curDate)); // 当前请求时间，可选
+			param.put("clientid", tView.getText().toString()); // 您获取的ClientID
+			param.put("expire", 3600); // 消息超时时间，单位为秒，可选
+			param.put("token",token);
+			param.put("did",did);
+			// 生成Sign值，用于鉴权
+			param.put("sign", makeSign(MASTERSECRET, param));
+
+			result = GexinSdkHttpPost.httpPost(param);
+
+		} else {
+
+			Toast toast = Toast.makeText(this, "对不起，当前网络不可用!",
+					Toast.LENGTH_SHORT);
+
+			toast.show();
+		}
+		return result;
+	}
 
 }

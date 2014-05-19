@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Map;
 
 import org.json.simple.JSONObject;
@@ -17,8 +18,8 @@ public class GexinSdkHttpPost {
 	public static final int CONNECTION_TIMEOUT_INT = 8000;
 	public static final int READ_TIMEOUT_INT = 5000;
 
-	public static void httpPost(Map<String, Object> map) {
-
+	public static String httpPost(Map<String, Object> map) {
+		String result="";
 		String param = JSONObject.toJSONString(map);
 
 		if (param != null) {
@@ -40,21 +41,20 @@ public class GexinSdkHttpPost {
 
 				DataOutputStream dop = new DataOutputStream(urlConn.getOutputStream());
 				dop.write(param.getBytes("utf-8")); 
+				
 				dop.flush(); 
 				dop.close(); 
 
 				
 				BufferedReader bufferReader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
-				String result = ""; 
 				String readLine = null;
 				while ((readLine = bufferReader.readLine()) != null) {
 					result += readLine;
 				}
 				bufferReader.close();
 				urlConn.disconnect();
-
 				System.out.println("result" + result);
-
+				
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -62,7 +62,9 @@ public class GexinSdkHttpPost {
 			}
 		} else {
 			System.out.println("param is null");
+			
 		}
+		return result;
 	}
 
 }

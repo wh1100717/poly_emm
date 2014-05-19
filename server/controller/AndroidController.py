@@ -64,9 +64,19 @@ class PullHandler(BaseHandler):
 			status:			1表示成功
 			data:			字典格式，包含了server希望设备获取的所有数据
 	'''
-	def get(self):
-		token = self.get_argument('token')
-		did = self.get_argument('did')
+	def post(self):
+
+		print "==========="
+		
+		
+		
+		tmp = eval(self.request.arguments.keys()[0])
+
+		
+		did = tmp['did']
+		token = tmp['token']
+		print token
+		print did
 		self.write(AndroidDao.pull(token,did))
 
 class RespHandler(BaseHandler):

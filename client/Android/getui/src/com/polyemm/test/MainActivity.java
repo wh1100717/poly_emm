@@ -3,6 +3,7 @@ package com.polyemm.test;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Random;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -35,6 +36,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	String s_phone;
 	String s_tid;
 	String s_active_code;
+	String did=getRandomString(10);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +57,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		SharedPreferences sp = getPreferences(MODE_PRIVATE);
 		String s_token = sp.getString("token", null);
 		String s_phone = sp.getString("phone", null);
-
+		String s_did = sp.getString("did",null);
 		if (s_token != null) {
 			Intent intent = new Intent();
 			intent.setClass(MainActivity.this, getui.class);
 			Bundle bundle = new Bundle();
 			bundle.putString("token", s_token);
 			bundle.putString("phone", s_phone);
+			bundle.putString("did",s_did);
 			intent.putExtras(bundle);
 			startActivity(intent);
 			MainActivity.this.finish();//
@@ -135,6 +138,7 @@ public class MainActivity extends Activity implements OnClickListener {
 					Bundle bundle = new Bundle();
 					bundle.putString("token", token);
 					bundle.putString("phone", s_phone);
+					bundle.putString("did",did);
 					intent.putExtras(bundle);
 					startActivity(intent);
 					MainActivity.this.finish();// 关闭当前视图
@@ -142,6 +146,9 @@ public class MainActivity extends Activity implements OnClickListener {
 					SharedPreferences.Editor editor = sp.edit();
 					editor.putString("token", token);
 					editor.putString("phone", s_phone);
+					
+					System.out.println(did);
+					editor.putString("did",did);
 					editor.commit();
 				}
 
@@ -150,5 +157,15 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 		}
 	}
+	public static String getRandomString(int length) { //length表示生成字符串的长度
+	    String base = "abcdefghijklmnopqrstuvwxyz0123456789";   
+	    Random random = new Random();   
+	    StringBuffer sb = new StringBuffer();   
+	    for (int i = 0; i < length; i++) {   
+	        int number = random.nextInt(base.length());   
+	        sb.append(base.charAt(number));   
+	    }   
+	    return sb.toString();   
+	 }  
 
 }

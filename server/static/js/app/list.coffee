@@ -97,7 +97,7 @@ $ ->
 			table_data = []
 			for d in data_list
 				tmp = []
-				tmp.push '<input type="checkbox" name="chek_list" value="'+d['did']+'">'
+				tmp.push '<input type="checkbox" name="check_list" value="'+d['did']+'">'
 				tmp.push d['owner']
 				tmp.push d['phone']
 				table_data.push tmp

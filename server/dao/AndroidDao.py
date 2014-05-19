@@ -46,9 +46,11 @@ def pull(token, did):
 	devices = DeviceDao.get_devices_by_user(user)
 	for device in devices:
 		if device['did'] == did:
-			
+
 			#TODO 需要将具体的信息返回回去
-			RESPONSE.PULL_SUCCESS['data'] = {device['pull_info']}
+			RESPONSE.PULL_SUCCESS['data'] = device['pull_info']
+			device['pull_info']=[]
+			UserCollection.update({'token':user['token']},user)
 			return RESPONSE.PULL_SUCCESS
 	return RESPONSE.WRONG_DID
 

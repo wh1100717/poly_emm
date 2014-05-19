@@ -102,7 +102,7 @@ this.policy_pull = function(policy_id) {
       for (_i = 0, _len = data_list.length; _i < _len; _i++) {
         d = data_list[_i];
         tmp = [];
-        tmp.push('<input type="checkbox" name="chek_list" value="' + d['did'] + '">');
+        tmp.push('<input type="checkbox" name="check_list" value="' + d['did'] + '">');
         tmp.push(d['owner']);
         tmp.push(d['phone']);
         table_data.push(tmp);
